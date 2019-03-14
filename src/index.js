@@ -4,7 +4,7 @@ class Chessboard extends HTMLElement {
     }
 
     connectedCallback() {
-        this.innerHTML = `<canvas id="chessboard" width="560" height="560">
+        this.innerHTML = `<canvas id="chessboard" width="480" height="480">
                           </canvas>`;
         this.draw();
     }
@@ -20,7 +20,7 @@ class Chessboard extends HTMLElement {
 
         const boardCtx = board.getContext('2d');
 
-        const width = 560/8;
+        const width = 480/8;
 
         const blackColor = "#5D4037";
         const whiteColor = "#E8E2C9";
