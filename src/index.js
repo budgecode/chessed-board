@@ -4,6 +4,7 @@ class Chessboard extends HTMLElement {
     }
 
     connectedCallback() {
+        
         this.innerHTML = `<canvas id="chessboard" width="480" height="480">
                           </canvas>`;
         this.draw();
