@@ -109,7 +109,7 @@ class Chessboard extends HTMLElement {
 
     drawPieces(boardCtx) {
         this.boardState.forEach((p) => {
-            
+            boardCtx.drawImage(this.getSpriteForPiece(p.piece), (p.x - 1) * 60, (p.y - 1) * 60, 60, 60);
         });
     }
 
@@ -144,6 +144,7 @@ class Chessboard extends HTMLElement {
 
             this.drawBoard(boardCtx);
 
+            this.drawPieces(boardCtx);
         }).catch((e) => {
             console.error(e);
         });
