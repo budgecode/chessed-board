@@ -9,6 +9,7 @@ const loadImage = (src) => {
     });
 }
 
+// Enums and classes.
 const Pieces = {
     WHITE_PAWN: 'WHITE_PAWN',
     WHITE_KING: 'WHITE_KING',
@@ -24,8 +25,8 @@ const Pieces = {
     BLACK_ROOK: 'BLACK_ROOK',
 }
 
-const Piece = (piece, file, rank) => {
-    return {piece, file, rank};
+const Piece = (piece, x, y) => {
+    return {piece, x, y};
 }
 
 class Chessboard extends HTMLElement {
@@ -33,14 +34,14 @@ class Chessboard extends HTMLElement {
     constructor() {
         super();
         this.boardState = [
-            Piece(Pieces.WHITE_PAWN, 'a', 2),
-            Piece(Pieces.WHITE_PAWN, 'b', 2),
-            Piece(Pieces.WHITE_PAWN, 'c', 2),
-            Piece(Pieces.WHITE_PAWN, 'd', 2),
-            Piece(Pieces.WHITE_PAWN, 'e', 2),
-            Piece(Pieces.WHITE_PAWN, 'f', 2),
-            Piece(Pieces.WHITE_PAWN, 'g', 2),
-            Piece(Pieces.WHITE_PAWN, 'h', 2)
+            Piece(Pieces.WHITE_PAWN, 1, 7),
+            Piece(Pieces.WHITE_PAWN, 2, 7),
+            Piece(Pieces.WHITE_PAWN, 3, 7),
+            Piece(Pieces.WHITE_PAWN, 4, 7),
+            Piece(Pieces.WHITE_PAWN, 5, 7),
+            Piece(Pieces.WHITE_PAWN, 6, 7),
+            Piece(Pieces.WHITE_PAWN, 7, 7),
+            Piece(Pieces.WHITE_PAWN, 8, 7)
         ]
     }
 
@@ -106,11 +107,34 @@ class Chessboard extends HTMLElement {
         this.sprites.blackQueen = await loadImage('../sprites/Chess_qdt60.png');
     }
 
-    // drawPieces() {
-    //     this.boardState.forEach((p) => {
-    //
-    //     });
-    // }
+    drawPieces(boardCtx) {
+        this.boardState.forEach((p) => {
+            
+        });
+    }
+
+    drawBoard(boardCtx) {
+        const width = 480/8;
+
+        const blackColor = "#5D4037";
+        const whiteColor = "#E8E2C9";
+
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                if (r % 2 !== c % 2) {
+                    boardCtx.beginPath();
+                    boardCtx.rect(c*width, r*width, width, width);
+                    boardCtx.fillStyle = blackColor;
+                    boardCtx.fill()
+                } else {
+                    boardCtx.beginPath();
+                    boardCtx.rect(c*width, r*width, width, width);
+                    boardCtx.fillStyle = whiteColor;
+                    boardCtx.fill()
+                }
+            }
+        }
+    }
 
     draw() {
         this.loadSprites().then(() => {
@@ -118,28 +142,10 @@ class Chessboard extends HTMLElement {
 
             const boardCtx = board.getContext('2d');
 
-            const width = 480/8;
+            this.drawBoard(boardCtx);
 
-            const blackColor = "#5D4037";
-            const whiteColor = "#E8E2C9";
-
-            for (let r = 0; r < 8; r++) {
-                for (let c = 0; c < 8; c++) {
-                    if (r % 2 !== c % 2) {
-                        boardCtx.beginPath();
-                        boardCtx.rect(c*width, r*width, width, width);
-                        boardCtx.fillStyle = blackColor;
-                        boardCtx.fill()
-                    } else {
-                        boardCtx.beginPath();
-                        boardCtx.rect(c*width, r*width, width, width);
-                        boardCtx.fillStyle = whiteColor;
-                        boardCtx.fill()
-                    }
-                }
-            }
-        }).catch(() => {
-            console.error('Could not load chess pieces.');
+        }).catch((e) => {
+            console.error(e);
         });
     }
 }
