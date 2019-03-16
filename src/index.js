@@ -34,6 +34,23 @@ class Chessboard extends HTMLElement {
     constructor() {
         super();
         this.boardState = [
+            Piece(Pieces.BLACK_ROOK, 1, 1),
+            Piece(Pieces.BLACK_KNIGHT, 2, 1),
+            Piece(Pieces.BLACK_BISHOP, 3, 1),
+            Piece(Pieces.BLACK_QUEEN, 4, 1),
+            Piece(Pieces.BLACK_KING, 5, 1),
+            Piece(Pieces.BLACK_BISHOP, 6, 1),
+            Piece(Pieces.BLACK_KNIGHT, 7, 1),
+            Piece(Pieces.BLACK_ROOK, 8, 1),
+            Piece(Pieces.BLACK_PAWN, 1, 2),
+            Piece(Pieces.BLACK_PAWN, 2, 2),
+            Piece(Pieces.BLACK_PAWN, 3, 2),
+            Piece(Pieces.BLACK_PAWN, 4, 2),
+            Piece(Pieces.BLACK_PAWN, 5, 2),
+            Piece(Pieces.BLACK_PAWN, 6, 2),
+            Piece(Pieces.BLACK_PAWN, 7, 2),
+            Piece(Pieces.BLACK_PAWN, 8, 2),
+
             Piece(Pieces.WHITE_PAWN, 1, 7),
             Piece(Pieces.WHITE_PAWN, 2, 7),
             Piece(Pieces.WHITE_PAWN, 3, 7),
@@ -41,7 +58,15 @@ class Chessboard extends HTMLElement {
             Piece(Pieces.WHITE_PAWN, 5, 7),
             Piece(Pieces.WHITE_PAWN, 6, 7),
             Piece(Pieces.WHITE_PAWN, 7, 7),
-            Piece(Pieces.WHITE_PAWN, 8, 7)
+            Piece(Pieces.WHITE_PAWN, 8, 7),
+            Piece(Pieces.WHITE_ROOK, 1, 8),
+            Piece(Pieces.WHITE_KNIGHT, 2, 8),
+            Piece(Pieces.WHITE_BISHOP, 3, 8),
+            Piece(Pieces.WHITE_QUEEN, 4, 8),
+            Piece(Pieces.WHITE_KING, 5, 8),
+            Piece(Pieces.WHITE_BISHOP, 6, 8),
+            Piece(Pieces.WHITE_KNIGHT, 7, 8),
+            Piece(Pieces.WHITE_ROOK, 8, 8)
         ]
     }
 
@@ -116,7 +141,7 @@ class Chessboard extends HTMLElement {
     drawBoard(boardCtx) {
         const width = 480/8;
 
-        const blackColor = "#5D4037";
+        const blackColor = "#6D4C41";
         const whiteColor = "#E8E2C9";
 
         for (let r = 0; r < 8; r++) {
