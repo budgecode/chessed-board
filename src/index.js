@@ -7,7 +7,7 @@ const loadImage = (src) => {
         image.onerror = reject;
         image.src = src;
     });
-}
+};
 
 // Enums and classes.
 const Pieces = {
@@ -23,57 +23,61 @@ const Pieces = {
     BLACK_QUEEN: 'BLACK_QUEEN',
     BLACK_KNIGHT: 'BLACK_KNIGHT',
     BLACK_ROOK: 'BLACK_ROOK',
-}
+};
 
 const Piece = (piece, x, y) => {
     return {piece, x, y};
-}
+};
 
-class Chessboard extends HTMLElement {
+const STARTING_BOARDSTATE = [
+    Piece(Pieces.BLACK_ROOK, 1, 1),
+    Piece(Pieces.BLACK_KNIGHT, 2, 1),
+    Piece(Pieces.BLACK_BISHOP, 3, 1),
+    Piece(Pieces.BLACK_QUEEN, 4, 1),
+    Piece(Pieces.BLACK_KING, 5, 1),
+    Piece(Pieces.BLACK_BISHOP, 6, 1),
+    Piece(Pieces.BLACK_KNIGHT, 7, 1),
+    Piece(Pieces.BLACK_ROOK, 8, 1),
+    Piece(Pieces.BLACK_PAWN, 1, 2),
+    Piece(Pieces.BLACK_PAWN, 2, 2),
+    Piece(Pieces.BLACK_PAWN, 3, 2),
+    Piece(Pieces.BLACK_PAWN, 4, 2),
+    Piece(Pieces.BLACK_PAWN, 5, 2),
+    Piece(Pieces.BLACK_PAWN, 6, 2),
+    Piece(Pieces.BLACK_PAWN, 7, 2),
+    Piece(Pieces.BLACK_PAWN, 8, 2),
+
+    Piece(Pieces.WHITE_PAWN, 1, 7),
+    Piece(Pieces.WHITE_PAWN, 2, 7),
+    Piece(Pieces.WHITE_PAWN, 3, 7),
+    Piece(Pieces.WHITE_PAWN, 4, 7),
+    Piece(Pieces.WHITE_PAWN, 5, 7),
+    Piece(Pieces.WHITE_PAWN, 6, 7),
+    Piece(Pieces.WHITE_PAWN, 7, 7),
+    Piece(Pieces.WHITE_PAWN, 8, 7),
+    Piece(Pieces.WHITE_ROOK, 1, 8),
+    Piece(Pieces.WHITE_KNIGHT, 2, 8),
+    Piece(Pieces.WHITE_BISHOP, 3, 8),
+    Piece(Pieces.WHITE_QUEEN, 4, 8),
+    Piece(Pieces.WHITE_KING, 5, 8),
+    Piece(Pieces.WHITE_BISHOP, 6, 8),
+    Piece(Pieces.WHITE_KNIGHT, 7, 8),
+    Piece(Pieces.WHITE_ROOK, 8, 8)
+];
+
+class Chessboard extends HTMLCanvasElement {
 
     constructor() {
         super();
-        this.boardState = [
-            Piece(Pieces.BLACK_ROOK, 1, 1),
-            Piece(Pieces.BLACK_KNIGHT, 2, 1),
-            Piece(Pieces.BLACK_BISHOP, 3, 1),
-            Piece(Pieces.BLACK_QUEEN, 4, 1),
-            Piece(Pieces.BLACK_KING, 5, 1),
-            Piece(Pieces.BLACK_BISHOP, 6, 1),
-            Piece(Pieces.BLACK_KNIGHT, 7, 1),
-            Piece(Pieces.BLACK_ROOK, 8, 1),
-            Piece(Pieces.BLACK_PAWN, 1, 2),
-            Piece(Pieces.BLACK_PAWN, 2, 2),
-            Piece(Pieces.BLACK_PAWN, 3, 2),
-            Piece(Pieces.BLACK_PAWN, 4, 2),
-            Piece(Pieces.BLACK_PAWN, 5, 2),
-            Piece(Pieces.BLACK_PAWN, 6, 2),
-            Piece(Pieces.BLACK_PAWN, 7, 2),
-            Piece(Pieces.BLACK_PAWN, 8, 2),
 
-            Piece(Pieces.WHITE_PAWN, 1, 7),
-            Piece(Pieces.WHITE_PAWN, 2, 7),
-            Piece(Pieces.WHITE_PAWN, 3, 7),
-            Piece(Pieces.WHITE_PAWN, 4, 7),
-            Piece(Pieces.WHITE_PAWN, 5, 7),
-            Piece(Pieces.WHITE_PAWN, 6, 7),
-            Piece(Pieces.WHITE_PAWN, 7, 7),
-            Piece(Pieces.WHITE_PAWN, 8, 7),
-            Piece(Pieces.WHITE_ROOK, 1, 8),
-            Piece(Pieces.WHITE_KNIGHT, 2, 8),
-            Piece(Pieces.WHITE_BISHOP, 3, 8),
-            Piece(Pieces.WHITE_QUEEN, 4, 8),
-            Piece(Pieces.WHITE_KING, 5, 8),
-            Piece(Pieces.WHITE_BISHOP, 6, 8),
-            Piece(Pieces.WHITE_KNIGHT, 7, 8),
-            Piece(Pieces.WHITE_ROOK, 8, 8)
-        ]
+        this.boardState = STARTING_BOARDSTATE;
     }
 
+    // Component lifecycle methods.
     connectedCallback() {
+        this.width = 480;
+        this.height = 480;
 
-        this.innerHTML = `<canvas id="chessboard" width="480" height="480">
-                          </canvas>`;
         this.draw();
     }
 
@@ -83,6 +87,7 @@ class Chessboard extends HTMLElement {
 
     adoptedCallback() {}
 
+    // Fetch sprite methods.
     getSpriteForPiece(piece) {
         switch(piece) {
             case Pieces.WHITE_PAWN:
@@ -132,6 +137,7 @@ class Chessboard extends HTMLElement {
         this.sprites.blackQueen = await loadImage('../sprites/Chess_qdt60.png');
     }
 
+    // Draw board methods.
     drawPieces(boardCtx) {
         this.boardState.forEach((p) => {
             boardCtx.drawImage(this.getSpriteForPiece(p.piece), (p.x - 1) * 60, (p.y - 1) * 60, 60, 60);
@@ -163,9 +169,9 @@ class Chessboard extends HTMLElement {
 
     draw() {
         this.loadSprites().then(() => {
-            const board = document.getElementById('chessboard');
+            // this.board = document.getElementById('chessboard');
 
-            const boardCtx = board.getContext('2d');
+            const boardCtx = this.getContext('2d');
 
             this.drawBoard(boardCtx);
 
@@ -174,6 +180,9 @@ class Chessboard extends HTMLElement {
             console.error(e);
         });
     }
+    // Handle user interaction.
+
+
 }
 
-window.customElements.define('chess-board', Chessboard);
+window.customElements.define('chess-board', Chessboard, { extends: 'canvas' });
