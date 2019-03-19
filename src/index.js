@@ -109,7 +109,7 @@ class Chessboard extends HTMLCanvasElement {
     adoptedCallback() {}
 
     // Fetch sprite methods.
-    getSpriteForPiece(piece) {
+    sprite(piece) {
         switch(piece) {
             case Pieces.WHITE_PAWN:
                 return this.sprites.whitePawn;
@@ -163,7 +163,7 @@ class Chessboard extends HTMLCanvasElement {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c].piece !== Pieces.EMPTY) {
-                    boardCtx.drawImage(this.getSpriteForPiece(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    boardCtx.drawImage(this.sprite(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
         }
