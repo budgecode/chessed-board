@@ -26,8 +26,8 @@ const Pieces = {
     EMPTY: 'EMPTY'
 };
 
-const Piece = (piece) => {
-    return {piece};
+const Piece = (piece, sprite) => {
+    return { piece, sprite };
 };
 
 const STARTING_BOARDSTATE = [
@@ -51,10 +51,14 @@ const STARTING_BOARDSTATE = [
         Piece(Pieces.BLACK_PAWN),
         Piece(Pieces.BLACK_PAWN)
     ],
-    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
-    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
-    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
-    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
+    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
+     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
+    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
+     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
+    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
+     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
+    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
+     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
     [
         Piece(Pieces.WHITE_PAWN),
         Piece(Pieces.WHITE_PAWN),
@@ -158,7 +162,7 @@ class Chessboard extends HTMLCanvasElement {
     drawPieces(boardCtx) {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-                if (this.boardState[r][c] !== Pieces.EMPTY) {
+                if (this.boardState[r][c].piece !== Pieces.EMPTY) {
                     boardCtx.drawImage(this.getSpriteForPiece(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
