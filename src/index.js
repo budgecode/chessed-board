@@ -77,6 +77,8 @@ const STARTING_BOARDSTATE = [
     ]
 ];
 
+const SQUARE_WIDTH = 60;
+
 class Chessboard extends HTMLCanvasElement {
 
     constructor() {
@@ -87,10 +89,13 @@ class Chessboard extends HTMLCanvasElement {
 
     // Component lifecycle methods.
     connectedCallback() {
-        this.width = 480;
-        this.height = 480;
+        this.width = SQUARE_WIDTH * 8;
+        this.height = SQUARE_WIDTH * 8;
 
         this.draw();
+
+        this.onmousedown = this.pickupPiece;
+        this.onmouseup = this.placePiece;
     }
 
     disconnectedCallback() {}
@@ -154,7 +159,7 @@ class Chessboard extends HTMLCanvasElement {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c] !== Pieces.EMPTY) {
-                    boardCtx.drawImage(this.getSpriteForPiece(this.boardState[r][c].piece), c * 60, r * 60, 60, 60);
+                    boardCtx.drawImage(this.getSpriteForPiece(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
         }
@@ -185,8 +190,6 @@ class Chessboard extends HTMLCanvasElement {
 
     draw() {
         this.loadSprites().then(() => {
-            // this.board = document.getElementById('chessboard');
-
             const boardCtx = this.getContext('2d');
 
             this.drawBoard(boardCtx);
@@ -196,8 +199,31 @@ class Chessboard extends HTMLCanvasElement {
             console.error(e);
         });
     }
-    // Handle user interaction.
 
+    getMouseLocationInCanvas(e) {
+        const canvasRect = this.getBoundingClientRect();
+
+        return {
+            x: e.clientX - canvasRect.left,
+            y: e.clientY - canvasRect.top
+        };
+    }
+
+    getSquare(mouseLocation) {
+        const row = Math.floor(mouseLocation.y / SQUARE_WIDTH);
+        const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
+
+        return { row, column };
+    }
+
+    // Handle user interaction.
+    pickupPiece(e) {
+        console.log(this.getSquare(this.getMouseLocationInCanvas(e)));
+    }
+
+    placePiece(e) {
+        console.log(this.getSquare(this.getMouseLocationInCanvas(e)));
+    }
 
 }
 
