@@ -23,46 +23,58 @@ const Pieces = {
     BLACK_QUEEN: 'BLACK_QUEEN',
     BLACK_KNIGHT: 'BLACK_KNIGHT',
     BLACK_ROOK: 'BLACK_ROOK',
+    EMPTY: 'EMPTY'
 };
 
-const Piece = (piece, x, y) => {
-    return {piece, x, y};
+const Piece = (piece) => {
+    return {piece};
 };
 
 const STARTING_BOARDSTATE = [
-    Piece(Pieces.BLACK_ROOK, 1, 1),
-    Piece(Pieces.BLACK_KNIGHT, 2, 1),
-    Piece(Pieces.BLACK_BISHOP, 3, 1),
-    Piece(Pieces.BLACK_QUEEN, 4, 1),
-    Piece(Pieces.BLACK_KING, 5, 1),
-    Piece(Pieces.BLACK_BISHOP, 6, 1),
-    Piece(Pieces.BLACK_KNIGHT, 7, 1),
-    Piece(Pieces.BLACK_ROOK, 8, 1),
-    Piece(Pieces.BLACK_PAWN, 1, 2),
-    Piece(Pieces.BLACK_PAWN, 2, 2),
-    Piece(Pieces.BLACK_PAWN, 3, 2),
-    Piece(Pieces.BLACK_PAWN, 4, 2),
-    Piece(Pieces.BLACK_PAWN, 5, 2),
-    Piece(Pieces.BLACK_PAWN, 6, 2),
-    Piece(Pieces.BLACK_PAWN, 7, 2),
-    Piece(Pieces.BLACK_PAWN, 8, 2),
-
-    Piece(Pieces.WHITE_PAWN, 1, 7),
-    Piece(Pieces.WHITE_PAWN, 2, 7),
-    Piece(Pieces.WHITE_PAWN, 3, 7),
-    Piece(Pieces.WHITE_PAWN, 4, 7),
-    Piece(Pieces.WHITE_PAWN, 5, 7),
-    Piece(Pieces.WHITE_PAWN, 6, 7),
-    Piece(Pieces.WHITE_PAWN, 7, 7),
-    Piece(Pieces.WHITE_PAWN, 8, 7),
-    Piece(Pieces.WHITE_ROOK, 1, 8),
-    Piece(Pieces.WHITE_KNIGHT, 2, 8),
-    Piece(Pieces.WHITE_BISHOP, 3, 8),
-    Piece(Pieces.WHITE_QUEEN, 4, 8),
-    Piece(Pieces.WHITE_KING, 5, 8),
-    Piece(Pieces.WHITE_BISHOP, 6, 8),
-    Piece(Pieces.WHITE_KNIGHT, 7, 8),
-    Piece(Pieces.WHITE_ROOK, 8, 8)
+    [
+        Piece(Pieces.BLACK_ROOK),
+        Piece(Pieces.BLACK_KNIGHT),
+        Piece(Pieces.BLACK_BISHOP),
+        Piece(Pieces.BLACK_QUEEN),
+        Piece(Pieces.BLACK_KING),
+        Piece(Pieces.BLACK_BISHOP),
+        Piece(Pieces.BLACK_KNIGHT),
+        Piece(Pieces.BLACK_ROOK)
+    ],
+    [
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN),
+        Piece(Pieces.BLACK_PAWN)
+    ],
+    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
+    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
+    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
+    [Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY, Pieces.EMPTY],
+    [
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+        Piece(Pieces.WHITE_PAWN),
+    ],
+    [
+        Piece(Pieces.WHITE_ROOK),
+        Piece(Pieces.WHITE_KNIGHT),
+        Piece(Pieces.WHITE_BISHOP),
+        Piece(Pieces.WHITE_QUEEN),
+        Piece(Pieces.WHITE_KING),
+        Piece(Pieces.WHITE_BISHOP),
+        Piece(Pieces.WHITE_KNIGHT),
+        Piece(Pieces.WHITE_ROOK)
+    ]
 ];
 
 class Chessboard extends HTMLCanvasElement {
@@ -139,9 +151,13 @@ class Chessboard extends HTMLCanvasElement {
 
     // Draw board methods.
     drawPieces(boardCtx) {
-        this.boardState.forEach((p) => {
-            boardCtx.drawImage(this.getSpriteForPiece(p.piece), (p.x - 1) * 60, (p.y - 1) * 60, 60, 60);
-        });
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                if (this.boardState[r][c] !== Pieces.EMPTY) {
+                    boardCtx.drawImage(this.getSpriteForPiece(this.boardState[r][c].piece), c * 60, r * 60, 60, 60);
+                }
+            }
+        }
     }
 
     drawBoard(boardCtx) {
