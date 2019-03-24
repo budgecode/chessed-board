@@ -26,8 +26,8 @@ const Pieces = {
     EMPTY: 'EMPTY'
 };
 
-const Piece = (piece, sprite) => {
-    return { piece, sprite };
+const Piece = (piece) => {
+    return { piece };
 };
 
 const STARTING_BOARDSTATE = [
