@@ -96,7 +96,12 @@ class Chessboard extends HTMLCanvasElement {
         this.width = SQUARE_WIDTH * 8;
         this.height = SQUARE_WIDTH * 8;
 
-        this.draw();
+        this.loadSprites().then(() => {
+            this.boardCtx = this.getContext('2d');
+            this.draw();
+        }).catch((e) => {
+            console.error(e);
+        });
 
         this.onmousedown = this.pickupPiece;
         this.onmouseup = this.placePiece;
@@ -163,13 +168,13 @@ class Chessboard extends HTMLCanvasElement {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c].piece !== Pieces.EMPTY) {
-                    boardCtx.drawImage(this.sprite(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.boardCtx.drawImage(this.sprite(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
         }
     }
 
-    drawBoard(boardCtx) {
+    drawBoard() {
         const width = 480/8;
 
         const blackColor = "#6D4C41";
@@ -178,30 +183,24 @@ class Chessboard extends HTMLCanvasElement {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (r % 2 !== c % 2) {
-                    boardCtx.beginPath();
-                    boardCtx.rect(c*width, r*width, width, width);
-                    boardCtx.fillStyle = blackColor;
-                    boardCtx.fill()
+                    this.boardCtx.beginPath();
+                    this.boardCtx.rect(c*width, r*width, width, width);
+                    this.boardCtx.fillStyle = blackColor;
+                    this.boardCtx.fill()
                 } else {
-                    boardCtx.beginPath();
-                    boardCtx.rect(c*width, r*width, width, width);
-                    boardCtx.fillStyle = whiteColor;
-                    boardCtx.fill()
+                    this.boardCtx.beginPath();
+                    this.boardCtx.rect(c*width, r*width, width, width);
+                    this.boardCtx.fillStyle = whiteColor;
+                    this.boardCtx.fill()
                 }
             }
         }
     }
 
     draw() {
-        this.loadSprites().then(() => {
-            const boardCtx = this.getContext('2d');
+        this.drawBoard();
 
-            this.drawBoard(boardCtx);
-
-            this.drawPieces(boardCtx);
-        }).catch((e) => {
-            console.error(e);
-        });
+        this.drawPieces();
     }
 
     getMouseLocationInCanvas(e) {
@@ -220,13 +219,25 @@ class Chessboard extends HTMLCanvasElement {
         return { row, column };
     }
 
+    movePiece(start, finish) {
+        console.log({start, finish});
+        this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
+        this.boardState[start.row][start.colum] = Piece(Pieces.EMPTY);
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
+    }
+
     // Handle user interaction.
     pickupPiece(e) {
-        console.log(this.getSquare(this.getMouseLocationInCanvas(e)));
+        this.startSquare = this.getSquare(this.getMouseLocationInCanvas(e));
     }
 
     placePiece(e) {
-        console.log(this.getSquare(this.getMouseLocationInCanvas(e)));
+        const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
+        if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
+            this.movePiece(this.startSquare, endSquare);
+        }
+        this.startSquare = null;
     }
 
 }
