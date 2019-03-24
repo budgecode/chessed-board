@@ -222,7 +222,8 @@ class Chessboard extends HTMLCanvasElement {
     movePiece(start, finish) {
         console.log({start, finish});
         this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
-        this.boardState[start.row][start.colum] = Piece(Pieces.EMPTY);
+        this.boardState[start.row][start.column] = Piece(Pieces.EMPTY);
+        console.log(this.boardState);
         this.boardCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
