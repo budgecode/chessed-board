@@ -231,28 +231,31 @@ class Chessboard extends HTMLCanvasElement {
     pickupPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
         this.startSquare = this.getSquare(mouseLocation);
+        if (this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
+            this.selectedPieceSprite = this.sprite(this.boardState[this.startSquare.row][this.startSquare.column].piece);
 
-        this.selectedPieceSprite = this.sprite(this.boardState[this.startSquare.row][this.startSquare.column].piece);
+            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.draw();
 
-        this.boardCtx.clearRect(0, 0, this.width, this.height);
-        this.draw();
+            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
 
-        this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
-
-        this.draggingPiece = true;
+            this.draggingPiece = true;
+        }
     }
 
     placePiece(e) {
-        const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
-        if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
-            this.movePiece(this.startSquare, endSquare);
-        } else {
-            this.draw();
-        }
+        if (this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
+            const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
+            if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
+                this.movePiece(this.startSquare, endSquare);
+            } else {
+                this.draw();
+            }
 
-        this.startSquare = null;
-        this.selectedPieceSprite = null;
-        this.draggingPiece = false;
+            this.startSquare = null;
+            this.selectedPieceSprite = null;
+            this.draggingPiece = false;
+        }
     }
 
     animateMovement(e) {
