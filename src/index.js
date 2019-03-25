@@ -105,6 +105,7 @@ class Chessboard extends HTMLCanvasElement {
 
         this.onmousedown = this.pickupPiece;
         this.onmouseup = this.placePiece;
+        this.onmousemove = this.animateMovement;
     }
 
     disconnectedCallback() {}
@@ -220,17 +221,25 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     movePiece(start, finish) {
-        console.log({start, finish});
         this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
         this.boardState[start.row][start.column] = Piece(Pieces.EMPTY);
-        console.log(this.boardState);
         this.boardCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
 
     // Handle user interaction.
     pickupPiece(e) {
-        this.startSquare = this.getSquare(this.getMouseLocationInCanvas(e));
+        const mouseLocation = this.getMouseLocationInCanvas(e);
+        this.startSquare = this.getSquare(mouseLocation);
+
+        this.selectedPieceSprite = this.sprite(this.boardState[this.startSquare.row][this.startSquare.column].piece);
+
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
+
+        this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+
+        this.draggingPiece = true;
     }
 
     placePiece(e) {
@@ -238,7 +247,19 @@ class Chessboard extends HTMLCanvasElement {
         if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
             this.movePiece(this.startSquare, endSquare);
         }
+
         this.startSquare = null;
+        this.selectedPieceSprite = null;
+        this.draggingPiece = false;
+    }
+
+    animateMovement(e) {
+        if (this.draggingPiece) {
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.draw();
+            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+        }
     }
 
 }
