@@ -246,6 +246,8 @@ class Chessboard extends HTMLCanvasElement {
         const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
         if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
             this.movePiece(this.startSquare, endSquare);
+        } else {
+            this.draw();
         }
 
         this.startSquare = null;
