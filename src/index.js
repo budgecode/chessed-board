@@ -177,8 +177,6 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     drawBoard() {
-        const width = 480/8;
-
         const blackColor = "#6D4C41";
         const whiteColor = "#E8E2C9";
 
@@ -186,12 +184,12 @@ class Chessboard extends HTMLCanvasElement {
             for (let c = 0; c < 8; c++) {
                 if (r % 2 !== c % 2) {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c*width, r*width, width, width);
+                    this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = blackColor;
                     this.boardCtx.fill()
                 } else {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c*width, r*width, width, width);
+                    this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = whiteColor;
                     this.boardCtx.fill()
                 }
