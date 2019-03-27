@@ -222,8 +222,8 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     movePiece(start, finish) {
-        this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
-        this.boardState[start.row][start.column] = Piece(Pieces.EMPTY);
+        this.boardState[finish.row][finish.column] = this.selectedPiece;
+
         this.boardCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
@@ -233,7 +233,9 @@ class Chessboard extends HTMLCanvasElement {
         const mouseLocation = this.getMouseLocationInCanvas(e);
         this.startSquare = this.getSquare(mouseLocation);
         if (this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
-            this.selectedPieceSprite = this.sprite(this.boardState[this.startSquare.row][this.startSquare.column].piece);
+            this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
+            this.selectedPieceSprite = this.sprite(this.selectedPiece.piece);
+            this.boardState[this.startSquare.row][this.startSquare.column] = Piece(Pieces.EMPTY);
 
             this.boardCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
@@ -245,16 +247,17 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     placePiece(e) {
-        if (this.draggingPiece && this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
+        if (this.draggingPiece && this.selectedPiece.piece !== Pieces.EMPTY) {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this.movePiece(this.startSquare, endSquare);
             } else {
-                this.draw();
+                this.putPieceBack();
             }
 
             this.startSquare = null;
             this.selectedPieceSprite = null;
+            this.selectedPiece = null;
             this.draggingPiece = false;
         }
     }
@@ -268,11 +271,16 @@ class Chessboard extends HTMLCanvasElement {
         }
     }
 
-    putPieceBack(e) {
-        this.startSquare = null;
-        this.selectedPieceSprite = null;
-        this.draggingPiece = false;
-        this.draw();
+    putPieceBack() {
+        if (this.draggingPiece) {
+            this.boardState[this.startSquare.row][this.startSquare.column] = this.selectedPiece;
+
+            this.startSquare = null;
+            this.selectedPieceSprite = null;
+            this.selectedPiece = null;
+            this.draggingPiece = false;
+            this.draw();
+        }
     }
 
 }
