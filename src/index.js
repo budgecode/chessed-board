@@ -106,6 +106,7 @@ class Chessboard extends HTMLCanvasElement {
         this.onmousedown = this.pickupPiece;
         this.onmouseup = this.placePiece;
         this.onmousemove = this.animateMovement;
+        this.onmouseout = this.putPieceBack;
     }
 
     disconnectedCallback() {}
@@ -244,7 +245,7 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     placePiece(e) {
-        if (this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
+        if (this.draggingPiece && this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this.movePiece(this.startSquare, endSquare);
@@ -265,6 +266,13 @@ class Chessboard extends HTMLCanvasElement {
             this.draw();
             this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
         }
+    }
+
+    putPieceBack(e) {
+        this.startSquare = null;
+        this.selectedPieceSprite = null;
+        this.draggingPiece = false;
+        this.draw();
     }
 
 }
