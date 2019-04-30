@@ -142,7 +142,9 @@ class Chessboard extends HTMLCanvasElement {
                 return this.sprites.blackKing;
             case Pieces.BLACK_BISHOP:
                 return this.sprites.blackBishop;
-        }
+	    default:
+	        return null;
+	}
     }
 
     async loadSprites() {
@@ -186,12 +188,12 @@ class Chessboard extends HTMLCanvasElement {
                     this.boardCtx.beginPath();
                     this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = blackColor;
-                    this.boardCtx.fill()
+                    this.boardCtx.fill();
                 } else {
                     this.boardCtx.beginPath();
                     this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = whiteColor;
-                    this.boardCtx.fill()
+                    this.boardCtx.fill();
                 }
             }
         }
