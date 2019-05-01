@@ -9,75 +9,50 @@ const loadImage = (src) => {
     });
 };
 
-// Enums and classes.
-const Pieces = {
-    WHITE_PAWN: 'WHITE_PAWN',
-    WHITE_KING: 'WHITE_KING',
-    WHITE_BISHOP: 'WHITE_BISHOP',
-    WHITE_QUEEN: 'WHITE_QUEEN',
-    WHITE_KNIGHT: 'WHITE_KNIGHT',
-    WHTIE_ROOK: 'WHITE_ROOK',
-    BLACK_PAWN: 'BLACK_PAWN',
-    BLACK_KING: 'BLACK_KING',
-    BLACK_BISHOP: 'BLACK_BISHOP',
-    BLACK_QUEEN: 'BLACK_QUEEN',
-    BLACK_KNIGHT: 'BLACK_KNIGHT',
-    BLACK_ROOK: 'BLACK_ROOK',
-    EMPTY: 'EMPTY'
-};
-
-const Piece = (piece) => {
-    return { piece };
-};
-
 const STARTING_BOARDSTATE = [
     [
-        Piece(Pieces.BLACK_ROOK),
-        Piece(Pieces.BLACK_KNIGHT),
-        Piece(Pieces.BLACK_BISHOP),
-        Piece(Pieces.BLACK_QUEEN),
-        Piece(Pieces.BLACK_KING),
-        Piece(Pieces.BLACK_BISHOP),
-        Piece(Pieces.BLACK_KNIGHT),
-        Piece(Pieces.BLACK_ROOK)
+        {type: 'r', color: 'b'},
+        {type: 'n', color: 'b'},
+        {type: 'b', color: 'b'},
+        {type: 'q', color: 'b'},
+        {type: 'k', color: 'b'},
+        {type: 'b', color: 'b'},
+        {type: 'n', color: 'b'},
+        {type: 'r', color: 'b'}
     ],
     [
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN),
-        Piece(Pieces.BLACK_PAWN)
+        {type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
+	{type: 'p', color: 'b'},
     ],
-    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
-     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
-    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
-     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
-    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
-     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
-    [Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY),
-     Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY), Piece(Pieces.EMPTY)],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
     [
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
-        Piece(Pieces.WHITE_PAWN),
+        {type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
+	{type: 'p', color: 'w'},
     ],
     [
-        Piece(Pieces.WHITE_ROOK),
-        Piece(Pieces.WHITE_KNIGHT),
-        Piece(Pieces.WHITE_BISHOP),
-        Piece(Pieces.WHITE_QUEEN),
-        Piece(Pieces.WHITE_KING),
-        Piece(Pieces.WHITE_BISHOP),
-        Piece(Pieces.WHITE_KNIGHT),
-        Piece(Pieces.WHITE_ROOK)
+        {type: 'r', color: 'w'},
+        {type: 'n', color: 'w'},
+        {type: 'b', color: 'w'},
+        {type: 'q', color: 'w'},
+        {type: 'k', color: 'w'},
+        {type: 'b', color: 'w'},
+        {type: 'n', color: 'w'},
+        {type: 'r', color: 'w'}
     ]
 ];
 
@@ -117,34 +92,49 @@ class Chessboard extends HTMLCanvasElement {
 
     // Fetch sprite methods.
     sprite(piece) {
-        switch(piece) {
-            case Pieces.WHITE_PAWN:
-                return this.sprites.whitePawn;
-            case Pieces.WHITE_ROOK:
-                return this.sprites.whiteRook;
-            case Pieces.WHITE_KNIGHT:
-                return this.sprites.whiteKnight;
-            case Pieces.WHITE_QUEEN:
-                return this.sprites.whiteQueen;
-            case Pieces.WHITE_KING:
-                return this.sprites.whiteKing;
-            case Pieces.WHITE_BISHOP:
-                return this.sprites.whiteBishop;
-            case Pieces.BLACK_PAWN:
-                return this.sprites.blackPawn;
-            case Pieces.BLACK_ROOK:
-                return this.sprites.blackRook;
-            case Pieces.BLACK_KNIGHT:
-                return this.sprites.blackKnight;
-            case Pieces.BLACK_QUEEN:
-                return this.sprites.blackQueen;
-            case Pieces.BLACK_KING:
-                return this.sprites.blackKing;
-            case Pieces.BLACK_BISHOP:
-                return this.sprites.blackBishop;
-	    default:
-	        return null;
+
+	if (!piece) {
+	    return null;
 	}
+	
+        if (piece.type === 'p') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackPawn;
+	    } else {
+		return this.sprites.whitePawn;
+	    }
+	} else if (piece.type === 'r') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackRook;
+	    } else {
+		return this.sprites.whiteRook;
+	    }
+	} else if (piece.type === 'n') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackKnight;
+	    } else {
+		return this.sprites.whiteKnight;
+	    } 
+	} else if (piece.type === 'q') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackQueen;
+	    } else {
+		return this.sprites.whiteQueen;
+	    }
+	} else if (piece.type === 'k') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackKing;
+	    } else {
+		return this.sprites.whiteKing;
+	    }
+	} else if (piece.type === 'b') {
+	    if (piece.color === 'b') {
+		return this.sprites.blackBishop;
+	    } else {
+		return this.sprites.whiteBishop;
+	    }
+	}
+        return null;   
     }
 
     async loadSprites() {
@@ -171,8 +161,8 @@ class Chessboard extends HTMLCanvasElement {
     drawPieces(boardCtx) {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-                if (this.boardState[r][c].piece !== Pieces.EMPTY) {
-                    this.boardCtx.drawImage(this.sprite(this.boardState[r][c].piece), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                if (this.boardState[r][c]) {
+                    this.boardCtx.drawImage(this.sprite(this.boardState[r][c]), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
         }
@@ -232,10 +222,10 @@ class Chessboard extends HTMLCanvasElement {
     pickupPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
         this.startSquare = this.getSquare(mouseLocation);
-        if (this.boardState[this.startSquare.row][this.startSquare.column].piece !== Pieces.EMPTY) {
+        if (this.boardState[this.startSquare.row][this.startSquare.column]) {
             this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
-            this.selectedPieceSprite = this.sprite(this.selectedPiece.piece);
-            this.boardState[this.startSquare.row][this.startSquare.column] = Piece(Pieces.EMPTY);
+            this.selectedPieceSprite = this.sprite(this.selectedPiece);
+            this.boardState[this.startSquare.row][this.startSquare.column] = null;
 
             this.boardCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
@@ -247,7 +237,7 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     placePiece(e) {
-        if (this.draggingPiece && this.selectedPiece.piece !== Pieces.EMPTY) {
+        if (this.draggingPiece && this.selectedPiece) {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this.movePiece(this.startSquare, endSquare);
