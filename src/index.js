@@ -9,8 +9,10 @@ const loadImage = (src) => {
 };
 
 const parseFEN = (fen) => {
-    let ranks = fen.split(' ')[0];
-    ranks = ranks.split('/');
+
+    const fenParts = fen.split(' ');
+    
+    let ranks =  fenParts[0].split('/');
 
     let boardState = [];
     ranks.forEach((r) => {
@@ -32,13 +34,22 @@ const parseFEN = (fen) => {
     });
 
 
-    return boardState;
+    const game = {
+        board: boardState,
+        turn: fenParts[1],
+        castlingAvailability: fenParts[2],
+        enPassant: fenParts[3],
+        halfMoveClock: fenParts[4],
+        move: fenParts[5]
+    };
+    
+    return game;
 
 };
 
-const constructFEN = (boardState) => {
+const constructFEN = (game) => {
     fen = '';
-    boardState.forEach((rank) => {
+    game.board.forEach((rank) => {
         let numEmpty = 0;
         let processingEmpties = false;
         rank.forEach((position) => {
@@ -73,7 +84,10 @@ const constructFEN = (boardState) => {
         fen += '/';
     });
 
+    fen += ' ' + [game.turn, game.castlingAvailability, game.enPassant, game.halfMoveClock, game.move].join(' ');
+    
     console.log(fen);
+    return fen;
 };
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
@@ -85,8 +99,8 @@ class Chessboard extends HTMLCanvasElement {
     constructor() {
         super();
 
-        this.boardState = STARTING_BOARDSTATE;
-        constructFEN(this.boardState);
+        this.boardState = STARTING_BOARDSTATE.board;
+        constructFEN(STARTING_BOARDSTATE);
     }
 
     // Component lifecycle methods.
