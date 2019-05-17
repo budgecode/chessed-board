@@ -9,52 +9,35 @@ const loadImage = (src) => {
     });
 };
 
-const STARTING_BOARDSTATE = [
-    [
-        {type: 'r', color: 'b'},
-        {type: 'n', color: 'b'},
-        {type: 'b', color: 'b'},
-        {type: 'q', color: 'b'},
-        {type: 'k', color: 'b'},
-        {type: 'b', color: 'b'},
-        {type: 'n', color: 'b'},
-        {type: 'r', color: 'b'}
-    ],
-    [
-        {type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-	{type: 'p', color: 'b'},
-    ],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null],
-    [
-        {type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-	{type: 'p', color: 'w'},
-    ],
-    [
-        {type: 'r', color: 'w'},
-        {type: 'n', color: 'w'},
-        {type: 'b', color: 'w'},
-        {type: 'q', color: 'w'},
-        {type: 'k', color: 'w'},
-        {type: 'b', color: 'w'},
-        {type: 'n', color: 'w'},
-        {type: 'r', color: 'w'}
-    ]
-];
+const parseFEN = (fen) => {
+    let ranks = fen.split(' ')[0];
+    ranks = ranks.split('/');
+
+    let boardState = [];
+    ranks.forEach((r) => {
+        let rank = [];
+        r.split('').forEach((c) => {
+            if (!isNaN(c)) {
+                const numEmpty = parseInt(c);
+
+                for (let i = 0; i < numEmpty; i++) {
+                    rank.push(null);
+                }
+            } else if (c === c.toUpperCase()) {
+                rank.push({ type: c.toLowerCase(), color: 'w' });
+            } else {
+                rank.push({ type: c, color: 'b' });
+            }
+        });
+        boardState.push(rank);
+    });
+
+
+    return boardState;
+
+};
+
+const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
 const SQUARE_WIDTH = 60;
 
@@ -75,7 +58,7 @@ class Chessboard extends HTMLCanvasElement {
             this.boardCtx = this.getContext('2d');
             this.draw();
         }).catch((e) => {
-            console.error(e);
+            console.log(e);
         });
 
         this.onmousedown = this.pickupPiece;
@@ -84,57 +67,57 @@ class Chessboard extends HTMLCanvasElement {
         this.onmouseout = this.putPieceBack;
     }
 
-    disconnectedCallback() {}
+    disconnectedCallback() { }
 
-    attributeChangedCallback(name, previousValue, newValue) {}
+    attributeChangedCallback(name, previousValue, newValue) { }
 
-    adoptedCallback() {}
+    adoptedCallback() { }
 
     // Fetch sprite methods.
     sprite(piece) {
 
-	if (!piece) {
-	    return null;
-	}
-	
+        if (!piece) {
+            return null;
+        }
+
         if (piece.type === 'p') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackPawn;
-	    } else {
-		return this.sprites.whitePawn;
-	    }
-	} else if (piece.type === 'r') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackRook;
-	    } else {
-		return this.sprites.whiteRook;
-	    }
-	} else if (piece.type === 'n') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackKnight;
-	    } else {
-		return this.sprites.whiteKnight;
-	    } 
-	} else if (piece.type === 'q') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackQueen;
-	    } else {
-		return this.sprites.whiteQueen;
-	    }
-	} else if (piece.type === 'k') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackKing;
-	    } else {
-		return this.sprites.whiteKing;
-	    }
-	} else if (piece.type === 'b') {
-	    if (piece.color === 'b') {
-		return this.sprites.blackBishop;
-	    } else {
-		return this.sprites.whiteBishop;
-	    }
-	}
-        return null;   
+            if (piece.color === 'b') {
+                return this.sprites.blackPawn;
+            } else {
+                return this.sprites.whitePawn;
+            }
+        } else if (piece.type === 'r') {
+            if (piece.color === 'b') {
+                return this.sprites.blackRook;
+            } else {
+                return this.sprites.whiteRook;
+            }
+        } else if (piece.type === 'n') {
+            if (piece.color === 'b') {
+                return this.sprites.blackKnight;
+            } else {
+                return this.sprites.whiteKnight;
+            }
+        } else if (piece.type === 'q') {
+            if (piece.color === 'b') {
+                return this.sprites.blackQueen;
+            } else {
+                return this.sprites.whiteQueen;
+            }
+        } else if (piece.type === 'k') {
+            if (piece.color === 'b') {
+                return this.sprites.blackKing;
+            } else {
+                return this.sprites.whiteKing;
+            }
+        } else if (piece.type === 'b') {
+            if (piece.color === 'b') {
+                return this.sprites.blackBishop;
+            } else {
+                return this.sprites.whiteBishop;
+            }
+        }
+        return null;
     }
 
     async loadSprites() {
@@ -176,12 +159,12 @@ class Chessboard extends HTMLCanvasElement {
             for (let c = 0; c < 8; c++) {
                 if (r % 2 !== c % 2) {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = blackColor;
                     this.boardCtx.fill();
                 } else {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c*SQUARE_WIDTH, r*SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = whiteColor;
                     this.boardCtx.fill();
                 }
