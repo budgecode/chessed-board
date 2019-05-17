@@ -1,4 +1,3 @@
-
 // Utility methods.
 const loadImage = (src) => {
     return new Promise((resolve, reject) => {
@@ -37,6 +36,46 @@ const parseFEN = (fen) => {
 
 };
 
+const constructFEN = (boardState) => {
+    fen = '';
+    boardState.forEach((rank) => {
+        let numEmpty = 0;
+        let processingEmpties = false;
+        rank.forEach((position) => {
+            if (!position) {
+                processingEmpties = true;
+                numEmpty += 1;
+            } else if (processingEmpties) {
+                processingEmpties = false;
+                fen += numEmpty.toString();
+                numEmpty = 0;
+
+                if (position.color === 'w') {
+                    fen += position.type.toUpperCase();
+                } else {
+                    fen += position.type;
+                }
+            } else {
+                if (position.color === 'w') {
+                    fen += position.type.toUpperCase();
+                } else {
+                    fen += position.type;
+                }
+            }
+        });
+
+        if (processingEmpties) {
+            processingEmpties = false;
+            fen += numEmpty.toString();
+            numEmpty = 0;
+        }
+        
+        fen += '/';
+    });
+
+    console.log(fen);
+};
+
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
 const SQUARE_WIDTH = 60;
@@ -47,6 +86,7 @@ class Chessboard extends HTMLCanvasElement {
         super();
 
         this.boardState = STARTING_BOARDSTATE;
+        constructFEN(this.boardState);
     }
 
     // Component lifecycle methods.
