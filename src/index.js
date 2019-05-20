@@ -11,8 +11,8 @@ const loadImage = (src) => {
 const parseFEN = (fen) => {
 
     const fenParts = fen.split(' ');
-    
-    let ranks =  fenParts[0].split('/');
+
+    let ranks = fenParts[0].split('/');
 
     let boardState = [];
     ranks.forEach((r) => {
@@ -42,7 +42,7 @@ const parseFEN = (fen) => {
         halfMoveClock: fenParts[4],
         move: fenParts[5]
     };
-    
+
     return game;
 
 };
@@ -80,12 +80,12 @@ const constructFEN = (game) => {
             fen += numEmpty.toString();
             numEmpty = 0;
         }
-        
+
         fen += '/';
     });
 
     fen += ' ' + [game.turn, game.castlingAvailability, game.enPassant, game.halfMoveClock, game.move].join(' ');
-    
+
     console.log(fen);
     return fen;
 };
