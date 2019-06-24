@@ -93,38 +93,94 @@ const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBN
 
 const SQUARE_WIDTH = 60;
 
-class Chessboard extends HTMLCanvasElement {
+class Chessboard {
 
-    constructor() {
-        super();
+    // Handle user interaction.
+    pickupPiece = (e) => {
+        const mouseLocation = this.getMouseLocationInCanvas(e);
+        this.startSquare = this.getSquare(mouseLocation);
+        if (this.boardState[this.startSquare.row][this.startSquare.column]) {
+            this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
+            this.selectedPieceSprite = this.sprite(this.selectedPiece);
+            this.boardState[this.startSquare.row][this.startSquare.column] = null;
 
+            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.draw();
+
+            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+
+            this.draggingPiece = true;
+        }
+    }
+
+    placePiece = (e) => {
+        if (this.draggingPiece && this.selectedPiece) {
+            const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
+            if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
+                this.movePiece(this.startSquare, endSquare);
+            } else {
+                this.putPieceBack();
+            }
+
+            this.startSquare = null;
+            this.selectedPieceSprite = null;
+            this.selectedPiece = null;
+            this.draggingPiece = false;
+        }
+    }
+
+    dragPiece = (e) => {
+        if (this.draggingPiece) {
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.draw();
+            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+        }
+    }
+
+    putPieceBack = () => {
+        if (this.draggingPiece) {
+            this.boardState[this.startSquare.row][this.startSquare.column] = this.selectedPiece;
+
+            this.startSquare = null;
+            this.selectedPieceSprite = null;
+            this.selectedPiece = null;
+            this.draggingPiece = false;
+            this.draw();
+        }
+    }
+
+    constructor(canvasId) {
+        this.canvasId = canvasId;
         this.boardState = STARTING_BOARDSTATE.board;
         constructFEN(STARTING_BOARDSTATE);
+
+        this.setupBoard();
+
     }
 
     // Component lifecycle methods.
-    connectedCallback() {
+    setupBoard() {
         this.width = SQUARE_WIDTH * 8;
         this.height = SQUARE_WIDTH * 8;
+        this.boardCanvas = document.getElementById(this.canvasId);
+
+        this.boardCanvas.width = this.width;
+        this.boardCanvas.height = this.height;
+
+        this.boardCanvas.onmousedown = this.pickupPiece;
+        this.boardCanvas.onmouseup = this.placePiece;
+        this.boardCanvas.onmousemove = this.dragPiece;
+        this.boardCanvas.onmouseout = this.putPieceBack;
 
         this.loadSprites().then(() => {
-            this.boardCtx = this.getContext('2d');
+            this.boardCtx = this.boardCanvas.getContext('2d');
             this.draw();
         }).catch((e) => {
             console.log(e);
         });
 
-        this.onmousedown = this.pickupPiece;
-        this.onmouseup = this.placePiece;
-        this.onmousemove = this.animateMovement;
-        this.onmouseout = this.putPieceBack;
     }
-
-    disconnectedCallback() { }
-
-    attributeChangedCallback(name, previousValue, newValue) { }
-
-    adoptedCallback() { }
 
     // Fetch sprite methods.
     sprite(piece) {
@@ -232,7 +288,7 @@ class Chessboard extends HTMLCanvasElement {
     }
 
     getMouseLocationInCanvas(e) {
-        const canvasRect = this.getBoundingClientRect();
+        const canvasRect = this.boardCanvas.getBoundingClientRect();
 
         return {
             x: e.clientX - canvasRect.left,
@@ -254,61 +310,6 @@ class Chessboard extends HTMLCanvasElement {
         this.draw();
     }
 
-    // Handle user interaction.
-    pickupPiece(e) {
-        const mouseLocation = this.getMouseLocationInCanvas(e);
-        this.startSquare = this.getSquare(mouseLocation);
-        if (this.boardState[this.startSquare.row][this.startSquare.column]) {
-            this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
-            this.selectedPieceSprite = this.sprite(this.selectedPiece);
-            this.boardState[this.startSquare.row][this.startSquare.column] = null;
-
-            this.boardCtx.clearRect(0, 0, this.width, this.height);
-            this.draw();
-
-            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
-
-            this.draggingPiece = true;
-        }
-    }
-
-    placePiece(e) {
-        if (this.draggingPiece && this.selectedPiece) {
-            const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
-            if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
-                this.movePiece(this.startSquare, endSquare);
-            } else {
-                this.putPieceBack();
-            }
-
-            this.startSquare = null;
-            this.selectedPieceSprite = null;
-            this.selectedPiece = null;
-            this.draggingPiece = false;
-        }
-    }
-
-    animateMovement(e) {
-        if (this.draggingPiece) {
-            const mouseLocation = this.getMouseLocationInCanvas(e);
-            this.boardCtx.clearRect(0, 0, this.width, this.height);
-            this.draw();
-            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
-        }
-    }
-
-    putPieceBack() {
-        if (this.draggingPiece) {
-            this.boardState[this.startSquare.row][this.startSquare.column] = this.selectedPiece;
-
-            this.startSquare = null;
-            this.selectedPieceSprite = null;
-            this.selectedPiece = null;
-            this.draggingPiece = false;
-            this.draw();
-        }
-    }
-
 }
 
-window.customElements.define('chess-board', Chessboard, { extends: 'canvas' });
+window.Chessboard = Chessboard;
