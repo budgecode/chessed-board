@@ -5,6 +5,8 @@ A simple, canvas-based, implementation of a chessboard.
 
 ### Constructor
 
+### Config
+
 ### Move piece
 
 ### Set FEN

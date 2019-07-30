@@ -95,9 +95,13 @@ const SQUARE_WIDTH = 60;
 
 class Chessboard {
 
-    constructor(canvasId) {
+    constructor(canvasId, boardState, config) {
         this.canvasId = canvasId;
-        this.boardState = STARTING_BOARDSTATE.board;
+
+        this.config = config ? config : {};      
+
+        this.boardState = boardState ? boardState : STARTING_BOARDSTATE.board;
+        
         constructFEN(STARTING_BOARDSTATE);
 
         this.setupBoard();
@@ -270,7 +274,11 @@ class Chessboard {
             this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
 
             this.draggingPiece = true;
-        }
+            
+            if (this.config.pieceSelected) {
+                this.config.pieceSelected();
+            }  
+        }      
     }
 
     placePiece(e) {
@@ -278,6 +286,9 @@ class Chessboard {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this.movePiece(this.startSquare, endSquare);
+                if (this.config.piecePlaced) {
+                    this.config.piecePlaced();
+                }  
             } else {
                 this.putPieceBack();
             }
@@ -291,10 +302,16 @@ class Chessboard {
 
     dragPiece(e) {
         if (this.draggingPiece) {
+
             const mouseLocation = this.getMouseLocationInCanvas(e);
             this.boardCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
             this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+            
+            if (this.config.pieceDragged) {
+                this.config.pieceDragged();
+            }  
+
         }
     }
 
@@ -307,6 +324,10 @@ class Chessboard {
             this.selectedPiece = null;
             this.draggingPiece = false;
             this.draw();
+
+            if (this.config.pieceDropped) {
+                this.config.pieceDropped();
+            }
         }
     }
 

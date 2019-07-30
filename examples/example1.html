@@ -3,5 +3,21 @@
 <canvas id="chessboard"></canvas>
 
 <script>
-    const chessboard = new Chessboard("chessboard");
+    
+    const config = {
+        piecePlaced: () => {
+            console.log('piece placed');
+        },
+        pieceSelected: () => {
+            console.log('piece selected');
+        },
+        pieceDragged: () => {
+            console.log('piece dragged');
+        },
+        pieceDropped: () => {
+            console.log('piece dropped');
+        }
+    }
+
+    const chessboard = new Chessboard("chessboard", null, config);
 </script>
