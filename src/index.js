@@ -91,7 +91,7 @@ const constructFEN = (game) => {
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-const SQUARE_WIDTH = 60;
+const SQUARE_WIDTH = 70;
 
 class Chessboard {
 
@@ -182,20 +182,20 @@ class Chessboard {
         this.sprites = {};
 
         // Load white sprites.
-        this.sprites.whitePawn = await loadImage('../sprites/Chess_plt60.png');
-        this.sprites.whiteRook = await loadImage('../sprites/Chess_rlt60.png');
-        this.sprites.whiteKnight = await loadImage('../sprites/Chess_nlt60.png');
-        this.sprites.whiteKing = await loadImage('../sprites/Chess_klt60.png');
-        this.sprites.whiteBishop = await loadImage('../sprites/Chess_blt60.png');
-        this.sprites.whiteQueen = await loadImage('../sprites/Chess_qlt60.png');
+        this.sprites.whitePawn = await loadImage('../sprites/Chess_plt45.svg');
+        this.sprites.whiteRook = await loadImage('../sprites/Chess_rlt45.svg');
+        this.sprites.whiteKnight = await loadImage('../sprites/Chess_nlt45.svg');
+        this.sprites.whiteKing = await loadImage('../sprites/Chess_klt45.svg');
+        this.sprites.whiteBishop = await loadImage('../sprites/Chess_blt45.svg');
+        this.sprites.whiteQueen = await loadImage('../sprites/Chess_qlt45.svg');
 
         // Load black sprites.
-        this.sprites.blackPawn = await loadImage('../sprites/Chess_pdt60.png');
-        this.sprites.blackRook = await loadImage('../sprites/Chess_rdt60.png');
-        this.sprites.blackKnight = await loadImage('../sprites/Chess_ndt60.png');
-        this.sprites.blackKing = await loadImage('../sprites/Chess_kdt60.png');
-        this.sprites.blackBishop = await loadImage('../sprites/Chess_bdt60.png');
-        this.sprites.blackQueen = await loadImage('../sprites/Chess_qdt60.png');
+        this.sprites.blackPawn = await loadImage('../sprites/Chess_pdt45.svg');
+        this.sprites.blackRook = await loadImage('../sprites/Chess_rdt45.svg');
+        this.sprites.blackKnight = await loadImage('../sprites/Chess_ndt45.svg');
+        this.sprites.blackKing = await loadImage('../sprites/Chess_kdt45.svg');
+        this.sprites.blackBishop = await loadImage('../sprites/Chess_bdt45.svg');
+        this.sprites.blackQueen = await loadImage('../sprites/Chess_qdt45.svg');
     }
 
     // Draw board methods.
@@ -210,7 +210,7 @@ class Chessboard {
     }
 
     drawBoard() {
-        const blackColor = "#6D4C41";
+        const blackColor = "#8d6e63";
         const whiteColor = "#E8E2C9";
 
         for (let r = 0; r < 8; r++) {
