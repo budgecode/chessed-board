@@ -210,8 +210,8 @@ class Chessboard {
     }
 
     drawBoard() {
-        const blackColor = "#8d6e63";
-        const whiteColor = "#E8E2C9";
+        const blackColor = '#8d6e63';
+        const whiteColor = '#E8E2C9';
 
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
@@ -220,11 +220,29 @@ class Chessboard {
                     this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = blackColor;
                     this.boardCtx.fill();
+
+                    // Set color back for numbers.
+                    this.boardCtx.fillStyle = whiteColor;
+
                 } else {
                     this.boardCtx.beginPath();
                     this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                     this.boardCtx.fillStyle = whiteColor;
                     this.boardCtx.fill();
+
+                    // Set color back for numbers.
+                    this.boardCtx.fillStyle = blackColor;
+                }
+
+                if (c == 0) {
+                    this.boardCtx.font = 'bold 10px Arial';
+                    this.boardCtx.fillText(8 - r, c * SQUARE_WIDTH + 3, r * SQUARE_WIDTH + 9);
+                }
+
+                if (r == 7) {
+                    const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                    this.boardCtx.font = 'bold 10px Arial';
+                    this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 9, r * SQUARE_WIDTH + SQUARE_WIDTH - 3);
                 }
             }
         }
