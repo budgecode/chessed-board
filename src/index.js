@@ -240,14 +240,14 @@ class Chessboard {
                 }
 
                 if (c == 0) {
-                    this.boardCtx.font = 'bold 10px Arial';
-                    this.boardCtx.fillText(8 - r, c * SQUARE_WIDTH + 3, r * SQUARE_WIDTH + 9);
+                    this.boardCtx.font = 'bold 12px Arial';
+                    this.boardCtx.fillText(8 - r, c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
                 }
 
                 if (r == 7) {
                     const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-                    this.boardCtx.font = 'bold 10px Arial';
-                    this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 9, r * SQUARE_WIDTH + SQUARE_WIDTH - 3);
+                    this.boardCtx.font = 'bold 12px Arial';
+                    this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 10, r * SQUARE_WIDTH + SQUARE_WIDTH - 4);
                 }
             }
         }
