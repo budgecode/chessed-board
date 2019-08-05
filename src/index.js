@@ -93,7 +93,7 @@ const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBN
 
 const SQUARE_WIDTH = 70;
 
-class Chessboard {
+class Chessedboard {
 
     constructor(canvasId, boardState, config) {
         this.canvasId = canvasId;
@@ -365,4 +365,4 @@ class Chessboard {
 
 }
 
-window.Chessboard = Chessboard;
+window.Chessedboard = Chessedboard;
