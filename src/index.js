@@ -117,10 +117,15 @@ class Chessboard {
         this.boardCanvas.width = this.width;
         this.boardCanvas.height = this.height;
 
-        this.boardCanvas.onmousedown = this.pickupPiece.bind(this);
+        this.boardCanvas.onmousedown = this.handleMouseDown.bind(this);
         this.boardCanvas.onmouseup = this.placePiece.bind(this);
         this.boardCanvas.onmousemove = this.dragPiece.bind(this);
         this.boardCanvas.onmouseout = this.putPieceBack.bind(this);
+
+        this.boardCanvas.oncontextmenu = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        };
 
         this.loadSprites().then(() => {
             this.boardCtx = this.boardCanvas.getContext('2d');
@@ -278,6 +283,15 @@ class Chessboard {
     }
 
     // Handle user interaction.
+    handleMouseDown(e) {
+        if (e.which === 1) {
+            this.pickupPiece(e);
+        } else if (e.which === 3) {
+            this.putPieceBack();
+        }
+    }
+
+
     pickupPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
         this.startSquare = this.getSquare(mouseLocation);
