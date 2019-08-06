@@ -1,4 +1,15 @@
 // Utility methods.
+
+String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+    ;
+    });
+};
+
 const loadImage = (src) => {
     return new Promise((resolve, reject) => {
         const image = new Image();
@@ -115,15 +126,16 @@ class Chessedboard {
         
         const boardDiv = document.getElementById(this.divId);
         boardDiv.innerHTML = `
-            <div style="position: relative;">
+            <div id="event-capture" style="position: relative; width: {0}px; height: {1}px;">
                 <canvas id="board-canvas" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
                 <canvas id="below-canvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
                 <canvas id="piece-canvas" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
                 <canvas id="above-canvas" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
             <div>
-        `;
+        `.format(this.width, this.height);
 
         // Fetch all the canvases.
+        this.evenCaptureLayer = document.getElementById('event-capture');
         this.boardCanvas = document.getElementById('board-canvas');
         this.belowCanvas = document.getElementById('below-canvas');
         this.pieceCanvas = document.getElementById('piece-canvas');
@@ -142,12 +154,12 @@ class Chessedboard {
         this.aboveCanvas.width = this.width;
         this.aboveCanvas.height = this.height;
 
-        this.boardCanvas.onmousedown = this.handleMouseDown.bind(this);
-        this.boardCanvas.onmouseup = this.placePiece.bind(this);
-        this.boardCanvas.onmousemove = this.dragPiece.bind(this);
-        this.boardCanvas.onmouseout = this.putPieceBack.bind(this);
+        this.evenCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
+        this.evenCaptureLayer.onmouseup = this.placePiece.bind(this);
+        this.evenCaptureLayer.onmousemove = this.dragPiece.bind(this);
+        this.evenCaptureLayer.onmouseout = this.putPieceBack.bind(this);
 
-        this.boardCanvas.oncontextmenu = (e) => {
+        this.evenCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
             e.stopPropagation();
         };
