@@ -1,5 +1,4 @@
 // Utility methods.
-
 String.prototype.format = function() {
     var args = arguments;
     return this.replace(/{(\d+)}/g, function(match, number) { 
@@ -135,7 +134,7 @@ class Chessedboard {
         `.format(this.width, this.height);
 
         // Fetch all the canvases.
-        this.evenCaptureLayer = document.getElementById('event-capture');
+        this.eventCaptureLayer = document.getElementById('event-capture');
         this.boardCanvas = document.getElementById('board-canvas');
         this.belowCanvas = document.getElementById('below-canvas');
         this.pieceCanvas = document.getElementById('piece-canvas');
@@ -154,12 +153,13 @@ class Chessedboard {
         this.aboveCanvas.width = this.width;
         this.aboveCanvas.height = this.height;
 
-        this.evenCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
-        this.evenCaptureLayer.onmouseup = this.placePiece.bind(this);
-        this.evenCaptureLayer.onmousemove = this.dragPiece.bind(this);
-        this.evenCaptureLayer.onmouseout = this.putPieceBack.bind(this);
+        // Handle clicks on event capture layer.
+        this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
+        this.eventCaptureLayer.onmouseup = this.placePiece.bind(this);
+        this.eventCaptureLayer.onmousemove = this.dragPiece.bind(this);
+        this.eventCaptureLayer.onmouseout = this.putPieceBack.bind(this);
 
-        this.evenCaptureLayer.oncontextmenu = (e) => {
+        this.eventCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
             e.stopPropagation();
         };
