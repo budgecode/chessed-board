@@ -95,8 +95,8 @@ const SQUARE_WIDTH = 70;
 
 class Chessedboard {
 
-    constructor(canvasId, boardState, config) {
-        this.canvasId = canvasId;
+    constructor(divId, boardState, config) {
+        this.divId = divId;
 
         this.config = config ? config : {};      
 
@@ -112,7 +112,11 @@ class Chessedboard {
     setupBoard() {
         this.width = SQUARE_WIDTH * 8;
         this.height = SQUARE_WIDTH * 8;
-        this.boardCanvas = document.getElementById(this.canvasId);
+        
+        const boardDiv = document.getElementById(this.divId);
+        boardDiv.innerHTML = '<canvas id="board-canvas"></canvas>';
+
+        this.boardCanvas = document.getElementById('board-canvas');
 
         this.boardCanvas.width = this.width;
         this.boardCanvas.height = this.height;
