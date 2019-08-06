@@ -114,12 +114,33 @@ class Chessedboard {
         this.height = SQUARE_WIDTH * 8;
         
         const boardDiv = document.getElementById(this.divId);
-        boardDiv.innerHTML = '<canvas id="board-canvas"></canvas>';
+        boardDiv.innerHTML = `
+            <div style="position: relative;">
+                <canvas id="board-canvas" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+                <canvas id="below-canvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+                <canvas id="piece-canvas" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                <canvas id="above-canvas" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+            <div>
+        `;
 
+        // Fetch all the canvases.
         this.boardCanvas = document.getElementById('board-canvas');
+        this.belowCanvas = document.getElementById('below-canvas');
+        this.pieceCanvas = document.getElementById('piece-canvas');
+        this.aboveCanvas = document.getElementById('above-canvas');
 
+        // Size the canvases.
         this.boardCanvas.width = this.width;
         this.boardCanvas.height = this.height;
+
+        this.belowCanvas.width = this.width;
+        this.belowCanvas.height = this.height;
+
+        this.pieceCanvas.width = this.width;
+        this.pieceCanvas.height = this.height;
+
+        this.aboveCanvas.width = this.width;
+        this.aboveCanvas.height = this.height;
 
         this.boardCanvas.onmousedown = this.handleMouseDown.bind(this);
         this.boardCanvas.onmouseup = this.placePiece.bind(this);
