@@ -1,11 +1,19 @@
 {
-  "name": "chessboard-component",
+  "name": "chessed-board",
   "version": "1.0.0",
-  "description": "A fully functional chessboard native web component.",
+  "description": "A fully functional canvas-based chessboard widget.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian I Budge",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/budgebi/chessed-board"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  }
 }
