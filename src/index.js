@@ -155,9 +155,9 @@ class Chessedboard {
 
         // Handle clicks on event capture layer.
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
-        this.eventCaptureLayer.onmouseup = this.placePiece.bind(this);
-        this.eventCaptureLayer.onmousemove = this.dragPiece.bind(this);
-        this.eventCaptureLayer.onmouseout = this.putPieceBack.bind(this);
+        this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
+        this.eventCaptureLayer.onmousemove = this.handleMouseMove.bind(this);
+        this.eventCaptureLayer.onmouseout = this.hanldeMouseOut.bind(this);
 
         this.eventCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
@@ -331,25 +331,15 @@ class Chessedboard {
     }
 
     handleMouseUp(e) {
-        if (e.which === 1) {
-            this.pickupPiece(e);
-        } else if (e.which === 3) {
-            this.putPieceBack();
-        }
-    }
-
-    handleMouseUp(e) {
-        // TO-DO: Implement
-
-        // if (e.which === 1) {
-        //     this.pickupPiece(e);
-        // } else if (e.which === 3) {
-        //     this.putPieceBack();
-        // }
+        this.placePiece(e);
     }
 
     handleMouseMove(e) {
-        // TO-DO: Implement
+        this.dragPiece(e);
+    }
+
+    hanldeMouseOut(e) {
+        this.putPieceBack(e);
     }
 
 
