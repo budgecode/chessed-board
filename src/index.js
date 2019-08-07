@@ -330,6 +330,28 @@ class Chessedboard {
         }
     }
 
+    handleMouseUp(e) {
+        if (e.which === 1) {
+            this.pickupPiece(e);
+        } else if (e.which === 3) {
+            this.putPieceBack();
+        }
+    }
+
+    handleMouseUp(e) {
+        // TO-DO: Implement
+
+        // if (e.which === 1) {
+        //     this.pickupPiece(e);
+        // } else if (e.which === 3) {
+        //     this.putPieceBack();
+        // }
+    }
+
+    handleMouseMove(e) {
+        // TO-DO: Implement
+    }
+
 
     pickupPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
