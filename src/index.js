@@ -166,6 +166,7 @@ class Chessedboard {
 
         this.loadSprites().then(() => {
             this.boardCtx = this.boardCanvas.getContext('2d');
+            this.pieceCtx = this.pieceCanvas.getContext('2d');
             this.draw();
         }).catch((e) => {
             console.log(e);
@@ -242,10 +243,11 @@ class Chessedboard {
 
     // Draw board methods.
     drawPieces() {
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c]) {
-                    this.boardCtx.drawImage(this.sprite(this.boardState[r][c]), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.pieceCtx.drawImage(this.sprite(this.boardState[r][c]), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
                 }
             }
         }
@@ -315,7 +317,7 @@ class Chessedboard {
     movePiece(start, finish) {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
-        this.boardCtx.clearRect(0, 0, this.width, this.height);
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
 
@@ -337,10 +339,10 @@ class Chessedboard {
             this.selectedPieceSprite = this.sprite(this.selectedPiece);
             this.boardState[this.startSquare.row][this.startSquare.column] = null;
 
-            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.pieceCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
 
-            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
 
             this.draggingPiece = true;
             
@@ -373,9 +375,9 @@ class Chessedboard {
         if (this.draggingPiece) {
 
             const mouseLocation = this.getMouseLocationInCanvas(e);
-            this.boardCtx.clearRect(0, 0, this.width, this.height);
+            this.pieceCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
-            this.boardCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
             
             if (this.config.pieceDragged) {
                 this.config.pieceDragged();
