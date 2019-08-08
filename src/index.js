@@ -398,6 +398,11 @@ class Chessedboard {
         }
     }
 
+    // Animation hooks.
+    animate(animation) {
+        animation(this.belowCanvas, this.aboveCanvas);
+    }
+
 }
 
 window.Chessedboard = Chessedboard;

@@ -1,0 +1,17 @@
+<script src="../src/index.js"> </script>
+
+<div id="chessboard"></div>
+
+<script>
+
+    const animation = (belowCanvas, aboveCanvas) => {
+        const ctx = belowCanvas.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(100, 100);
+        ctx.stroke();
+    }
+
+    const chessboard = new Chessedboard("chessboard", null, null);
+    chessboard.animate(animation);
+</script>
