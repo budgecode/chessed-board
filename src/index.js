@@ -357,10 +357,6 @@ class Chessedboard {
             this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
 
             this.draggingPiece = true;
-            
-            if (this.config.pieceSelected) {
-                this.config.pieceSelected();
-            }  
         }      
     }
 
@@ -369,9 +365,6 @@ class Chessedboard {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this.movePiece(this.startSquare, endSquare);
-                if (this.config.piecePlaced) {
-                    this.config.piecePlaced();
-                }  
             } else {
                 this.putPieceBack();
             }
@@ -390,11 +383,6 @@ class Chessedboard {
             this.pieceCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
             this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
-            
-            if (this.config.pieceDragged) {
-                this.config.pieceDragged();
-            }  
-
         }
     }
 
@@ -407,11 +395,12 @@ class Chessedboard {
             this.selectedPiece = null;
             this.draggingPiece = false;
             this.draw();
-
-            if (this.config.pieceDropped) {
-                this.config.pieceDropped();
-            }
         }
+    }
+
+    // Animation hooks.
+    animate(animation) {
+        animation(this.belowCanvas, this.aboveCanvas);
     }
 
 }
