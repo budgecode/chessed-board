@@ -6,7 +6,7 @@
 
     const config = {
         leftClickDrag: (chessedEvent) => {
-            console.log({chessedEvent})
+
             const animation = (belowCanvas, aboveCanvas) => {
                 const ctx = belowCanvas.getContext("2d");
                 ctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
