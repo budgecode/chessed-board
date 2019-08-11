@@ -335,6 +335,9 @@ class Chessedboard {
             if (this.config.leftClick) {
                 const mouseLocation = this.getMouseLocationInCanvas(e);
                 const square =  this.getSquare(mouseLocation);
+                this.startSquare = square;
+                this.startMouseLocation = startMouseLocation;
+                
                 const chessedEvent = {
                     currentMouseLocation: mouseLocation,
                     currentSquare: square,
