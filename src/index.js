@@ -311,7 +311,14 @@ class Chessedboard {
         const row = Math.floor(mouseLocation.y / SQUARE_WIDTH);
         const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
 
-        return { row, column };
+        return { 
+            row: row, 
+            column: column,
+            origin: {
+                x: column * SQUARE_WIDTH,
+                y: row * SQUARE_WIDTH
+            }
+        };
     }
 
     movePiece(start, finish) {
@@ -325,17 +332,51 @@ class Chessedboard {
     handleMouseDown(e) {
         if (e.which === 1) {
             this.pickupPiece(e);
+            if (this.config.leftClick) {
+                const mouseLocation = this.getMouseLocationInCanvas(e);
+                const square =  this.getSquare(mouseLocation);
+                this.startSquare = square;
+                this.startMouseLocation = startMouseLocation;
+                
+                const chessedEvent = {
+                    currentMouseLocation: mouseLocation,
+                    currentSquare: square,
+                    startMouseLocation: mouseLocation,
+                    startSquare: square
+                }
+
+                this.config.leftClick(chessedEvent);
+            }
         } else if (e.which === 3) {
             this.putPieceBack();
         }
     }
 
     handleMouseUp(e) {
-        this.placePiece(e);
+        if (e.which === 1) {
+            this.placePiece(e);
+            if (this.config.leftClickRelease) {
+                this.config.leftClickRelease();
+            }
+        }
     }
 
     handleMouseMove(e) {
-        this.dragPiece(e);
+        if (this.draggingPiece) {
+            this.dragPiece(e);
+            if (this.config.leftClickDrag) {
+                const mouseLocation = this.getMouseLocationInCanvas(e);
+                const square =  this.getSquare(mouseLocation);
+                const chessedEvent = {
+                    currentMouseLocation: mouseLocation,
+                    currentSquare: square,
+                    startMouseLocation: mouseLocation,
+                    startSquare: square
+                }
+
+                this.config.leftClickDrag(chessedEvent);
+            }
+        }
     }
 
     hanldeMouseOut(e) {
@@ -377,13 +418,10 @@ class Chessedboard {
     }
 
     dragPiece(e) {
-        if (this.draggingPiece) {
-
-            const mouseLocation = this.getMouseLocationInCanvas(e);
-            this.pieceCtx.clearRect(0, 0, this.width, this.height);
-            this.draw();
-            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
-        }
+        const mouseLocation = this.getMouseLocationInCanvas(e);
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
+        this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
     }
 
     putPieceBack() {

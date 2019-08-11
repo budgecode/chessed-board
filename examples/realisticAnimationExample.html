@@ -1,0 +1,24 @@
+<script src="../src/index.js"> </script>
+
+<div id="chessboard"></div>
+
+<script>
+
+    const config = {
+        leftClickDrag: (chessedEvent) => {
+
+            const animation = (belowCanvas, aboveCanvas) => {
+                const ctx = belowCanvas.getContext("2d");
+                ctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
+                ctx.fillStyle = "#a5d6a7"
+                ctx.fillRect(chessedEvent.currentSquare.origin.x, chessedEvent.currentSquare.origin.y, 70, 70);
+                ctx.stroke();
+            }
+
+            chessboard.animate(animation);
+        }
+    }
+
+
+    const chessboard = new Chessedboard("chessboard", null, config);
+</script>
