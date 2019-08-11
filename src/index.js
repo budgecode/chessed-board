@@ -328,6 +328,21 @@ class Chessedboard {
         this.draw();
     }
 
+    constructChessedEvent(e) {
+
+        const mouseLocation = this.getMouseLocationInCanvas(e);
+        const square =  this.getSquare(mouseLocation);
+
+        const chessedEvent = {
+            currentMouseLocation: mouseLocation,
+            currentSquare: square,
+            startMouseLocation: this.startMouseLocation,
+            startSquare: this.startSquare
+        };
+
+        return chessedEvent;
+    }
+
     // Handle user interaction.
     handleMouseDown(e) {
         if (e.which === 1) {
@@ -336,16 +351,9 @@ class Chessedboard {
                 const mouseLocation = this.getMouseLocationInCanvas(e);
                 const square =  this.getSquare(mouseLocation);
                 this.startSquare = square;
-                this.startMouseLocation = startMouseLocation;
-                
-                const chessedEvent = {
-                    currentMouseLocation: mouseLocation,
-                    currentSquare: square,
-                    startMouseLocation: mouseLocation,
-                    startSquare: square
-                }
+                this.startMouseLocation = mouseLocation;
 
-                this.config.leftClick(chessedEvent);
+                this.config.leftClick(this.constructChessedEvent(e));
             }
         } else if (e.which === 3) {
             this.putPieceBack();
@@ -356,7 +364,7 @@ class Chessedboard {
         if (e.which === 1) {
             this.placePiece(e);
             if (this.config.leftClickRelease) {
-                this.config.leftClickRelease();
+                this.config.leftClickRelease(this.constructChessedEvent(e));
             }
         }
     }
@@ -365,16 +373,7 @@ class Chessedboard {
         if (this.draggingPiece) {
             this.dragPiece(e);
             if (this.config.leftClickDrag) {
-                const mouseLocation = this.getMouseLocationInCanvas(e);
-                const square =  this.getSquare(mouseLocation);
-                const chessedEvent = {
-                    currentMouseLocation: mouseLocation,
-                    currentSquare: square,
-                    startMouseLocation: mouseLocation,
-                    startSquare: square
-                }
-
-                this.config.leftClickDrag(chessedEvent);
+                this.config.leftClickDrag(this.constructChessedEvent(e));
             }
         }
     }
