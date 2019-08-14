@@ -127,9 +127,11 @@ class Chessedboard {
         boardDiv.innerHTML = `
             <div id="event-capture" style="position: relative; width: {0}px; height: {1}px;">
                 <canvas id="board-canvas" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-                <canvas id="below-canvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                <canvas id="piece-canvas" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="above-canvas" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+                <canvas id="below-persistence-canvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+                <canvas id="below-canvas" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                <canvas id="piece-canvas" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+                <canvas id="above-persistence-canvas" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
+                <canvas id="above-canvas" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
             <div>
         `.format(this.width, this.height);
 
@@ -137,8 +139,10 @@ class Chessedboard {
         this.eventCaptureLayer = document.getElementById('event-capture');
         this.boardCanvas = document.getElementById('board-canvas');
         this.belowCanvas = document.getElementById('below-canvas');
+        this.belowPersistenceCanvas = document.getElementById('below-persistence-canvas');
         this.pieceCanvas = document.getElementById('piece-canvas');
         this.aboveCanvas = document.getElementById('above-canvas');
+        this.abovePersistenceCanvas = document.getElementById('above-persistence-canvas');
 
         // Size the canvases.
         this.boardCanvas.width = this.width;
@@ -147,8 +151,13 @@ class Chessedboard {
         this.belowCanvas.width = this.width;
         this.belowCanvas.height = this.height;
 
+        this.belowPersistenceCanvas.width = this.width;
+        this.belowPersistenceCanvas.height = this.height;
+
         this.pieceCanvas.width = this.width;
         this.pieceCanvas.height = this.height;
+        this.abovePersistenceCanvas.width = this.width;
+        this.abovePersistenceCanvas.height = this.height;
 
         this.aboveCanvas.width = this.width;
         this.aboveCanvas.height = this.height;
@@ -459,6 +468,26 @@ class Chessedboard {
     // Animation hooks.
     animate(animation) {
         animation(this.belowCanvas, this.aboveCanvas);
+    }
+
+    persistBelowAnimation() {
+        const ctx = this.belowPersistenceCanvas.getContext("2d");
+        ctx.drawImage(this.belowCanvas, 0, 0);
+    }
+
+    persistAboveAnimation() {
+        const ctx = this.abovePersistenceCanvas.getContext("2d");
+        ctx.drawImage(this.aboveCanvas, 0, 0);
+    }
+
+    clearBelowAnimation() {
+        const ctx = this.belowPersistenceCanvas.getContext("2d");
+        ctx.clearRect(0, 0, this.belowPersistenceCanvas.width, this.belowPersistenceCanvas.height);
+    }
+
+    clearAboveAnimation() {
+        const ctx = this.abovePersistenceCanvas.getContext("2d");
+        ctx.clearRect(0, 0, this.abovePersistenceCanvas.width, this.abovePersistenceCanvas.height);
     }
 
 }

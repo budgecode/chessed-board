@@ -35,7 +35,10 @@
             chessboard.animate(animation);
         },
         rightClick: console.log,
-        rightClickRelease: console.log,
+        rightClickRelease: () => {
+            console.log("YEAH")
+            chessboard.persistAboveAnimation();
+        },
         mouseOut: () => {
             const animation = (belowCanvas, aboveCanvas) => {
                 const bctx = belowCanvas.getContext("2d");
