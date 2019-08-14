@@ -317,6 +317,10 @@ class Chessedboard {
             origin: {
                 x: column * SQUARE_WIDTH,
                 y: row * SQUARE_WIDTH
+            },
+            center: {
+                x: column * SQUARE_WIDTH + (SQUARE_WIDTH / 2),
+                y: row * SQUARE_WIDTH + (SQUARE_WIDTH / 2)
             }
         };
     }
@@ -345,18 +349,22 @@ class Chessedboard {
 
     // Handle user interaction.
     handleMouseDown(e) {
+        const mouseLocation = this.getMouseLocationInCanvas(e);
+        const square =  this.getSquare(mouseLocation);
+        this.startSquare = square;
+        this.startMouseLocation = mouseLocation;
         if (e.which === 1) {
             this.pickupPiece(e);
             if (this.config.leftClick) {
-                const mouseLocation = this.getMouseLocationInCanvas(e);
-                const square =  this.getSquare(mouseLocation);
-                this.startSquare = square;
-                this.startMouseLocation = mouseLocation;
-
                 this.config.leftClick(this.constructChessedEvent(e));
             }
         } else if (e.which === 3) {
+            this.rightClicking = true;
             this.putPieceBack();
+
+            if (this.config.rightClick) {
+                this.config.rightClick(this.constructChessedEvent(e));
+            }
         }
     }
 
@@ -365,6 +373,11 @@ class Chessedboard {
             this.placePiece(e);
             if (this.config.leftClickRelease) {
                 this.config.leftClickRelease(this.constructChessedEvent(e));
+            }
+        } else if (e.which === 3) {
+            this.rightClicking = false;
+            if (this.config.rightClick) {
+                this.config.rightClickRelease(this.constructChessedEvent(e));
             }
         }
     }
@@ -375,11 +388,19 @@ class Chessedboard {
             if (this.config.leftClickDrag) {
                 this.config.leftClickDrag(this.constructChessedEvent(e));
             }
+        } else if (this.rightClicking) {
+            if (this.config.rightClickDrag) {
+                this.config.rightClickDrag(this.constructChessedEvent(e));
+            }
         }
     }
 
     hanldeMouseOut(e) {
         this.putPieceBack(e);
+        this.rightClicking = false;
+        if (this.config.mouseOut) {
+            this.config.mouseOut();
+        }
     }
 
 
