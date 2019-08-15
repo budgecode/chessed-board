@@ -8,18 +8,6 @@ A simple, canvas-based, implementation of a chessboard.
 
 
 ### Config
-```JSON
-{
-	"state": `String`,
-	"onLeftClick": `Function`,
-	"onLeftClickDrag": `Function`,
-	"onLeftClickRelease": `Function`,
-	"onRightClick": `Function`,
-	"onRightClickDrag": `Function`,
-	"onRightClickRelease": `Function`,
-	"onMouseOut": `Function`
-}
-```
 
 ### Methods
 
