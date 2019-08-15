@@ -2,6 +2,8 @@
 
 A simple, canvas-based, implementation of a chessboard.
 
+## Design
+
 ## API
 
 ### Simple Usage
