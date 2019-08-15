@@ -465,6 +465,8 @@ class Chessedboard {
         }
     }
 
+    // Public API.
+    
     // Animation hooks.
     animate(animation) {
         animation(this.belowCanvas, this.aboveCanvas);
