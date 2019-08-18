@@ -1,16 +1,37 @@
 # Chessedboard
-
 A simple, canvas-based, implementation of a chessboard.
 
 ## Design
+The chessboard component is built using 6 canvas elements stacked on top of one another organized in the following manner.
+
+1. Chessboard Layer (bottom)
+    * The layer on which the squares and coordinates are drawn.
+2. Bottom Persistent Animation Layer
+    * The layer on which persisted animations are to be drawn. These animations are above the board but below the pieces.
+3. Bottom Animation Layer
+    * A layer for drawing animations below the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
+4. Piece Layer
+    * The layer on which the pieces are drawn.
+5. Top Persistent Animation Layer
+    * The layer on which persisted animations are to be drawn. These animations are above the board and above the pieces.
+6. Top Animation Layer (top)
+    * A layer for drawing animations above the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
 
 ## API
 
 ### Simple Usage
 
-
 ### Config
-
+| **Property** | **Type**  | **Description** |
+|--|--|--|
+| state |||
+| onLeftClick |||
+| onLeftClickDrag |||
+| onLeftClickRelease |||
+| onRightClick |||
+| onRightClickDrag |||
+| onRightClickRelease |||
+| onMouseOut |||
 
 ### Methods
 
