@@ -22,16 +22,16 @@ The chessboard component is built using 6 canvas elements stacked on top of one 
 ### Simple Usage
 
 ### Config
-| **Property** | **Type**  | **Description** |
-|--|--|--|
-| state |||
-| onLeftClick |||
-| onLeftClickDrag |||
-| onLeftClickRelease |||
-| onRightClick |||
-| onRightClickDrag |||
-| onRightClickRelease |||
-| onMouseOut |||
+| **Property** | **Type**  | **Description** | **Example**|
+|--|--|--|--|
+| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chessboard in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. ||
+| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions) |Event handler which is triggered when the user left clicks on the chessboard.||
+| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves the mouse around the chessboard while left clicking.||
+| onLeftClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user stops left clicking.||
+| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user right clicks on the chessboard.||
+| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves the mouse around the chessboard while right clicking.||
+| onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user stops right clicking.||
+| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves their mouse off of the chessboard.||
 
 ### Methods
 
