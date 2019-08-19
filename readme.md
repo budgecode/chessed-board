@@ -22,19 +22,20 @@ The chessboard component is built using 6 canvas elements stacked on top of one 
 ### Simple Usage
 
 ### Config
-| **Property** | **Type**  | **Description** | **Example**|
-|--|--|--|--|
-| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chessboard in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. ||
-| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions) |Event handler which is triggered when the user left clicks on the chessboard.||
-| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves the mouse around the chessboard while left clicking.||
-| onLeftClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user stops left clicking.||
-| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user right clicks on the chessboard.||
-| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves the mouse around the chessboard while right clicking.||
-| onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user stops right clicking.||
-| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is triggered when the user moves their mouse off of the chessboard.||
+| **Property** | **Type**  | **Description** |
+|--|--|--|
+| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chessboard in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
+| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void |Event handler which is triggered when the user left clicks on the chessboard.|
+| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chessboard while left clicking.|
+| onLeftClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops left clicking.|
+| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user right clicks on the chessboard.|
+| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chessboard while right clicking.|
+| onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops right clicking.|
+| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chessboard.|
+
+#### ChessedEvent
 
 ### Methods
-
 | **Signature** | **Arguments** | **Description** | **Example** |
 |--|--|--|--|
 | Chessedboard(div, config) | **div**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The ID of the div in which to render the chessboard.<br>**config**: [Config](#Config)<br>Object used to configure the chessboard.| The constructor. |
