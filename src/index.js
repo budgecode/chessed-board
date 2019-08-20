@@ -126,41 +126,41 @@ class ChessedBoard {
         const boardDiv = document.getElementById(this.divId);
         boardDiv.innerHTML = `
             <div id="event-capture" style="position: relative; width: {0}px; height: {1}px;">
-                <canvas id="board-canvas" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-                <canvas id="below-persistence-canvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                <canvas id="below-canvas" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="piece-canvas" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
-                <canvas id="above-persistence-canvas" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="above-canvas" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
+                <canvas id="chess-board-layer" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+                <canvas id="bottom-persistent-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+                <canvas id="bottom-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                <canvas id="piece-layer" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+                <canvas id="top-persistent-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
+                <canvas id="top-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
             <div>
         `.format(this.width, this.height);
 
         // Fetch all the canvases.
         this.eventCaptureLayer = document.getElementById('event-capture');
-        this.boardCanvas = document.getElementById('board-canvas');
-        this.belowCanvas = document.getElementById('below-canvas');
-        this.belowPersistenceCanvas = document.getElementById('below-persistence-canvas');
-        this.pieceCanvas = document.getElementById('piece-canvas');
-        this.aboveCanvas = document.getElementById('above-canvas');
-        this.abovePersistenceCanvas = document.getElementById('above-persistence-canvas');
+        this.chessBoardLayer = document.getElementById('chess-board-layer');
+        this.bottomPersistentLayer = document.getElementById('bottom-persistent-animation-layer');
+        this.bottomAnimationLayer = document.getElementById('bottom-animation-layer');
+        this.pieceLayer = document.getElementById('piece-layer');
+        this.topPersistentLayer = document.getElementById('top-persistent-animation-layer');
+        this.topAnimationLayer = document.getElementById('top-animation-layer');
 
         // Size the canvases.
-        this.boardCanvas.width = this.width;
-        this.boardCanvas.height = this.height;
+        this.chessBoardLayer.width = this.width;
+        this.chessBoardLayer.height = this.height;
 
-        this.belowCanvas.width = this.width;
-        this.belowCanvas.height = this.height;
+        this.bottomAnimationLayer.width = this.width;
+        this.bottomAnimationLayer.height = this.height;
 
-        this.belowPersistenceCanvas.width = this.width;
-        this.belowPersistenceCanvas.height = this.height;
+        this.bottomPersistentLayer.width = this.width;
+        this.bottomPersistentLayer.height = this.height;
 
-        this.pieceCanvas.width = this.width;
-        this.pieceCanvas.height = this.height;
-        this.abovePersistenceCanvas.width = this.width;
-        this.abovePersistenceCanvas.height = this.height;
+        this.pieceLayer.width = this.width;
+        this.pieceLayer.height = this.height;
+        this.topPersistentLayer.width = this.width;
+        this.topPersistentLayer.height = this.height;
 
-        this.aboveCanvas.width = this.width;
-        this.aboveCanvas.height = this.height;
+        this.topAnimationLayer.width = this.width;
+        this.topAnimationLayer.height = this.height;
 
         // Handle clicks on event capture layer.
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
@@ -174,8 +174,8 @@ class ChessedBoard {
         };
 
         this.loadSprites().then(() => {
-            this.boardCtx = this.boardCanvas.getContext('2d');
-            this.pieceCtx = this.pieceCanvas.getContext('2d');
+            this.boardCtx = this.chessBoardLayer.getContext('2d');
+            this.pieceCtx = this.pieceLayer.getContext('2d');
             this.draw();
         }).catch((e) => {
             console.log(e);
@@ -308,7 +308,7 @@ class ChessedBoard {
     }
 
     getMouseLocationInCanvas(e) {
-        const canvasRect = this.boardCanvas.getBoundingClientRect();
+        const canvasRect = this.chessBoardLayer.getBoundingClientRect();
 
         return {
             x: e.clientX - canvasRect.left,
@@ -469,27 +469,27 @@ class ChessedBoard {
     
     // Animation hooks.
     animate(animation) {
-        animation(this.belowCanvas, this.aboveCanvas);
+        animation(this.bottomAnimationLayer, this.topAnimationLayer);
     }
 
     persistBottomAnimations() {
-        const ctx = this.belowPersistenceCanvas.getContext("2d");
-        ctx.drawImage(this.belowCanvas, 0, 0);
+        const ctx = this.bottomPersistentLayer.getContext("2d");
+        ctx.drawImage(this.bottomAnimationLayer, 0, 0);
     }
 
     persistTopAnimations() {
-        const ctx = this.abovePersistenceCanvas.getContext("2d");
-        ctx.drawImage(this.aboveCanvas, 0, 0);
+        const ctx = this.topPersistentLayer.getContext("2d");
+        ctx.drawImage(this.topAnimationLayer, 0, 0);
     }
 
     clearBottomAnimations() {
-        const ctx = this.belowPersistenceCanvas.getContext("2d");
-        ctx.clearRect(0, 0, this.belowPersistenceCanvas.width, this.belowPersistenceCanvas.height);
+        const ctx = this.bottomPersistentLayer.getContext("2d");
+        ctx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
     }
 
     clearTopAnimations() {
-        const ctx = this.abovePersistenceCanvas.getContext("2d");
-        ctx.clearRect(0, 0, this.abovePersistenceCanvas.width, this.abovePersistenceCanvas.height);
+        const ctx = this.topPersistentLayer.getContext("2d");
+        ctx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
     }
 
 }
