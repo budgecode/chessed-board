@@ -364,15 +364,15 @@ class ChessedBoard {
         this.startMouseLocation = mouseLocation;
         if (e.which === 1) {
             this.pickupPiece(e);
-            if (this.config.leftClick) {
-                this.config.leftClick(this.constructChessedEvent(e));
+            if (this.config.onLeftClick) {
+                this.config.onLeftClick(this.constructChessedEvent(e));
             }
         } else if (e.which === 3) {
             this.rightClicking = true;
             this.putPieceBack();
 
-            if (this.config.rightClick) {
-                this.config.rightClick(this.constructChessedEvent(e));
+            if (this.config.onRightClick) {
+                this.config.onRightClick(this.constructChessedEvent(e));
             }
         }
     }
@@ -380,13 +380,13 @@ class ChessedBoard {
     handleMouseUp(e) {
         if (e.which === 1) {
             this.placePiece(e);
-            if (this.config.leftClickRelease) {
-                this.config.leftClickRelease(this.constructChessedEvent(e));
+            if (this.config.onLeftClickRelease) {
+                this.config.onLeftClickRelease(this.constructChessedEvent(e));
             }
         } else if (e.which === 3) {
             this.rightClicking = false;
-            if (this.config.rightClick) {
-                this.config.rightClickRelease(this.constructChessedEvent(e));
+            if (this.config.onRightClickRelease) {
+                this.config.onRightClickRelease(this.constructChessedEvent(e));
             }
         }
     }
@@ -394,12 +394,12 @@ class ChessedBoard {
     handleMouseMove(e) {
         if (this.draggingPiece) {
             this.dragPiece(e);
-            if (this.config.leftClickDrag) {
-                this.config.leftClickDrag(this.constructChessedEvent(e));
+            if (this.config.onLeftClickDrag) {
+                this.config.onLeftClickDrag(this.constructChessedEvent(e));
             }
         } else if (this.rightClicking) {
-            if (this.config.rightClickDrag) {
-                this.config.rightClickDrag(this.constructChessedEvent(e));
+            if (this.config.onRightClickDrag) {
+                this.config.onRightClickDrag(this.constructChessedEvent(e));
             }
         }
     }
@@ -407,8 +407,8 @@ class ChessedBoard {
     hanldeMouseOut(e) {
         this.putPieceBack(e);
         this.rightClicking = false;
-        if (this.config.mouseOut) {
-            this.config.mouseOut();
+        if (this.config.onMouseOut) {
+            this.config.onMouseOut();
         }
     }
 

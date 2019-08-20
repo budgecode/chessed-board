@@ -5,7 +5,7 @@
 <script>
 
     const config = {
-        leftClickDrag: (chessedEvent) => {
+        onLeftClickDrag: (chessedEvent) => {
 
             const animation = (belowCanvas, aboveCanvas) => {
                 const ctx = belowCanvas.getContext("2d");
@@ -17,9 +17,9 @@
 
             chessboard.animate(animation);
         },
-        leftClick: console.log,
-        leftClickRelease: console.log,
-        rightClickDrag: (chessedEvent) => {
+        onLeftClick: console.log,
+        onLeftClickRelease: console.log,
+        onRightClickDrag: (chessedEvent) => {
             const animation = (belowCanvas, aboveCanvas) => {
                 const ctx = aboveCanvas.getContext("2d");
                 ctx.lineWidth = 8;
@@ -34,11 +34,11 @@
 
             chessboard.animate(animation);
         },
-        rightClick: console.log,
-        rightClickRelease: () => {
+        onRightClick: console.log,
+        onRightClickRelease: () => {
             chessboard.persistTopAnimations();
         },
-        mouseOut: () => {
+        onMouseOut: () => {
             const animation = (belowCanvas, aboveCanvas) => {
                 const bctx = belowCanvas.getContext("2d");
                 const actx = aboveCanvas.getContext("2d");
