@@ -1,46 +1,73 @@
-# Chessedboard
-A simple, canvas-based, implementation of a chessboard.
+# ChessedBoard
+
+A simple, canvas-based, implementation of a chess board.
+
+  
 
 ## Design
-The chessboard component is built using 6 canvas elements stacked on top of one another organized in the following manner.
 
-1. Chessboard Layer (bottom)
-    * The layer on which the squares and coordinates are drawn.
+The chess board component is built using 6 canvas elements stacked on top of one another organized in the following manner.
+
+  
+
+1. Chess board Layer (bottom)
+
+* The layer on which the squares and coordinates are drawn.
+
 2. Bottom Persistent Animation Layer
-    * The layer on which persisted animations are to be drawn. These animations are above the board but below the pieces.
+
+* The layer on which persisted animations are to be drawn. These animations are above the board but below the pieces.
+
 3. Bottom Animation Layer
-    * A layer for drawing animations below the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
+
+* A layer for drawing animations below the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
+
 4. Piece Layer
-    * The layer on which the pieces are drawn.
+
+* The layer on which the pieces are drawn.
+
 5. Top Persistent Animation Layer
-    * The layer on which persisted animations are to be drawn. These animations are above the board and above the pieces.
+
+* The layer on which persisted animations are to be drawn. These animations are above the board and above the pieces.
+
 6. Top Animation Layer (top)
-    * A layer for drawing animations above the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
+
+* A layer for drawing animations above the pieces. Usually during user interaction. These animations will typically be cleared on each new user interaction. If the animation should persist between many user interactions, it should be saved to the persistent animation layer.
+
+  
 
 ## API
 
+  
+
 ### Simple Usage
 
+  
+
 ### Config
-| **Property** | **Type**  | **Description** |
+
+| **Property** | **Type** | **Description** |
 |--|--|--|
-| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chessboard in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
-| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void |Event handler which is triggered when the user left clicks on the chessboard.|
-| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chessboard while left clicking.|
+| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chess board in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
+| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void |Event handler which is triggered when the user left clicks on the chess board.|
+| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while left clicking.|
 | onLeftClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops left clicking.|
-| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user right clicks on the chessboard.|
-| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chessboard while right clicking.|
+| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user right clicks on the chess board.|
+| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while right clicking.|
 | onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops right clicking.|
-| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chessboard.|
+| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chess board.|
 
 #### ChessedEvent
 
+  
+
 ### Methods
+
 | **Signature** | **Arguments** | **Description** |
 |--|--|--|
-| Chessedboard(div, config) | **div**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The ID of the div in which to render the chessboard.<br>**config**: [Config](#Config)<br>Object used to configure the chessboard.| The constructor. |
+| ChessedBoard(div, config) | **div**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The ID of the div in which to render the chess board.<br>**config**: [Config](#Config)<br>Object used to configure the chess board.| The constructor. |
 | movePiece(from, to)| **from**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece is currently located. _Example_: "c2"<br>**to**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece should be placed. _Example_: "c4"| Moves a piece from one square on the board to another.|
-| animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br> `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chessboard. |
+| animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br>  `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chess board. |
 |persistBottomAnimations()| **None** | Persists any animations currently drawn on the bottom animation layer. |
 |persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
 |clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
