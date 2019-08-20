@@ -472,22 +472,22 @@ class ChessedBoard {
         animation(this.belowCanvas, this.aboveCanvas);
     }
 
-    persistBelowAnimation() {
+    persistBottomAnimations() {
         const ctx = this.belowPersistenceCanvas.getContext("2d");
         ctx.drawImage(this.belowCanvas, 0, 0);
     }
 
-    persistAboveAnimation() {
+    persistTopAnimations() {
         const ctx = this.abovePersistenceCanvas.getContext("2d");
         ctx.drawImage(this.aboveCanvas, 0, 0);
     }
 
-    clearBelowAnimation() {
+    clearBottomAnimations() {
         const ctx = this.belowPersistenceCanvas.getContext("2d");
         ctx.clearRect(0, 0, this.belowPersistenceCanvas.width, this.belowPersistenceCanvas.height);
     }
 
-    clearAboveAnimation() {
+    clearTopAnimations() {
         const ctx = this.abovePersistenceCanvas.getContext("2d");
         ctx.clearRect(0, 0, this.abovePersistenceCanvas.width, this.abovePersistenceCanvas.height);
     }
