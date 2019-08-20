@@ -58,8 +58,28 @@ The chess board component is built using 6 canvas elements stacked on top of one
 | onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chess board.|
 
 #### ChessedEvent
+| **Property** | **Description** |
+|--|--|--|
+|currentMouseLocation|Location of the cursor in the canvas given as x,y coordinates. If not dragging then the currentMouseLocation === startMouseLocation.|
+|currentSquare|The current square that the cursor is over. If not dragging then the currentSquare === startSquare.|
+|startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
+|startSquare| The square the dragging started in. If not dragging then the startSquare === currentSquare.|
 
-  
+**Square**
+```javascript
+{
+    "row":3, // Row in the 8 by 8 grid where the square is located.
+    "column":3, // Column in the 8 by 8 grid where the square is located.
+    "origin": { // The coordinates of the top left corner of the square in the canvas.
+        "x":210,
+        "y":210
+    },
+    "center": { // The coordinates of the center of the square in the canvas.
+        "x":245,
+        "y":245
+    }
+}
+```
 
 ### Methods
 
