@@ -59,7 +59,7 @@ The chess board component is built using 6 canvas elements stacked on top of one
 
 #### ChessedEvent
 | **Property** | **Description** |
-|--|--|--|
+|--|--|
 |currentMouseLocation|Location of the cursor in the canvas given as x,y coordinates. If not dragging then the currentMouseLocation === startMouseLocation.|
 |currentSquare|The current square that the cursor is over. If not dragging then the currentSquare === startSquare.|
 |startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
