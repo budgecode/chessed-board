@@ -36,7 +36,6 @@
         },
         rightClick: console.log,
         rightClickRelease: () => {
-            console.log("YEAH")
             chessboard.persistAboveAnimation();
         },
         mouseOut: () => {
@@ -53,5 +52,5 @@
     }
 
 
-    const chessboard = new Chessedboard("chessboard", null, config);
+    const chessboard = new ChessedBoard("chessboard", config);
 </script>

@@ -103,14 +103,14 @@ const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBN
 
 const SQUARE_WIDTH = 70;
 
-class Chessedboard {
+class ChessedBoard {
 
-    constructor(divId, boardState, config) {
-        this.divId = divId;
+    constructor(div, config) {
+        this.divId = div;
 
         this.config = config ? config : {};      
 
-        this.boardState = boardState ? boardState : STARTING_BOARDSTATE.board;
+        this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE.board;
         
         constructFEN(STARTING_BOARDSTATE);
 
@@ -494,4 +494,4 @@ class Chessedboard {
 
 }
 
-window.Chessedboard = Chessedboard;
+window.ChessedBoard = ChessedBoard;
