@@ -121,7 +121,9 @@ class ChessedBoard {
         this.config = config ? config : {};      
 
         this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE.board;
-        
+        if (this.config.orientation === null || this.config.orientation === undefined) {
+            this.config.orientation = 0;
+        }
         constructFEN(STARTING_BOARDSTATE);
 
         this.setupBoard();
@@ -307,11 +309,18 @@ class ChessedBoard {
 
                 if (c == 0) {
                     this.boardCtx.font = 'bold 12px Arial';
-                    this.boardCtx.fillText(8 - r, c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
+                    const rows = [8, 7, 6, 5, 4, 3, 2, 1];
+                    if (this.config.orientation === 1) {
+                        rows.reverse();
+                    }
+                    this.boardCtx.fillText(rows[r], c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
                 }
 
                 if (r == 7) {
                     const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                    if (this.config.orientation === 1) {
+                        columns.reverse();
+                    }
                     this.boardCtx.font = 'bold 12px Arial';
                     this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 10, r * SQUARE_WIDTH + SQUARE_WIDTH - 4);
                 }
@@ -525,7 +534,7 @@ class ChessedBoard {
     flip() {
         this.boardState.reverse();
         this.boardState.map(r => r.reverse());
-
+        this.config.orientation = this.config.orientation === 0 ? 1 : 0;
         this.draw();
     }
 
