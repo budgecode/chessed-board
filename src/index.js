@@ -99,14 +99,24 @@ const constructFEN = (game) => {
     return fen;
 };
 
-const algebraicToRowCol = (square) => {
+const algebraicToRowCol = (square, orientation) => {
     cols = { 'a': 0, 'b': 1, 'c': 2, 'd': 3,
              'e': 4, 'f': 5, 'g': 6, 'h': 7 };
+
+    colsFlipped = { 'a': 7, 'b': 6, 'c': 5, 'd': 4,
+    'e': 3, 'f': 2, 'g': 1, 'h': 0 };
 
     rows = { '1': 7, '2': 6, '3': 5, '4': 4,
              '5': 3, '6': 2, '7': 1, '8': 0};
     
-    return { row: rows[square[1]], column: cols[square[0]] };
+    rowsFlipped = { '1': 0, '2': 1, '3': 2, '4': 3,
+    '5': 4, '6': 5, '7': 6, '8': 7};
+
+    if (orientation === 0) {
+        return { row: rows[square[1]], column: cols[square[0]] };
+    } else {
+        return { row: rowsFlipped[square[1]], column: colsFlipped[square[0]] };
+    }
 }
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
@@ -191,6 +201,7 @@ class ChessedBoard {
             if (!this.config.orientation) {
                 this.draw();   
             } else {
+                this.config.orientation = 0;
                 this.flip();
             }
 
@@ -521,8 +532,8 @@ class ChessedBoard {
 
     // Interaction APIs.
     movePiece(from, to) {
-        const start = algebraicToRowCol(from);
-        const finish = algebraicToRowCol(to);
+        const start = algebraicToRowCol(from, this.config.orientation);
+        const finish = algebraicToRowCol(to, this.config.orientation);
 
         this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
         this.boardState[start.row][start.column] = null;
