@@ -38,7 +38,6 @@
         onRightClick: console.log,
         onRightClickRelease: () => {
             chessboard.persistTopAnimations();
-            chessboard.flip();
         },
         onMouseOut: () => {
             const animation = (belowCanvas, aboveCanvas) => {
@@ -50,11 +49,6 @@
             }
 
             chessboard.animate(animation);
-        },
-        onLoad: () => {
-            chessboard.movePiece('c2', 'c4');
-            chessboard.movePiece('d7', 'd5');
-            chessboard.movePiece('d5', 'c4');
         }
     }
 
