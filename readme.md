@@ -56,7 +56,7 @@ The chess board component is built using 6 canvas elements stacked on top of one
 | onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while right clicking.|
 | onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops right clicking.|
 | onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chess board.|
-| onLoad |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is when the chess board is loaded and ready for use.|
+| onLoad |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which trigger is when the chess board is loaded and ready for use.|
 
 #### ChessedEvent
 | **Property** | **Description** |
