@@ -186,7 +186,12 @@ class ChessedBoard {
         this.loadSprites().then(() => {
             this.boardCtx = this.chessBoardLayer.getContext('2d');
             this.pieceCtx = this.pieceLayer.getContext('2d');
-            this.draw();
+            if (!this.config.orientation) {
+                this.draw();   
+            } else {
+                this.flip();
+            }
+
             if (this.config.onLoad) {
                 this.config.onLoad();
             }
@@ -514,6 +519,13 @@ class ChessedBoard {
         this.boardState[start.row][start.column] = null;
 
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
+    }
+
+    flip() {
+        this.boardState.reverse();
+        this.boardState.map(r => r.reverse());
+
         this.draw();
     }
 
