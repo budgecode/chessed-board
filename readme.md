@@ -56,14 +56,15 @@ The chess board component is built using 6 canvas elements stacked on top of one
 | onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while right clicking.|
 | onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops right clicking.|
 | onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chess board.|
+| onLoad |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)|Event handler which is when the chess board is loaded and ready for use.|
 
 #### ChessedEvent
 | **Property** | **Description** |
 |--|--|
 |currentMouseLocation|Location of the cursor in the canvas given as x,y coordinates. If not dragging then the currentMouseLocation === startMouseLocation.|
-|currentSquare|The current square that the cursor is over. If not dragging then the currentSquare === startSquare.|
+|currentSquare|The current [square](#Square) that the cursor is over. If not dragging then the currentSquare === startSquare.|
 |startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
-|startSquare| The square the dragging started in. If not dragging then the startSquare === currentSquare.|
+|startSquare| The [square](#Square) the dragging started in. If not dragging then the startSquare === currentSquare.|
 
 **Square**
 ```javascript

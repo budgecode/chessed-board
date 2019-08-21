@@ -48,9 +48,14 @@
             }
 
             chessboard.animate(animation);
+        },
+        onLoad: () => {
+            chessboard.movePiece('e2', 'e4');
+            chessboard.movePiece('d7', 'd5');
         }
     }
 
 
     const chessboard = new ChessedBoard("chessboard", config);
+
 </script>

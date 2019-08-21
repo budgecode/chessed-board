@@ -99,6 +99,16 @@ const constructFEN = (game) => {
     return fen;
 };
 
+const algebraicToRowCol = (square) => {
+    cols = { 'a': 0, 'b': 1, 'c': 2, 'd': 3,
+             'e': 4, 'f': 5, 'g': 6, 'h': 7 };
+
+    rows = { '1': 7, '2': 6, '3': 5, '4': 4,
+             '5': 3, '6': 2, '7': 1, '8': 0};
+    
+    return { row: rows[square[1]], column: cols[square[0]] };
+}
+
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
 const SQUARE_WIDTH = 70;
@@ -177,6 +187,9 @@ class ChessedBoard {
             this.boardCtx = this.chessBoardLayer.getContext('2d');
             this.pieceCtx = this.pieceLayer.getContext('2d');
             this.draw();
+            if (this.config.onLoad) {
+                this.config.onLoad();
+            }
         }).catch((e) => {
             console.log(e);
         });
@@ -334,7 +347,7 @@ class ChessedBoard {
         };
     }
 
-    movePiece(start, finish) {
+    _movePiece(start, finish) {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
@@ -434,7 +447,7 @@ class ChessedBoard {
         if (this.draggingPiece && this.selectedPiece) {
             const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
-                this.movePiece(this.startSquare, endSquare);
+                this._movePiece(this.startSquare, endSquare);
             } else {
                 this.putPieceBack();
             }
@@ -490,6 +503,18 @@ class ChessedBoard {
     clearTopAnimations() {
         const ctx = this.topPersistentLayer.getContext("2d");
         ctx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
+    }
+
+    // Interaction APIs.
+    movePiece(from, to) {
+        const start = algebraicToRowCol(from);
+        const finish = algebraicToRowCol(to);
+
+        this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
+        this.boardState[start.row][start.column] = null;
+
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
     }
 
 }
