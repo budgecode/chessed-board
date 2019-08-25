@@ -358,7 +358,7 @@ class ChessedBoard {
         };
     }
 
-    getSquare(mouseLocation) {
+    _getSquare(mouseLocation) {
         const row = Math.floor(mouseLocation.y / SQUARE_WIDTH);
         const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
 
@@ -386,7 +386,7 @@ class ChessedBoard {
     constructChessedEvent(e) {
 
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        const square =  this.getSquare(mouseLocation);
+        const square =  this._getSquare(mouseLocation);
 
         const chessedEvent = {
             currentMouseLocation: mouseLocation,
@@ -401,7 +401,7 @@ class ChessedBoard {
     // Handle user interaction.
     handleMouseDown(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        const square =  this.getSquare(mouseLocation);
+        const square =  this._getSquare(mouseLocation);
         this.startSquare = square;
         this.startMouseLocation = mouseLocation;
         if (e.which === 1) {
@@ -457,7 +457,7 @@ class ChessedBoard {
 
     pickupPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        this.startSquare = this.getSquare(mouseLocation);
+        this.startSquare = this._getSquare(mouseLocation);
         if (this.boardState[this.startSquare.row][this.startSquare.column]) {
             this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
             this.selectedPieceSprite = this.sprite(this.selectedPiece);
@@ -474,7 +474,7 @@ class ChessedBoard {
 
     placePiece(e) {
         if (this.draggingPiece && this.selectedPiece) {
-            const endSquare = this.getSquare(this.getMouseLocationInCanvas(e));
+            const endSquare = this._getSquare(this.getMouseLocationInCanvas(e));
             if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
                 this._movePiece(this.startSquare, endSquare);
             } else {
