@@ -577,6 +577,17 @@ class ChessedBoard {
         };
     }
 
+    promptPromotionSelection() {
+        const topCtx = this.topAnimationLayer.getContext('2d');
+
+        topCtx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
+
+        topCtx.beginPath();
+        topCtx.rect(0, 0, this.width, this.height);
+        topCtx.fillStyle = "rgba(0, 0, 0, 0.6)";;
+        topCtx.fill();
+    }
+
 }
 
 window.ChessedBoard = ChessedBoard;
