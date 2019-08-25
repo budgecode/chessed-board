@@ -134,6 +134,9 @@ class ChessedBoard {
         if (this.config.orientation === null || this.config.orientation === undefined) {
             this.config.orientation = 0;
         }
+
+        this.config.coordinates = this.config.coordinates ? true : false;
+
         constructFEN(STARTING_BOARDSTATE);
 
         this.setupBoard();
@@ -317,23 +320,24 @@ class ChessedBoard {
                     // Set color back for numbers.
                     this.boardCtx.fillStyle = blackColor;
                 }
-
-                if (c == 0) {
-                    this.boardCtx.font = 'bold 12px Arial';
-                    const rows = [8, 7, 6, 5, 4, 3, 2, 1];
-                    if (this.config.orientation === 1) {
-                        rows.reverse();
+                if (this.config.coordinates) {
+                    if (c == 0) {
+                        this.boardCtx.font = 'bold 12px Arial';
+                        const rows = [8, 7, 6, 5, 4, 3, 2, 1];
+                        if (this.config.orientation === 1) {
+                            rows.reverse();
+                        }
+                        this.boardCtx.fillText(rows[r], c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
                     }
-                    this.boardCtx.fillText(rows[r], c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
-                }
 
-                if (r == 7) {
-                    const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-                    if (this.config.orientation === 1) {
-                        columns.reverse();
+                    if (r == 7) {
+                        const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                        if (this.config.orientation === 1) {
+                            columns.reverse();
+                        }
+                        this.boardCtx.font = 'bold 12px Arial';
+                        this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 10, r * SQUARE_WIDTH + SQUARE_WIDTH - 4);
                     }
-                    this.boardCtx.font = 'bold 12px Arial';
-                    this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 10, r * SQUARE_WIDTH + SQUARE_WIDTH - 4);
                 }
             }
         }
@@ -546,6 +550,11 @@ class ChessedBoard {
         this.boardState.reverse();
         this.boardState.map(r => r.reverse());
         this.config.orientation = this.config.orientation === 0 ? 1 : 0;
+        this.draw();
+    }
+
+    toggleCoordinates() {
+        this.config.coordinates = !this.config.coordinates;
         this.draw();
     }
 

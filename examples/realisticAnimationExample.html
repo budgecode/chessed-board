@@ -5,6 +5,7 @@
 <script>
 
     const config = {
+        coordinates: true,
         orientation: 1,
         onLeftClickDrag: (chessedEvent) => {
 
@@ -49,6 +50,9 @@
             }
 
             chessboard.animate(animation);
+        },
+        onLoad: () => {
+            chessboard.toggleCoordinates();
         }
     }
 
