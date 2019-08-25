@@ -558,6 +558,25 @@ class ChessedBoard {
         this.draw();
     }
 
+    getSquare(square) {
+        const coordinates = algebraicToRowCol(square, this.config.orientation);
+        const row = coordinates.row;
+        const column = coordinates.column;
+
+        return { 
+            row: row, 
+            column: column,
+            origin: {
+                x: column * SQUARE_WIDTH,
+                y: row * SQUARE_WIDTH
+            },
+            center: {
+                x: column * SQUARE_WIDTH + (SQUARE_WIDTH / 2),
+                y: row * SQUARE_WIDTH + (SQUARE_WIDTH / 2)
+            }
+        };
+    }
+
 }
 
 window.ChessedBoard = ChessedBoard;
