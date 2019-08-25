@@ -577,7 +577,9 @@ class ChessedBoard {
         };
     }
 
-    promptPromotionSelection() {
+    promptPromotionSelection(square, color) {
+        this.promptingForPromotion = true;
+
         const topCtx = this.topAnimationLayer.getContext('2d');
 
         topCtx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
@@ -586,6 +588,57 @@ class ChessedBoard {
         topCtx.rect(0, 0, this.width, this.height);
         topCtx.fillStyle = "rgba(0, 0, 0, 0.6)";;
         topCtx.fill();
+
+        // Get squares for each piece to be drawn on.
+        const queenSquare = this.getSquare(square);
+
+        const direction = 1;//this.orientation === 0 ? 1 : -1;
+        
+        const rookSquareLocation = square[0] + (Number(square[1]) + direction).toString();
+        
+        const rookSquare = this.getSquare(rookSquareLocation);
+
+        const knightSquareLocation = square[0] + (Number(square[1]) + (direction * 2)).toString();
+        const knightSquare = this.getSquare(knightSquareLocation);
+
+        const bishopSquareLocation = square[0] + (Number(square[1]) + (direction * 3)).toString();
+        const bishopSquare = this.getSquare(bishopSquareLocation);
+
+        // Get sprites for each pieces.
+        const queenPiece = {
+            type: 'q',
+            color: color
+        };
+
+        const rookPiece = {
+            type: 'r',
+            color: color
+        };
+
+        const knightPiece = {
+            type: 'n',
+            color: color
+        };
+
+        const bishopPiece = {
+            type: 'b',
+            color: color
+        };
+
+        this.pieceCtx.drawImage(this.sprite(queenPiece), queenSquare.column * SQUARE_WIDTH, queenSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        this.pieceCtx.drawImage(this.sprite(rookPiece), rookSquare.column * SQUARE_WIDTH, rookSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        this.pieceCtx.drawImage(this.sprite(knightPiece), knightSquare.column * SQUARE_WIDTH, knightSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        this.pieceCtx.drawImage(this.sprite(bishopPiece), bishopSquare.column * SQUARE_WIDTH, bishopSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+
+        console.log(queenSquare);
+        console.log(rookSquare);
+        console.log(knightSquare);
+        console.log(bishopSquare);
+
+        console.log(queenSquare);
+        console.log(rookSquare);
+        console.log(knightSquare);
+        console.log(bishopSquare);
     }
 
 }
