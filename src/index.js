@@ -625,10 +625,30 @@ class ChessedBoard {
             color: color
         };
 
-        this.pieceCtx.drawImage(this.sprite(queenPiece), queenSquare.column * SQUARE_WIDTH, queenSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
-        this.pieceCtx.drawImage(this.sprite(rookPiece), rookSquare.column * SQUARE_WIDTH, rookSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
-        this.pieceCtx.drawImage(this.sprite(knightPiece), knightSquare.column * SQUARE_WIDTH, knightSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
-        this.pieceCtx.drawImage(this.sprite(bishopPiece), bishopSquare.column * SQUARE_WIDTH, bishopSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.beginPath();
+        topCtx.rect(queenSquare.column * SQUARE_WIDTH, queenSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.fillStyle = "#4fc3f7";
+        topCtx.fill();
+
+        topCtx.beginPath();
+        topCtx.rect(rookSquare.column * SQUARE_WIDTH, rookSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.fillStyle = "#4fc3f7";
+        topCtx.fill();
+
+        topCtx.beginPath();
+        topCtx.rect(knightSquare.column * SQUARE_WIDTH, knightSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.fillStyle = "#4fc3f7";
+        topCtx.fill();
+
+        topCtx.beginPath();
+        topCtx.rect(bishopSquare.column * SQUARE_WIDTH, bishopSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.fillStyle = "#4fc3f7";
+        topCtx.fill();
+
+        topCtx.drawImage(this.sprite(queenPiece), queenSquare.column * SQUARE_WIDTH, queenSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.drawImage(this.sprite(rookPiece), rookSquare.column * SQUARE_WIDTH, rookSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.drawImage(this.sprite(knightPiece), knightSquare.column * SQUARE_WIDTH, knightSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topCtx.drawImage(this.sprite(bishopPiece), bishopSquare.column * SQUARE_WIDTH, bishopSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
 
         console.log(queenSquare);
         console.log(rookSquare);
