@@ -134,7 +134,6 @@ const SQUARE_WIDTH = 70;
 class ChessedBoard {
 
     constructor(div, config) {
-        console.log(JSON.stringify(STARTING_BOARDSTATE));
         this.divId = div;
 
         this.config = config ? config : {};
