@@ -1,11 +1,11 @@
 // Utility methods.
-String.prototype.format = function() {
+String.prototype.format = function () {
     var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) { 
-    return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-    ;
+    return this.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != 'undefined'
+            ? args[number]
+            : match
+            ;
     });
 };
 
@@ -100,17 +100,25 @@ const constructFEN = (game) => {
 };
 
 const algebraicToRowCol = (square, orientation) => {
-    cols = { 'a': 0, 'b': 1, 'c': 2, 'd': 3,
-             'e': 4, 'f': 5, 'g': 6, 'h': 7 };
+    cols = {
+        'a': 0, 'b': 1, 'c': 2, 'd': 3,
+        'e': 4, 'f': 5, 'g': 6, 'h': 7
+    };
 
-    colsFlipped = { 'a': 7, 'b': 6, 'c': 5, 'd': 4,
-    'e': 3, 'f': 2, 'g': 1, 'h': 0 };
+    colsFlipped = {
+        'a': 7, 'b': 6, 'c': 5, 'd': 4,
+        'e': 3, 'f': 2, 'g': 1, 'h': 0
+    };
 
-    rows = { '1': 7, '2': 6, '3': 5, '4': 4,
-             '5': 3, '6': 2, '7': 1, '8': 0};
-    
-    rowsFlipped = { '1': 0, '2': 1, '3': 2, '4': 3,
-    '5': 4, '6': 5, '7': 6, '8': 7};
+    rows = {
+        '1': 7, '2': 6, '3': 5, '4': 4,
+        '5': 3, '6': 2, '7': 1, '8': 0
+    };
+
+    rowsFlipped = {
+        '1': 0, '2': 1, '3': 2, '4': 3,
+        '5': 4, '6': 5, '7': 6, '8': 7
+    };
 
     if (orientation === 0) {
         return { row: rows[square[1]], column: cols[square[0]] };
@@ -126,9 +134,10 @@ const SQUARE_WIDTH = 70;
 class ChessedBoard {
 
     constructor(div, config) {
+        console.log(JSON.stringify(STARTING_BOARDSTATE));
         this.divId = div;
 
-        this.config = config ? config : {};      
+        this.config = config ? config : {};
 
         this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE.board;
         if (this.config.orientation === null || this.config.orientation === undefined) {
@@ -147,7 +156,7 @@ class ChessedBoard {
     setupBoard() {
         this.width = SQUARE_WIDTH * 8;
         this.height = SQUARE_WIDTH * 8;
-        
+
         const boardDiv = document.getElementById(this.divId);
         boardDiv.innerHTML = `
             <div id="event-capture" style="position: relative; width: {0}px; height: {1}px;">
@@ -202,7 +211,7 @@ class ChessedBoard {
             this.boardCtx = this.chessBoardLayer.getContext('2d');
             this.pieceCtx = this.pieceLayer.getContext('2d');
             if (!this.config.orientation) {
-                this.draw();   
+                this.draw();
             } else {
                 this.config.orientation = 0;
                 this.flip();
@@ -362,8 +371,8 @@ class ChessedBoard {
         const row = Math.floor(mouseLocation.y / SQUARE_WIDTH);
         const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
 
-        return { 
-            row: row, 
+        return {
+            row: row,
             column: column,
             origin: {
                 x: column * SQUARE_WIDTH,
@@ -386,7 +395,7 @@ class ChessedBoard {
     constructChessedEvent(e) {
 
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        const square =  this._getSquare(mouseLocation);
+        const square = this._getSquare(mouseLocation);
 
         const chessedEvent = {
             currentMouseLocation: mouseLocation,
@@ -401,7 +410,7 @@ class ChessedBoard {
     // Handle user interaction.
     handleMouseDown(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        const square =  this._getSquare(mouseLocation);
+        const square = this._getSquare(mouseLocation);
         this.startSquare = square;
         this.startMouseLocation = mouseLocation;
         if (e.which === 1) {
@@ -469,7 +478,7 @@ class ChessedBoard {
             this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
 
             this.draggingPiece = true;
-        }      
+        }
     }
 
     placePiece(e) {
@@ -508,7 +517,7 @@ class ChessedBoard {
     }
 
     // Public API.
-    
+
     // Animation hooks.
     animate(animation) {
         animation(this.bottomAnimationLayer, this.topAnimationLayer);
@@ -563,8 +572,8 @@ class ChessedBoard {
         const row = coordinates.row;
         const column = coordinates.column;
 
-        return { 
-            row: row, 
+        return {
+            row: row,
             column: column,
             origin: {
                 x: column * SQUARE_WIDTH,
