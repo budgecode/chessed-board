@@ -43,60 +43,8 @@ const parseFEN = (fen) => {
         boardState.push(rank);
     });
 
+    return boardState;
 
-    const game = {
-        board: boardState,
-        turn: fenParts[1],
-        castlingAvailability: fenParts[2],
-        enPassant: fenParts[3],
-        halfMoveClock: fenParts[4],
-        move: fenParts[5]
-    };
-
-    return game;
-
-};
-
-const constructFEN = (game) => {
-    fen = '';
-    game.board.forEach((rank) => {
-        let numEmpty = 0;
-        let processingEmpties = false;
-        rank.forEach((position) => {
-            if (!position) {
-                processingEmpties = true;
-                numEmpty += 1;
-            } else if (processingEmpties) {
-                processingEmpties = false;
-                fen += numEmpty.toString();
-                numEmpty = 0;
-
-                if (position.color === 'w') {
-                    fen += position.type.toUpperCase();
-                } else {
-                    fen += position.type;
-                }
-            } else {
-                if (position.color === 'w') {
-                    fen += position.type.toUpperCase();
-                } else {
-                    fen += position.type;
-                }
-            }
-        });
-
-        if (processingEmpties) {
-            processingEmpties = false;
-            fen += numEmpty.toString();
-            numEmpty = 0;
-        }
-
-        fen += '/';
-    });
-
-    fen += ' ' + [game.turn, game.castlingAvailability, game.enPassant, game.halfMoveClock, game.move].join(' ');
-
-    return fen;
 };
 
 const algebraicToRowCol = (square, orientation) => {
@@ -138,17 +86,14 @@ class ChessedBoard {
 
         this.config = config ? config : {};
 
-        this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE.board;
+        this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE;
         if (this.config.orientation === null || this.config.orientation === undefined) {
             this.config.orientation = 0;
         }
 
         this.config.coordinates = this.config.coordinates ? true : false;
 
-        constructFEN(STARTING_BOARDSTATE);
-
         this.setupBoard();
-
     }
 
     // Component lifecycle methods.
@@ -582,6 +527,14 @@ class ChessedBoard {
                 x: column * SQUARE_WIDTH + (SQUARE_WIDTH / 2),
                 y: row * SQUARE_WIDTH + (SQUARE_WIDTH / 2)
             }
+        };
+    }
+
+    getBoardDimensions() {
+        return {
+            width: this.width,
+            height: this.height,
+            squareSize: SQUARE_WIDTH
         };
     }
 
