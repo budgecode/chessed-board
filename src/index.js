@@ -129,7 +129,7 @@ const algebraicToRowCol = (square, orientation) => {
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-const SQUARE_WIDTH = 70;
+const SQUARE_WIDTH = 90;
 
 class ChessedBoard {
 
