@@ -532,8 +532,7 @@ class ChessedBoard {
 
     getBoardDimensions() {
         return {
-            width: this.width,
-            height: this.height,
+            size: this.width,
             squareSize: SQUARE_WIDTH
         };
     }

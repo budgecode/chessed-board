@@ -42,6 +42,15 @@ The chess board component is built using 6 canvas elements stacked on top of one
 
 ### Simple Usage
 
+```html
+<script src="../src/index.js"> </script>
+
+<div id="chessboard"></div>
+
+<script>
+    const chessboard = new ChessedBoard("chessboard", null);
+</script>
+```
   
 
 ### Config
@@ -67,7 +76,25 @@ The chess board component is built using 6 canvas elements stacked on top of one
 |startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
 |startSquare| The [square](#Square) the dragging started in. If not dragging then the startSquare === currentSquare.|
 
-**Square**
+### Methods
+
+| **Signature** | **Arguments** | **Description** |
+|--|--|--|
+| ChessedBoard(div, config) | **div**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The ID of the div in which to render the chess board.<br>**config**: [Config](#Config)<br>Object used to configure the chess board.| The constructor. |
+| movePiece(from, to)| **from**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece is currently located. _Example_: "c2"<br>**to**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece should be placed. _Example_: "c4"| Moves a piece from one square on the board to another.|
+| flip() | **None** | Flips the orientation of the board. |
+| toggleCoordinates() | **None** | Show or hide coordinates. |
+| getSquare(square): [Square](#Square) | **square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Get information about the location of the square on the chess board. |
+| getBoardDimensions(): [BoardDimensions](#BoardDimensions) | **None** | Return an object containing the dimensions of the chess board. |
+| animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br>  `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chess board. |
+|persistBottomAnimations()| **None** | Persists any animations currently drawn on the bottom animation layer. |
+|persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
+|clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
+|clearTopAnimations()| **None** | Clears any animations currently persisted on the top animation layer.|
+
+### Custom Types
+
+#### Square
 ```javascript
 {
     "row":3, // Row in the 8 by 8 grid where the square is located.
@@ -83,17 +110,10 @@ The chess board component is built using 6 canvas elements stacked on top of one
 }
 ```
 
-### Methods
-
-| **Signature** | **Arguments** | **Description** |
-|--|--|--|
-| ChessedBoard(div, config) | **div**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The ID of the div in which to render the chess board.<br>**config**: [Config](#Config)<br>Object used to configure the chess board.| The constructor. |
-| movePiece(from, to)| **from**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece is currently located. _Example_: "c2"<br>**to**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece should be placed. _Example_: "c4"| Moves a piece from one square on the board to another.|
-| flip() | **None** | Flips the orientation of the board. |
-| toggleCoordinates() | **None** | Show or hide coordinates. |
-| getSquare(square) | **Square**: [square](#Square) | Show or hide coordinates. |
-| animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br>  `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chess board. |
-|persistBottomAnimations()| **None** | Persists any animations currently drawn on the bottom animation layer. |
-|persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
-|clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
-|clearTopAnimations()| **None** | Clears any animations currently persisted on the top animation layer.|
+#### BoardDimensions
+```javascript
+{
+    "size":720, // Size in pixels of the board.,
+    "squareSize":90, // Size in pixels of a square on the boared (size/8).
+}
+```
