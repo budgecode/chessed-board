@@ -19,7 +19,9 @@
 
             chessboard.animate(animation);
         },
-        onLeftClick: console.log,
+        onLeftClick: (chessedEvent) => {
+            chessboard.clearTopAnimations();
+        },
         onLeftClickRelease: console.log,
         onRightClickDrag: (chessedEvent) => {
             const animation = (belowCanvas, aboveCanvas) => {
