@@ -9,6 +9,12 @@ String.prototype.format = function () {
     });
 };
 
+const pathJoin = (parts, sep) => {
+    var separator = sep || '/';
+    var replace   = new RegExp(separator + '{1,}', 'g');
+    return parts.join(separator).replace(replace, separator);
+}
+
 const loadImage = (src) => {
     return new Promise((resolve, reject) => {
         const image = new Image();
@@ -218,23 +224,26 @@ class ChessedBoard {
     }
 
     async loadSprites() {
+
+        const relativePath = this.config.modulePath ? this.config.modulePath : '..';
+
         this.sprites = {};
 
         // Load white sprites.
-        this.sprites.whitePawn = await loadImage('../sprites/Chess_plt45.svg');
-        this.sprites.whiteRook = await loadImage('../sprites/Chess_rlt45.svg');
-        this.sprites.whiteKnight = await loadImage('../sprites/Chess_nlt45.svg');
-        this.sprites.whiteKing = await loadImage('../sprites/Chess_klt45.svg');
-        this.sprites.whiteBishop = await loadImage('../sprites/Chess_blt45.svg');
-        this.sprites.whiteQueen = await loadImage('../sprites/Chess_qlt45.svg');
+        this.sprites.whitePawn = await loadImage(pathJoin([relativePath, '/sprites/Chess_plt45.svg']));
+        this.sprites.whiteRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rlt45.svg']));
+        this.sprites.whiteKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_nlt45.svg']));
+        this.sprites.whiteKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_klt45.svg']));
+        this.sprites.whiteBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_blt45.svg']));
+        this.sprites.whiteQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qlt45.svg']));
 
         // Load black sprites.
-        this.sprites.blackPawn = await loadImage('../sprites/Chess_pdt45.svg');
-        this.sprites.blackRook = await loadImage('../sprites/Chess_rdt45.svg');
-        this.sprites.blackKnight = await loadImage('../sprites/Chess_ndt45.svg');
-        this.sprites.blackKing = await loadImage('../sprites/Chess_kdt45.svg');
-        this.sprites.blackBishop = await loadImage('../sprites/Chess_bdt45.svg');
-        this.sprites.blackQueen = await loadImage('../sprites/Chess_qdt45.svg');
+        this.sprites.blackPawn = await loadImage(pathJoin([relativePath, '/sprites/Chess_pdt45.svg']));
+        this.sprites.blackRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdt45.svg']));
+        this.sprites.blackKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_ndt45.svg']));
+        this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
+        this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
+        this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
     }
 
     // Draw board methods.
