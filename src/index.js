@@ -11,7 +11,7 @@ String.prototype.format = function () {
 
 const pathJoin = (parts, sep) => {
     var separator = sep || '/';
-    var replace   = new RegExp(separator + '{1,}', 'g');
+    var replace = new RegExp(separator + '{1,}', 'g');
     return parts.join(separator).replace(replace, separator);
 }
 
@@ -489,7 +489,7 @@ class ChessedBoard {
     clearBottomAnimations() {
         const persistentCtx = this.bottomPersistentLayer.getContext("2d");
         persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
-        
+
         const ctx = this.bottomAnimationLayer.getContext("2d");
         ctx.clearRect(0, 0, this.bottomAnimationLayer.width, this.bottomAnimationLayer.height);
     }
@@ -497,7 +497,7 @@ class ChessedBoard {
     clearTopAnimations() {
         const persistentCtx = this.topPersistentLayer.getContext("2d");
         persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
-        
+
         const ctx = this.topAnimationLayer.getContext("2d");
         ctx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
     }
@@ -550,6 +550,16 @@ class ChessedBoard {
             size: this.width,
             squareSize: SQUARE_WIDTH
         };
+    }
+
+    putPieceOnBoard(type, color, square) {
+        const piece = { type, color };
+        const squareLocation = algebraicToRowCol(square, this.config.orientation);
+
+        this.boardState[squareLocation.row][squareLocation.column] = piece;
+
+        this.draw();
+
     }
 
 }
