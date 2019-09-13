@@ -99,6 +99,7 @@ The chess board component is built using 6 canvas elements stacked on top of one
 #### Square
 ```javascript
 {
+    "name":'c6', // The name of the corresponding square.
     "row":3, // Row in the 8 by 8 grid where the square is located.
     "column":3, // Column in the 8 by 8 grid where the square is located.
     "origin": { // The coordinates of the top left corner of the square in the canvas.
