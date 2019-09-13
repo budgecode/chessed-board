@@ -79,7 +79,35 @@ const algebraicToRowCol = (square, orientation) => {
     } else {
         return { row: rowsFlipped[square[1]], column: colsFlipped[square[0]] };
     }
-}
+};
+
+const rowColToAlgebraic = (square, orientation) => {
+    colsFlipped = {
+        0: 'a', 1: 'b', 2: 'c', 3: 'd',
+        4: 'e', 5: 'f', 6: 'g', 7: 'h'
+    };
+
+    cols= {
+        7: 'a', 6: 'b', 5: 'c', 4: 'd',
+        3: 'e', 2: 'f', 1: 'g', 0: 'h'
+    };
+
+    rowsFlipped = {
+        7: '1', 6: '2', 5: '3', 4: '4',
+        3: '5', 2: '6', 1: '7', 0: '8'
+    };
+
+    rows = {
+        0: '1', 1: '2', 2: '3', 3: '4',
+        4: '5', 5: '6', 6: '7', 7: '8'
+    };
+
+    if (orientation === 1) {
+        return cols[square.column] + rows[square.row];
+    } else {
+        return colsFlipped[square.column] + rowsFlipped[square.row];
+    }
+};
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
@@ -325,6 +353,7 @@ class ChessedBoard {
         const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
 
         return {
+            name: rowColToAlgebraic({row, column}, this.orientation),
             row: row,
             column: column,
             origin: {
@@ -383,9 +412,15 @@ class ChessedBoard {
 
     handleMouseUp(e) {
         if (e.which === 1) {
-            this.placePiece(e);
             if (this.config.onLeftClickRelease) {
-                this.config.onLeftClickRelease(this.constructChessedEvent(e));
+                const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
+                if ( legalMove ) {
+                    this.placePiece(e);
+                } else {
+                    this.putPieceBack();
+                }
+            } else {
+                this.placePiece(e);
             }
         } else if (e.which === 3) {
             this.rightClicking = false;
@@ -532,6 +567,7 @@ class ChessedBoard {
         const column = coordinates.column;
 
         return {
+            name: square,
             row: row,
             column: column,
             origin: {
@@ -559,7 +595,6 @@ class ChessedBoard {
         this.boardState[squareLocation.row][squareLocation.column] = piece;
 
         this.draw();
-
     }
 
 }

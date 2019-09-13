@@ -22,7 +22,7 @@
         onLeftClick: (chessedEvent) => {
             chessboard.clearTopAnimations();
         },
-        onLeftClickRelease: console.log,
+        onLeftClickRelease: () => true,
         onRightClickDrag: (chessedEvent) => {
             const animation = (belowCanvas, aboveCanvas) => {
                 const ctx = aboveCanvas.getContext("2d");
