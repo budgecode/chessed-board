@@ -76,35 +76,35 @@ const algebraicToRowCol = (square, orientation) => {
 
     if (orientation === 0) {
         return { row: rows[square[1]], column: cols[square[0]] };
-    } else {
+    } else if (orientation === 1) {
         return { row: rowsFlipped[square[1]], column: colsFlipped[square[0]] };
     }
 };
 
 const rowColToAlgebraic = (square, orientation) => {
-    colsFlipped = {
+    cols = {
         0: 'a', 1: 'b', 2: 'c', 3: 'd',
         4: 'e', 5: 'f', 6: 'g', 7: 'h'
     };
 
-    cols= {
+    colsFlipped = {
         7: 'a', 6: 'b', 5: 'c', 4: 'd',
         3: 'e', 2: 'f', 1: 'g', 0: 'h'
     };
 
-    rowsFlipped = {
+    rows = {
         7: '1', 6: '2', 5: '3', 4: '4',
         3: '5', 2: '6', 1: '7', 0: '8'
     };
 
-    rows = {
+    rowsFlipped = {
         0: '1', 1: '2', 2: '3', 3: '4',
         4: '5', 5: '6', 6: '7', 7: '8'
     };
 
-    if (orientation === 1) {
+    if (orientation === 0) {
         return cols[square.column] + rows[square.row];
-    } else {
+    } else if (orientation === 1) {
         return colsFlipped[square.column] + rowsFlipped[square.row];
     }
 };
@@ -353,7 +353,7 @@ class ChessedBoard {
         const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
 
         return {
-            name: rowColToAlgebraic({row, column}, this.orientation),
+            name: rowColToAlgebraic({row, column}, this.config.orientation),
             row: row,
             column: column,
             origin: {

@@ -6,7 +6,7 @@
 
     const config = {
         coordinates: true,
-        orientation: 1,
+        orientation: 0,
         onLeftClickDrag: (chessedEvent) => {
 
             const animation = (belowCanvas, aboveCanvas) => {
@@ -22,7 +22,10 @@
         onLeftClick: (chessedEvent) => {
             chessboard.clearTopAnimations();
         },
-        onLeftClickRelease: () => true,
+        onLeftClickRelease: (chessedEvent) => {
+            console.log(chessedEvent)
+            return true
+        },
         onRightClickDrag: (chessedEvent) => {
             const animation = (belowCanvas, aboveCanvas) => {
                 const ctx = aboveCanvas.getContext("2d");
