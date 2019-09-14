@@ -494,6 +494,9 @@ class ChessedBoard {
 
     putPieceBack() {
         if (this.draggingPiece) {
+            if (this.config.onCancel) {
+                this.config.onCancel();
+            }
             this.boardState[this.startSquare.row][this.startSquare.column] = this.selectedPiece;
 
             this.startSquare = null;
