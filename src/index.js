@@ -391,19 +391,26 @@ class ChessedBoard {
 
     // Handle user interaction.
     handleMouseDown(e) {
-        const mouseLocation = this.getMouseLocationInCanvas(e);
-        const square = this._getSquare(mouseLocation);
-        this.startSquare = square;
-        this.startMouseLocation = mouseLocation;
+        
         if (e.which === 1) {
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            const square = this._getSquare(mouseLocation);
+            this.startSquare = square;
+            this.startMouseLocation = mouseLocation;
             this.pickupPiece(e);
             if (this.config.onLeftClick) {
                 this.config.onLeftClick(this.constructChessedEvent(e));
             }
         } else if (e.which === 3) {
+
             this.rightClicking = true;
             this.putPieceBack();
 
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            const square = this._getSquare(mouseLocation);
+            this.startSquare = square;
+            this.startMouseLocation = mouseLocation;
+            
             if (this.config.onRightClick) {
                 this.config.onRightClick(this.constructChessedEvent(e));
             }
