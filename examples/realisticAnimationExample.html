@@ -9,13 +9,15 @@
         orientation: 0,
         onLeftClickDrag: (chessedEvent) => {
 
-            const animation = (belowCanvas, aboveCanvas) => {
-                const ctx = belowCanvas.getContext("2d");
-                ctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
-                ctx.fillStyle = "#a5d6a7"
-                ctx.fillRect(chessedEvent.currentSquare.origin.x, chessedEvent.currentSquare.origin.y, 90, 90);
-                ctx.stroke();
-            }
+            const animation = {
+                draw: (belowCanvas, aboveCanvas) => {
+                    const ctx = belowCanvas.getContext("2d");
+                    ctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
+                    ctx.fillStyle = "#a5d6a7"
+                    ctx.fillRect(chessedEvent.currentSquare.origin.x, chessedEvent.currentSquare.origin.y, 90, 90);
+                    ctx.stroke();
+                }
+            };
 
             chessboard.animate(animation);
         },
@@ -27,17 +29,19 @@
             return true
         },
         onRightClickDrag: (chessedEvent) => {
-            const animation = (belowCanvas, aboveCanvas) => {
-                const ctx = aboveCanvas.getContext("2d");
-                ctx.lineWidth = 8;
-                ctx.strokeStyle = "#ef5350";
+            const animation = {
+                draw: (belowCanvas, aboveCanvas) => {
+                    const ctx = aboveCanvas.getContext("2d");
+                    ctx.lineWidth = 8;
+                    ctx.strokeStyle = "#ef5350";
 
-                ctx.clearRect(0, 0, aboveCanvas.width, aboveCanvas.height);
-                ctx.beginPath();
-                ctx.moveTo(chessedEvent.startSquare.center.x, chessedEvent.startSquare.center.y);
-                ctx.lineTo(chessedEvent.currentSquare.center.x, chessedEvent.currentSquare.center.y);
-                ctx.stroke();
-            }
+                    ctx.clearRect(0, 0, aboveCanvas.width, aboveCanvas.height);
+                    ctx.beginPath();
+                    ctx.moveTo(chessedEvent.startSquare.center.x, chessedEvent.startSquare.center.y);
+                    ctx.lineTo(chessedEvent.currentSquare.center.x, chessedEvent.currentSquare.center.y);
+                    ctx.stroke();
+                }
+            };
 
             chessboard.animate(animation);
         },
@@ -46,13 +50,15 @@
             chessboard.persistTopAnimations();
         },
         onMouseOut: () => {
-            const animation = (belowCanvas, aboveCanvas) => {
-                const bctx = belowCanvas.getContext("2d");
-                const actx = aboveCanvas.getContext("2d");
+            const animation = {
+                draw: (belowCanvas, aboveCanvas) => {
+                    const bctx = belowCanvas.getContext("2d");
+                    const actx = aboveCanvas.getContext("2d");
 
-                bctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
-                actx.clearRect(0, 0, aboveCanvas.width, aboveCanvas.height);
-            }
+                    bctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
+                    actx.clearRect(0, 0, aboveCanvas.width, aboveCanvas.height);
+                }
+            };
 
             chessboard.animate(animation);
         },
