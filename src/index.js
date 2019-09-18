@@ -609,4 +609,58 @@ class ChessedBoard {
 
 }
 
+class Animator {
+    constructor() {
+        this.topAnimations = [];
+        this.persistentTopAnimations = [];
+        this.bottomAnimations = [];
+        this.persistentBottomAnimations = [];
+    }
+
+    draw() {
+        this.persistentBottomAnimations.forEach((a) => {
+            a.draw();
+        });
+
+        this.persistentTopAnimations.forEach((a) => {
+            a.draw();
+        });
+    }
+
+    persistTopAnimations() {
+        for (const a of this.topAnimations) {
+            this.persistentTopAnimations.push(a);
+        }
+    }
+
+    persistBottomAnimations() {
+        for (const a of this.bottomAnimations) {
+            this.this.persistentBottomAnimations.push(a);
+        }
+    }
+
+    clearPersistentTopAnimations() {
+        this.persistentTopAnimations = [];
+    }
+
+
+    clearTopAnimations() {
+        this.topAnimations = [];
+    }
+
+
+    clearPersistentBottomAnimations() {
+        this.persistentBottomAnimations = [];
+    }
+
+
+    clearBottomAnimations() {
+        this.bottomAnimations = [];
+    }
+
+    removeAnimationByType(t) {
+        
+    }
+}
+
 window.ChessedBoard = ChessedBoard;
