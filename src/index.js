@@ -518,7 +518,7 @@ class ChessedBoard {
 
     // Animation hooks.
     animate(animation) {
-        animation.draw(this.bottomAnimationLayer, this.topAnimationLayer);
+        animation(this.bottomAnimationLayer, this.topAnimationLayer);
     }
 
     persistBottomAnimations() {
