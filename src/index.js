@@ -658,7 +658,11 @@ class Animator {
         this.bottomAnimations = [];
     }
 
-    removeAnimationByType(t) {
+    removeTopAnimationByType(t) {
+        
+    }
+
+    removeBottomAnimationByType(t) {
         
     }
 }
