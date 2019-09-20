@@ -517,34 +517,21 @@ class ChessedBoard {
     // Public API.
 
     // Animation hooks.
-    animate(animation) {
-        animation(this.bottomAnimationLayer, this.topAnimationLayer);
+    animate(animationFunction, type) {
+        
+        const animation = {
+            draw: animationFunction,
+            type: type,
+            identifier: Symbol('CHESSED_ANIMATION_IDENTIFIER')
+        };
+        
+        this.animator.animate(animation);
+
+        return animation;
     }
 
-    persistBottomAnimations() {
-        const ctx = this.bottomPersistentLayer.getContext("2d");
-        ctx.drawImage(this.bottomAnimationLayer, 0, 0);
-    }
-
-    persistTopAnimations() {
-        const ctx = this.topPersistentLayer.getContext("2d");
-        ctx.drawImage(this.topAnimationLayer, 0, 0);
-    }
-
-    clearBottomAnimations() {
-        const persistentCtx = this.bottomPersistentLayer.getContext("2d");
-        persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
-
-        const ctx = this.bottomAnimationLayer.getContext("2d");
-        ctx.clearRect(0, 0, this.bottomAnimationLayer.width, this.bottomAnimationLayer.height);
-    }
-
-    clearTopAnimations() {
-        const persistentCtx = this.topPersistentLayer.getContext("2d");
-        persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
-
-        const ctx = this.topAnimationLayer.getContext("2d");
-        ctx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
+    persistAnimations() {
+        this.animator.persistAnimations();
     }
 
     // Interaction APIs.
@@ -608,5 +595,34 @@ class ChessedBoard {
     }
 
 }
+
+class ChessedAnimator {
+    constructor(bottomAnimationLayer, bottomPersistentLayer, topAnimationLayer, topPersistentLayer) {
+        
+        this.bottomAnimationLayer = bottomAnimationLayer;
+        this.bottomPersistentLayer = bottomPersistentLayer;
+        this.topAnimationLayer = topAnimationLayer;
+        this.topPersistentLayer = topPersistentLayer;
+
+        this.animations = [];
+        this.persistedAnimations = [];
+    }
+
+    animate(animation) {
+        this.animations.push(animation);
+        animation(this.bottomAnimationLayer, this.topAnimationLayer);
+    }
+
+    persistAnimations() {
+        this.animations.forEach(a => {
+            a(this.bottomPersistentLayer, this.topPersistentLayer);
+            this.persistedAnimations.push(a);
+        });
+        
+        this.animations = [];
+    }
+
+}
+
 
 window.ChessedBoard = ChessedBoard;
