@@ -174,6 +174,12 @@ class ChessedBoard {
         this.topAnimationLayer.width = this.width;
         this.topAnimationLayer.height = this.height;
 
+        // Setup animation handler.
+        this.animator = new ChessedAnimator(this.bottomAnimationLayer,
+                                            this.bottomPersistentLayer,
+                                            this.topAnimationLayer,
+                                            this.topPersistentLayer);
+
         // Handle clicks on event capture layer.
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
         this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
