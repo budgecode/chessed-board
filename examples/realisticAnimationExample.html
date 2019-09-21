@@ -9,7 +9,7 @@
         orientation: 0,
         onLeftClickDrag: (chessedEvent) => {
 
-            const animation = (belowCanvas, aboveCanvas) => {
+            const animation = (belowCanvas) => {
                 const ctx = belowCanvas.getContext("2d");
                 ctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
                 ctx.fillStyle = "#a5d6a7"
@@ -17,7 +17,7 @@
                 ctx.stroke();
             };
 
-            chessboard.animate(animation);
+            chessboard.animateBelow(animation);
         },
         onLeftClick: (chessedEvent) => {
             chessboard.clearTopAnimations();
@@ -27,7 +27,7 @@
             return true
         },
         onRightClickDrag: (chessedEvent) => {
-            const animation = (belowCanvas, aboveCanvas) => {
+            const animation = (aboveCanvas) => {
                 const ctx = aboveCanvas.getContext("2d");
                 ctx.lineWidth = 8;
                 ctx.strokeStyle = "#ef5350";
@@ -39,22 +39,21 @@
                 ctx.stroke();
             };
 
-            chessboard.animate(animation);
+            chessboard.animateAbove(animation);
         },
         onRightClick: console.log,
         onRightClickRelease: () => {
             chessboard.persistTopAnimations();
         },
         onMouseOut: () => {
-            const animation = (belowCanvas, aboveCanvas) => {
-                const bctx = belowCanvas.getContext("2d");
-                const actx = aboveCanvas.getContext("2d");
-
-                bctx.clearRect(0, 0, belowCanvas.width, belowCanvas.height);
-                actx.clearRect(0, 0, aboveCanvas.width, aboveCanvas.height);
+            const animation = (canvas) => {
+                const ctx = canvas.getContext("2d");
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
             };
 
-            chessboard.animate(animation);
+            chessboard.animateBelow(animation);
+            chessboard.animateAbove(animation);
         },
         onLoad: () => {
             chessboard.toggleCoordinates();

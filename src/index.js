@@ -517,8 +517,12 @@ class ChessedBoard {
     // Public API.
 
     // Animation hooks.
-    animate(animation) {
-        animation(this.bottomAnimationLayer, this.topAnimationLayer);
+    animateAbove(animation) {
+        animation(this.topAnimationLayer);
+    }
+
+    animateBelow(animation) {
+        animation(this.bottomAnimationLayer);
     }
 
     persistBottomAnimations() {
