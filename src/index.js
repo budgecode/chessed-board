@@ -137,13 +137,13 @@ class ChessedBoard {
 
         const boardDiv = document.getElementById(this.divId);
         boardDiv.innerHTML = `
-            <div id="event-capture" style="position: relative; width: {0}px; height: {1}px;">
-                <canvas id="chess-board-layer" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-                <canvas id="bottom-persistent-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                <canvas id="bottom-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="piece-layer" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
-                <canvas id="top-persistent-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="top-animation-layer" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
+            <div id='event-capture' style='position: relative; width: {0}px; height: {1}px;'>
+                <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
+                <canvas id='bottom-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 1;'></canvas>
+                <canvas id='bottom-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 2;'></canvas>
+                <canvas id='piece-layer' style='position: absolute; left: 0; top: 0; z-index: 3;'></canvas>
+                <canvas id='top-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 4;'></canvas>
+                <canvas id='top-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 5;'></canvas>
             <div>
         `.format(this.width, this.height);
 
@@ -517,37 +517,51 @@ class ChessedBoard {
     // Public API.
 
     // Animation hooks.
-    animateAbove(animation) {
-        animation(this.topAnimationLayer);
+    animateAbove(animationFunction, type) {
+        const animation = {
+            identifier: Symbol('CHESSED_ANIMATION_IDENTIFIER'),
+            type: type,
+            draw: animationFunction
+        };
+
+        animation.draw(this.topAnimationLayer);
+        return animation;
     }
 
-    animateBelow(animation) {
-        animation(this.bottomAnimationLayer);
+    animateBelow(animationFunction, type) {
+        const animation = {
+            identifier: Symbol('CHESSED_ANIMATION_IDENTIFIER'),
+            type: type,
+            draw: animationFunction
+        };
+
+        animation.draw(this.bottomAnimationLayer);
+        return animation;
     }
 
     persistBottomAnimations() {
-        const ctx = this.bottomPersistentLayer.getContext("2d");
+        const ctx = this.bottomPersistentLayer.getContext('2d');
         ctx.drawImage(this.bottomAnimationLayer, 0, 0);
     }
 
     persistTopAnimations() {
-        const ctx = this.topPersistentLayer.getContext("2d");
+        const ctx = this.topPersistentLayer.getContext('2d');
         ctx.drawImage(this.topAnimationLayer, 0, 0);
     }
 
     clearBottomAnimations() {
-        const persistentCtx = this.bottomPersistentLayer.getContext("2d");
+        const persistentCtx = this.bottomPersistentLayer.getContext('2d');
         persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
 
-        const ctx = this.bottomAnimationLayer.getContext("2d");
+        const ctx = this.bottomAnimationLayer.getContext('2d');
         ctx.clearRect(0, 0, this.bottomAnimationLayer.width, this.bottomAnimationLayer.height);
     }
 
     clearTopAnimations() {
-        const persistentCtx = this.topPersistentLayer.getContext("2d");
+        const persistentCtx = this.topPersistentLayer.getContext('2d');
         persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
 
-        const ctx = this.topAnimationLayer.getContext("2d");
+        const ctx = this.topAnimationLayer.getContext('2d');
         ctx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
     }
 
