@@ -20,10 +20,9 @@
             chessboard.animate(animation);
         },
         onLeftClick: (chessedEvent) => {
-            chessboard.clearTopAnimations();
+            // chessboard.clearTopAnimations();
         },
         onLeftClickRelease: (chessedEvent) => {
-            console.log(chessedEvent)
             return true
         },
         onRightClickDrag: (chessedEvent) => {
@@ -43,7 +42,7 @@
         },
         onRightClick: console.log,
         onRightClickRelease: () => {
-            chessboard.persistTopAnimations();
+            chessboard.persistAnimations();
         },
         onMouseOut: () => {
             const animation = (belowCanvas, aboveCanvas) => {

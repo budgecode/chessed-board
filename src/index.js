@@ -616,12 +616,12 @@ class ChessedAnimator {
 
     animate(animation) {
         this.animations.push(animation);
-        animation(this.bottomAnimationLayer, this.topAnimationLayer);
+        animation.draw(this.bottomAnimationLayer, this.topAnimationLayer);
     }
 
     persistAnimations() {
         this.animations.forEach(a => {
-            a(this.bottomPersistentLayer, this.topPersistentLayer);
+            a.draw(this.bottomPersistentLayer, this.topPersistentLayer);
             this.persistedAnimations.push(a);
         });
         
