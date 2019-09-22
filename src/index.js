@@ -627,4 +627,64 @@ class ChessedBoard {
 
 }
 
+class ChessedAnimator {
+    constructor(bottomAnimationLayer,
+                bottomPersistentLayer,
+                topAnimationLayer,
+                topPersistentLayer) {
+
+        this.bottomAnimationLayer = bottomAnimationLayer;
+        this.bottomPersistentLayer = bottomPersistentLayer;
+        this.topAnimationLayer = topAnimationLayer;
+        this.topPersistentLayer = topPersistentLayer;
+
+        this.topAnimations = [];
+        this.bottomAnimations = [];
+        this.persistedTopAnimations = [];
+        this.persistedBottomAnimations = [];
+    }
+
+    animateAbove(a) {
+        this.topAnimations.push(a);
+        a.draw(this.topAnimationLayer);
+    }
+
+    animateBelow(a) {
+        this.bottomAnimations.push(a);
+        a.draw(this.bottomAnimationLayer);
+    }
+
+    persistTopAnimations() {
+        this.topAnimations.forEach(a => {
+            this.persistedTopAnimations.push(a);
+        });
+
+        this.persistedTopAnimations.forEach(a => {
+            a.draw(this.topPersistentLayer);
+        });
+    }
+
+    persistBottomAnimations() {
+        this.bottomAnimations.forEach(a => {
+            this.persistedBottomAnimations.push(a);
+        });
+
+        this.persistedBottomAnimations.forEach(a => {
+            a.draw(this.bottomPersistentLayer);
+        });
+    }
+
+    clearTopAnimations() {
+        this.topAnimations = [];
+        this.topPersistentLayer = [];
+        // Todo clear the rects.
+    }
+
+    clearBottomAnimations() {
+        this.topAnimations = [];
+        this.bottomPersistentLayer = [];
+        // Todo clear the rects.
+    }
+}
+
 window.ChessedBoard = ChessedBoard;
