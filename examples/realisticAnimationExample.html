@@ -3,7 +3,7 @@
 <div id="chessboard"></div>
 
 <script>
-
+    const arrowAnimation = Symbol('ARROW_ANIMATION');
     const config = {
         coordinates: true,
         orientation: 0,
@@ -20,10 +20,10 @@
             chessboard.animateBelow(animation);
         },
         onLeftClick: (chessedEvent) => {
-            chessboard.clearTopAnimations();
+            chessboard.removeAnimationsByType(arrowAnimation);
+            chessboard.render();
         },
         onLeftClickRelease: (chessedEvent) => {
-            console.log(chessedEvent)
             return true
         },
         onRightClickDrag: (chessedEvent) => {
@@ -39,7 +39,7 @@
                 ctx.stroke();
             };
 
-            chessboard.animateAbove(animation);
+            chessboard.animateAbove(animation, arrowAnimation);
         },
         onRightClick: console.log,
         onRightClickRelease: () => {

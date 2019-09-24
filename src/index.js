@@ -109,6 +109,11 @@ const rowColToAlgebraic = (square, orientation) => {
     }
 };
 
+const clearCanvas = (c) => {
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, c.width, c.height);
+};
+
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
 const SQUARE_WIDTH = 90;
@@ -572,6 +577,10 @@ class ChessedBoard {
         this.animator.removeAnimationsByType(type);
     }
 
+    render() {
+        this.animator.render();
+    }
+
     // Interaction APIs.
     movePiece(from, to) {
         const start = algebraicToRowCol(from, this.config.orientation);
@@ -649,6 +658,18 @@ class ChessedAnimator {
         this.bottomAnimations = [];
         this.persistedTopAnimations = [];
         this.persistedBottomAnimations = [];
+    }
+
+    render() {
+        clearCanvas(this.topAnimationLayer);
+        clearCanvas(this.topPersistentLayer);
+        clearCanvas(this.bottomAnimationLayer);
+        clearCanvas(this.bottomPersistentLayer);
+
+        this.topAnimations.forEach(a => a.draw(this.topAnimationLayer));
+        this.persistedTopAnimations.forEach(a => a.draw(this.topPersistentLayer));
+        this.bottomAnimations.forEach(a => a.draw(this.bottomAnimationLayer));
+        this.persistedBottomAnimations.forEach(a => a.draw(this.bottomPersistentLayer));
     }
 
     animateAbove(a) {
