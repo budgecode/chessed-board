@@ -174,6 +174,11 @@ class ChessedBoard {
         this.topAnimationLayer.width = this.width;
         this.topAnimationLayer.height = this.height;
 
+        this.animator = new ChessedAnimator(this.bottomAnimationLayer,
+                                            this.bottomPersistentLayer,
+                                            this.topAnimationLayer,
+                                            this.topPersistentLayer);
+
         // Handle clicks on event capture layer.
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
         this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
@@ -524,7 +529,7 @@ class ChessedBoard {
             draw: animationFunction
         };
 
-        animation.draw(this.topAnimationLayer);
+        this.animator.animateAbove(animation);
         return animation;
     }
 
@@ -535,7 +540,7 @@ class ChessedBoard {
             draw: animationFunction
         };
 
-        animation.draw(this.bottomAnimationLayer);
+        this.animator.animateBelow(animation);
         return animation;
     }
 
@@ -551,10 +556,12 @@ class ChessedBoard {
 
     clearBottomAnimations() {
         this.animator.clearBottomAnimations();
+        this.animator.clearPersistedBottomAnimations();
     }
 
     clearTopAnimations() {
         this.animator.clearTopAnimations();
+        this.animator.clearPersistedTopAnimations();
     }
 
     // Interaction APIs.
