@@ -564,6 +564,14 @@ class ChessedBoard {
         this.animator.clearPersistedTopAnimations();
     }
 
+    removeAnimation(animation) {
+        this.animator.removeAnimation(animation);
+    }
+
+    removeAnimationsByType(type) {
+        this.animator.removeAnimationsByType(type);
+    }
+
     // Interaction APIs.
     movePiece(from, to) {
         const start = algebraicToRowCol(from, this.config.orientation);
@@ -699,6 +707,20 @@ class ChessedAnimator {
 
         const persistentCtx = this.bottomPersistentLayer.getContext('2d');
         persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
+    }
+
+    removeAnimation(animation) {
+        this.topAnimations = this.topAnimations.filter(a => a.identifier !== animation.identifier);
+        this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.identifier !== animation.identifier);
+        this.bottomAnimations = this.bottomAnimations.filter(a => a.identifier !== animation.identifier);
+        this.persistedBottomAnimations = this.persistedBottomAnimations.filter(a => a.identifier !== animation.identifier);
+    }
+
+    removeAnimationsByType(type) {
+        this.topAnimations = this.topAnimations.filter(a => a.type !== type);
+        this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.type !== type);
+        this.bottomAnimations = this.bottomAnimations.filter(a => a.type !== type);
+        this.persistedBottomAnimations = this.persistedBottomAnimations.filter(a => a.type !== type);
     }
 }
 
