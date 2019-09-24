@@ -668,24 +668,30 @@ class ChessedAnimator {
 
     clearTopAnimations() {
         this.topAnimations = [];
-        this.topPersistentLayer = [];
-        
-        const persistentCtx = this.topPersistentLayer.getContext('2d');
-        persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
 
         const ctx = this.topAnimationLayer.getContext('2d');
         ctx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
     }
 
-    clearBottomAnimations() {
-        this.topAnimations = [];
-        this.bottomPersistentLayer = [];
+    clearPersistedTopAnimations() {
+        this.persistedTopAnimations = [];
+        
+        const persistentCtx = this.topPersistentLayer.getContext('2d');
+        persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
+    }
 
-        const persistentCtx = this.bottomPersistentLayer.getContext('2d');
-        persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
+    clearBottomAnimations() {
+        this.bottomAnimations = [];
 
         const ctx = this.bottomAnimationLayer.getContext('2d');
         ctx.clearRect(0, 0, this.bottomAnimationLayer.width, this.bottomAnimationLayer.height);
+    }
+
+    clearPersistedBottomAnimations() {
+        this.persistedBottomAnimations = [];
+
+        const persistentCtx = this.bottomPersistentLayer.getContext('2d');
+        persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
     }
 }
 
