@@ -4,7 +4,7 @@
 
 <script>
 
-    const animation = (belowCanvas, aboveCanvas) => {
+    const animation = (belowCanvas) => {
         const ctx = belowCanvas.getContext("2d");
         ctx.beginPath();
         ctx.moveTo(0, 0);
@@ -13,5 +13,5 @@
     };
 
     const chessboard = new ChessedBoard("chessboard", null);
-    chessboard.animate(animation);
+    chessboard.animateBelow(animation);
 </script>
