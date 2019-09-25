@@ -550,22 +550,26 @@ class ChessedBoard {
     }
 
     persistBottomAnimations() {
-        const ctx = this.bottomPersistentLayer.getContext('2d');
-        ctx.drawImage(this.bottomAnimationLayer, 0, 0);
+        this.animator.persistBottomAnimations();
     }
 
     persistTopAnimations() {
-        const ctx = this.topPersistentLayer.getContext('2d');
-        ctx.drawImage(this.topAnimationLayer, 0, 0);
+        this.animator.persistTopAnimations();
     }
 
     clearBottomAnimations() {
         this.animator.clearBottomAnimations();
+    }
+
+    clearPersistedBottomAnimations() {
         this.animator.clearPersistedBottomAnimations();
     }
 
     clearTopAnimations() {
         this.animator.clearTopAnimations();
+    }
+
+    clearPersistedTopAnimations() {
         this.animator.clearPersistedTopAnimations();
     }
 
