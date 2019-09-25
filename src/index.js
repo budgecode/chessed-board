@@ -577,10 +577,6 @@ class ChessedBoard {
         this.animator.removeAnimationsByType(type);
     }
 
-    render() {
-        this.animator.render();
-    }
-
     // Interaction APIs.
     movePiece(from, to) {
         const start = algebraicToRowCol(from, this.config.orientation);
@@ -735,6 +731,7 @@ class ChessedAnimator {
         this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.identifier !== animation.identifier);
         this.bottomAnimations = this.bottomAnimations.filter(a => a.identifier !== animation.identifier);
         this.persistedBottomAnimations = this.persistedBottomAnimations.filter(a => a.identifier !== animation.identifier);
+        this.render();
     }
 
     removeAnimationsByType(type) {
@@ -742,6 +739,7 @@ class ChessedAnimator {
         this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.type !== type);
         this.bottomAnimations = this.bottomAnimations.filter(a => a.type !== type);
         this.persistedBottomAnimations = this.persistedBottomAnimations.filter(a => a.type !== type);
+        this.render();
     }
 }
 
