@@ -582,6 +582,15 @@ class ChessedBoard {
     }
 
     // Interaction APIs.
+    removePiece(from) {
+        const fromSquare = algebraicToRowCol(from, this.config.orientation);
+
+        this.boardState[fromSquare.row][fromSquare.column] = null;
+
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.draw();
+    }
+
     movePiece(from, to) {
         const start = algebraicToRowCol(from, this.config.orientation);
         const finish = algebraicToRowCol(to, this.config.orientation);
