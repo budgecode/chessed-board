@@ -389,6 +389,7 @@ class ChessedBoard {
         const square = this._getSquare(mouseLocation);
 
         const chessedEvent = {
+            draggingPiece: this.draggingPiece ? true : false,
             currentMouseLocation: mouseLocation,
             currentSquare: square,
             startMouseLocation: this.startMouseLocation,
