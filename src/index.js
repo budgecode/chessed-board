@@ -380,7 +380,6 @@ class ChessedBoard {
     _movePiece(start, finish) {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
 
@@ -477,7 +476,6 @@ class ChessedBoard {
             this.selectedPieceSprite = this.sprite(this.selectedPiece);
             this.boardState[this.startSquare.row][this.startSquare.column] = null;
 
-            this.pieceCtx.clearRect(0, 0, this.width, this.height);
             this.draw();
 
             this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
@@ -504,7 +502,6 @@ class ChessedBoard {
 
     dragPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
         this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
     }
@@ -587,7 +584,6 @@ class ChessedBoard {
 
         this.boardState[fromSquare.row][fromSquare.column] = null;
 
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
 
@@ -598,7 +594,6 @@ class ChessedBoard {
         this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
         this.boardState[start.row][start.column] = null;
 
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.draw();
     }
 
