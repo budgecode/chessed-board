@@ -433,6 +433,22 @@ class ChessedBoard {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if ( legalMove ) {
                     this.placePiece(e);
+                    if (legalMove.san === 'O-O' || legalMove.san === 'O-O-O') { // castling
+                        // Need to move the rook.
+                        if (legalMove.to === 'g1') {
+                            this.removePiece('h1');
+                            this.putPieceOnBoard('r', 'w', 'f1');
+                        } else if (legalMove.to === 'c1') {
+                            this.removePiece('a1');
+                            this.putPieceOnBoard('r', 'w', 'd1');
+                        } else if (legalMove.to === 'g8') {
+                            this.removePiece('h8');
+                            this.putPieceOnBoard('r', 'b', 'f8');
+                        } else if (legalMove.to === 'c8') {
+                            this.removePiece('a8');
+                            this.putPieceOnBoard('r', 'b', 'd8');
+                        }
+                    }
                 } else {
                     this.putPieceBack();
                 }
