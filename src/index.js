@@ -668,6 +668,55 @@ class ChessedBoard {
         this.draw();
     }
 
+    promptForPromotion(from) {
+        this.promptingForPromotion = true;
+        const topLayerContext = this.topAnimationLayer.getContext('2d');
+        
+        // Gray out the board.
+        topLayerContext.globalAlpha = 0.6;
+        topLayerContext.fillStyle = "#363636";
+        topLayerContext.fillRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
+        topLayerContext.globalAlpha = 1;
+        let promotionColor = 'w';
+        let queenSquare;
+        let rookSquare;
+        let bishopSquare;
+        let knightSquare;
+        if (from[1] === '1') {
+            // this.pieceCtx.drawImage(this.sprite(this.boardState[r][c]), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+            const rank = from[0];
+            promotionColor = 'b';
+            queenSquare = this.getSquare(from);
+            rookSquare = this.getSquare(rank + '2');
+            bishopSquare = this.getSquare(rank + '3');
+            knightSquare = this.getSquare(rank + '4');
+        } else if (from[1] === '8') {
+            const rank = from[0];
+            promotionColor = 'w';
+            queenSquare = this.getSquare(from);
+            rookSquare = this.getSquare(rank + '7');
+            bishopSquare = this.getSquare(rank + '6');
+            knightSquare = this.getSquare(rank + '5');
+        }
+
+        topLayerContext.drawImage(this.sprite({
+            type: 'q',
+            color: promotionColor
+        }), queenSquare.column * SQUARE_WIDTH, queenSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topLayerContext.drawImage(this.sprite({
+            type: 'r',
+            color: promotionColor
+        }), rookSquare.column * SQUARE_WIDTH, rookSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topLayerContext.drawImage(this.sprite({
+            type: 'b',
+            color: promotionColor
+        }), bishopSquare.column * SQUARE_WIDTH, bishopSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+        topLayerContext.drawImage(this.sprite({
+            type: 'n',
+            color: promotionColor
+        }), knightSquare.column * SQUARE_WIDTH, knightSquare.row * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+    }
+
 }
 
 class ChessedAnimator {
