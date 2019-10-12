@@ -448,6 +448,12 @@ class ChessedBoard {
                             this.removePiece('a8');
                             this.putPieceOnBoard('r', 'b', 'd8');
                         }
+                    } else if (legalMove.enPassant) {
+                        if (legalMove.to[1] === '6') {
+                            this.removePiece(legalMove.to[0] + '5');
+                        } else if (legalMove.to[1] === '3') {
+                            this.removePiece(legalMove.to[0] + '4');
+                        }
                     }
                 } else {
                     this.putPieceBack();
