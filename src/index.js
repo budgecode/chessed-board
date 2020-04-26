@@ -773,5 +773,3 @@ class ChessedAnimator {
         this.render();
     }
 }
-
-window.ChessedBoard = ChessedBoard;
