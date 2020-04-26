@@ -116,7 +116,7 @@ const clearCanvas = (c) => {
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-const SQUARE_WIDTH = 90;
+const DEFAULT_SQUARE_WIDTH = 90;
 
 class ChessedBoard {
 
@@ -130,6 +130,8 @@ class ChessedBoard {
             this.config.orientation = 0;
         }
 
+        this.squareWidth = this.config.squareWidth ? this.config.squareWidth : DEFAULT_SQUARE_WIDTH;
+
         this.config.coordinates = this.config.coordinates ? true : false;
 
         this.setupBoard();
@@ -137,8 +139,8 @@ class ChessedBoard {
 
     // Component lifecycle methods.
     setupBoard() {
-        this.width = SQUARE_WIDTH * 8;
-        this.height = SQUARE_WIDTH * 8;
+        this.width = this.squareWidth * 8;
+        this.height = this.squareWidth * 8;
 
         const boardDiv = document.getElementById(this.divId);
         boardDiv.innerHTML = `
@@ -290,7 +292,7 @@ class ChessedBoard {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c]) {
-                    this.pieceCtx.drawImage(this.sprite(this.boardState[r][c]), c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.pieceCtx.drawImage(this.sprite(this.boardState[r][c]), c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
                 }
             }
         }
@@ -304,7 +306,7 @@ class ChessedBoard {
             for (let c = 0; c < 8; c++) {
                 if (r % 2 !== c % 2) {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.boardCtx.rect(c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
                     this.boardCtx.fillStyle = blackColor;
                     this.boardCtx.fill();
 
@@ -313,7 +315,7 @@ class ChessedBoard {
 
                 } else {
                     this.boardCtx.beginPath();
-                    this.boardCtx.rect(c * SQUARE_WIDTH, r * SQUARE_WIDTH, SQUARE_WIDTH, SQUARE_WIDTH);
+                    this.boardCtx.rect(c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
                     this.boardCtx.fillStyle = whiteColor;
                     this.boardCtx.fill();
 
@@ -327,7 +329,7 @@ class ChessedBoard {
                         if (this.config.orientation === 1) {
                             rows.reverse();
                         }
-                        this.boardCtx.fillText(rows[r], c * SQUARE_WIDTH + 2, r * SQUARE_WIDTH + 12);
+                        this.boardCtx.fillText(rows[r], c * this.squareWidth + 2, r * this.squareWidth + 12);
                     }
 
                     if (r == 7) {
@@ -336,7 +338,7 @@ class ChessedBoard {
                             columns.reverse();
                         }
                         this.boardCtx.font = 'bold 12px Arial';
-                        this.boardCtx.fillText(columns[c], c * SQUARE_WIDTH + SQUARE_WIDTH - 10, r * SQUARE_WIDTH + SQUARE_WIDTH - 4);
+                        this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 10, r * this.squareWidth + this.squareWidth - 4);
                     }
                 }
             }
@@ -359,20 +361,20 @@ class ChessedBoard {
     }
 
     _getSquare(mouseLocation) {
-        const row = Math.floor(mouseLocation.y / SQUARE_WIDTH);
-        const column = Math.floor(mouseLocation.x / SQUARE_WIDTH);
+        const row = Math.floor(mouseLocation.y / this.squareWidth);
+        const column = Math.floor(mouseLocation.x / this.squareWidth);
 
         return {
             name: rowColToAlgebraic({row, column}, this.config.orientation),
             row: row,
             column: column,
             origin: {
-                x: column * SQUARE_WIDTH,
-                y: row * SQUARE_WIDTH
+                x: column * this.squareWidth,
+                y: row * this.squareWidth
             },
             center: {
-                x: column * SQUARE_WIDTH + (SQUARE_WIDTH / 2),
-                y: row * SQUARE_WIDTH + (SQUARE_WIDTH / 2)
+                x: column * this.squareWidth + (this.squareWidth / 2),
+                y: row * this.squareWidth + (this.squareWidth / 2)
             }
         };
     }
@@ -501,7 +503,7 @@ class ChessedBoard {
 
             this.draw();
 
-            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
 
             this.draggingPiece = true;
         }
@@ -526,7 +528,7 @@ class ChessedBoard {
     dragPiece(e) {
         const mouseLocation = this.getMouseLocationInCanvas(e);
         this.draw();
-        this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - SQUARE_WIDTH / 2, mouseLocation.y - SQUARE_WIDTH / 2, SQUARE_WIDTH, SQUARE_WIDTH);
+        this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
     }
 
     putPieceBack() {
@@ -642,12 +644,12 @@ class ChessedBoard {
             row: row,
             column: column,
             origin: {
-                x: column * SQUARE_WIDTH,
-                y: row * SQUARE_WIDTH
+                x: column * this.squareWidth,
+                y: row * this.squareWidth
             },
             center: {
-                x: column * SQUARE_WIDTH + (SQUARE_WIDTH / 2),
-                y: row * SQUARE_WIDTH + (SQUARE_WIDTH / 2)
+                x: column * this.squareWidth + (this.squareWidth / 2),
+                y: row * this.squareWidth + (this.squareWidth / 2)
             }
         };
     }
@@ -655,7 +657,7 @@ class ChessedBoard {
     getBoardDimensions() {
         return {
             size: this.width,
-            squareSize: SQUARE_WIDTH
+            squareSize: this.squareWidth
         };
     }
 
