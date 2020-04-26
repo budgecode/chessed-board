@@ -121,7 +121,7 @@ const DEFAULT_SQUARE_WIDTH = 90;
 class ChessedBoard {
 
     constructor(div, config) {
-        this.divId = div;
+        this.div = div;
 
         this.config = config ? config : {};
 
@@ -142,7 +142,7 @@ class ChessedBoard {
         this.width = this.squareWidth * 8;
         this.height = this.squareWidth * 8;
 
-        const boardDiv = document.getElementById(this.divId);
+        const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? document.getElementById(this.div) : this.div;
         boardDiv.innerHTML = `
             <div id='event-capture' style='position: relative; width: {0}px; height: {1}px;'>
                 <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
