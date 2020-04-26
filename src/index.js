@@ -120,7 +120,10 @@ const DEFAULT_SQUARE_WIDTH = 90;
 
 class ChessedBoard {
 
-    constructor(div, config) {
+    constructor(div, config, root) {
+
+        this.root = root ? root : document;
+
         this.div = div;
 
         this.config = config ? config : {};
@@ -142,7 +145,7 @@ class ChessedBoard {
         this.width = this.squareWidth * 8;
         this.height = this.squareWidth * 8;
 
-        const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? document.getElementById(this.div) : this.div;
+        const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? this.root.getElementById(this.div) : this.div;
         boardDiv.innerHTML = `
             <div id='event-capture' style='position: relative; width: {0}px; height: {1}px;'>
                 <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
@@ -155,13 +158,13 @@ class ChessedBoard {
         `.format(this.width, this.height);
 
         // Fetch all the canvases.
-        this.eventCaptureLayer = document.getElementById('event-capture');
-        this.chessBoardLayer = document.getElementById('chess-board-layer');
-        this.bottomPersistentLayer = document.getElementById('bottom-persistent-animation-layer');
-        this.bottomAnimationLayer = document.getElementById('bottom-animation-layer');
-        this.pieceLayer = document.getElementById('piece-layer');
-        this.topPersistentLayer = document.getElementById('top-persistent-animation-layer');
-        this.topAnimationLayer = document.getElementById('top-animation-layer');
+        this.eventCaptureLayer = this.root.getElementById('event-capture');
+        this.chessBoardLayer = this.root.getElementById('chess-board-layer');
+        this.bottomPersistentLayer = this.root.getElementById('bottom-persistent-animation-layer');
+        this.bottomAnimationLayer = this.root.getElementById('bottom-animation-layer');
+        this.pieceLayer = this.root.getElementById('piece-layer');
+        this.topPersistentLayer = this.root.getElementById('top-persistent-animation-layer');
+        this.topAnimationLayer = this.root.getElementById('top-animation-layer');
 
         // Size the canvases.
         this.chessBoardLayer.width = this.width;
