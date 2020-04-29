@@ -130,6 +130,8 @@ class ChessedBoard {
 
         this.config = config ? config : {};
 
+        this.config.movementEnabled = this.config.movementEnabled === false ? false : true;
+
         this.boardState = this.config.state ? this.config.state : STARTING_BOARDSTATE;
         if (this.config.orientation === null || this.config.orientation === undefined) {
             this.config.orientation = 0;
@@ -188,9 +190,9 @@ class ChessedBoard {
         this.topAnimationLayer.height = this.height;
 
         this.animator = new ChessedAnimator(this.bottomAnimationLayer,
-                                            this.bottomPersistentLayer,
-                                            this.topAnimationLayer,
-                                            this.topPersistentLayer);
+            this.bottomPersistentLayer,
+            this.topAnimationLayer,
+            this.topPersistentLayer);
 
         // Handle clicks on event capture layer.
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
@@ -371,7 +373,7 @@ class ChessedBoard {
         const column = Math.floor(mouseLocation.x / this.squareWidth);
 
         return {
-            name: rowColToAlgebraic({row, column}, this.config.orientation),
+            name: rowColToAlgebraic({ row, column }, this.config.orientation),
             row: row,
             column: column,
             origin: {
@@ -409,7 +411,7 @@ class ChessedBoard {
 
     // Handle user interaction.
     handleMouseDown(e) {
-        
+
         if (e.which === 1) {
             const mouseLocation = this.getMouseLocationInCanvas(e);
             const square = this._getSquare(mouseLocation);
@@ -428,7 +430,7 @@ class ChessedBoard {
             const square = this._getSquare(mouseLocation);
             this.startSquare = square;
             this.startMouseLocation = mouseLocation;
-            
+
             if (this.config.onRightClick) {
                 this.config.onRightClick(this.constructChessedEvent(e));
             }
@@ -439,7 +441,7 @@ class ChessedBoard {
         if (e.which === 1) {
             if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
-                if ( legalMove ) {
+                if (legalMove) {
                     this.placePiece(e);
                     if (legalMove.san === 'O-O' || legalMove.san === 'O-O-O') { // castling
                         // Need to move the rook.
@@ -500,41 +502,47 @@ class ChessedBoard {
 
 
     pickupPiece(e) {
-        const mouseLocation = this.getMouseLocationInCanvas(e);
-        this.startSquare = this._getSquare(mouseLocation);
-        if (this.boardState[this.startSquare.row][this.startSquare.column]) {
-            this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
-            this.selectedPieceSprite = this.sprite(this.selectedPiece);
-            this.boardState[this.startSquare.row][this.startSquare.column] = null;
+        if (this.config.movementEnabled) {
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            this.startSquare = this._getSquare(mouseLocation);
+            if (this.boardState[this.startSquare.row][this.startSquare.column]) {
+                this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
+                this.selectedPieceSprite = this.sprite(this.selectedPiece);
+                this.boardState[this.startSquare.row][this.startSquare.column] = null;
 
-            this.draw();
+                this.draw();
 
-            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
+                this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
 
-            this.draggingPiece = true;
+                this.draggingPiece = true;
+            }
         }
     }
 
     placePiece(e) {
-        if (this.draggingPiece && this.selectedPiece) {
-            const endSquare = this._getSquare(this.getMouseLocationInCanvas(e));
-            if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
-                this._movePiece(this.startSquare, endSquare);
-            } else {
-                this.putPieceBack();
-            }
+        if (this.config.movementEnabled) {
+            if (this.draggingPiece && this.selectedPiece) {
+                const endSquare = this._getSquare(this.getMouseLocationInCanvas(e));
+                if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
+                    this._movePiece(this.startSquare, endSquare);
+                } else {
+                    this.putPieceBack();
+                }
 
-            this.startSquare = null;
-            this.selectedPieceSprite = null;
-            this.selectedPiece = null;
-            this.draggingPiece = false;
+                this.startSquare = null;
+                this.selectedPieceSprite = null;
+                this.selectedPiece = null;
+                this.draggingPiece = false;
+            }
         }
     }
 
     dragPiece(e) {
-        const mouseLocation = this.getMouseLocationInCanvas(e);
-        this.draw();
-        this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
+        if (this.config.movementEnabled) {
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            this.draw();
+            this.pieceCtx.drawImage(this.selectedPieceSprite, mouseLocation.x - this.squareWidth / 2, mouseLocation.y - this.squareWidth / 2, this.squareWidth, this.squareWidth);
+        }
     }
 
     putPieceBack() {
@@ -680,9 +688,9 @@ class ChessedBoard {
 
 class ChessedAnimator {
     constructor(bottomAnimationLayer,
-                bottomPersistentLayer,
-                topAnimationLayer,
-                topPersistentLayer) {
+        bottomPersistentLayer,
+        topAnimationLayer,
+        topPersistentLayer) {
 
         this.bottomAnimationLayer = bottomAnimationLayer;
         this.bottomPersistentLayer = bottomPersistentLayer;
@@ -746,7 +754,7 @@ class ChessedAnimator {
 
     clearPersistedTopAnimations() {
         this.persistedTopAnimations = [];
-        
+
         const persistentCtx = this.topPersistentLayer.getContext('2d');
         persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
     }
