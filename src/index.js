@@ -1,3 +1,5 @@
+const DPI = window.devicePixelRatio;
+
 // Utility methods.
 String.prototype.format = function () {
     var args = arguments;
@@ -116,7 +118,7 @@ const clearCanvas = (c) => {
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-const DEFAULT_SQUARE_WIDTH = 90;
+const DEFAULT_SQUARE_WIDTH = 75;
 
 class ChessedBoard {
 
@@ -134,6 +136,7 @@ class ChessedBoard {
         }
 
         this.squareWidth = this.config.squareWidth ? this.config.squareWidth : DEFAULT_SQUARE_WIDTH;
+        this.squareWidth *= DPI;
 
         this.config.coordinates = this.config.coordinates ? true : false;
 
