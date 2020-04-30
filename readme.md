@@ -58,7 +58,6 @@ The chess board component is built using 6 canvas elements stacked on top of one
 | **Property** | **Type** | **Description** |
 |--|--|--|
 | state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chess board in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
-| squareWidth | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | The width in pixels of a single square on the board. |
 | orientation | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | 0 for normal orientation. 1 for black view. |
 | movementEnabled | Boolean | Enables moving the chess pieces. Default: true |
 | modulePath | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Relative location of the chessed-board module to your project. |
@@ -96,7 +95,6 @@ The chess board component is built using 6 canvas elements stacked on top of one
 |persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
 |clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
 |clearTopAnimations()| **None** | Clears any animations currently persisted on the top animation layer.|
-|resize(squareWidth)| **squareWidth**: [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | Resizes the board based on the square width. |
 
 ### Custom Types
 

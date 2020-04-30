@@ -118,7 +118,6 @@ const clearCanvas = (c) => {
 
 const STARTING_BOARDSTATE = parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-const DEFAULT_SQUARE_WIDTH = 75;
 
 class ChessedBoard {
 
@@ -137,9 +136,6 @@ class ChessedBoard {
             this.config.orientation = 0;
         }
 
-        this.squareWidth = this.config.squareWidth ? this.config.squareWidth : DEFAULT_SQUARE_WIDTH;
-        this.squareWidth *= DPI;
-
         this.config.coordinates = this.config.coordinates ? true : false;
 
         this.setupBoard();
@@ -147,12 +143,10 @@ class ChessedBoard {
 
     // Component lifecycle methods.
     setupBoard() {
-        this.width = this.squareWidth * 8;
-        this.height = this.squareWidth * 8;
 
         const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? this.root.getElementById(this.div) : this.div;
         boardDiv.innerHTML = `
-            <div id='event-capture' style='position: relative; width: {0}px; height: {1}px;'>
+            <div id='event-capture' style='position: relative; width: 100%; height: 100%;'>
                 <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
                 <canvas id='bottom-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 1;'></canvas>
                 <canvas id='bottom-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 2;'></canvas>
@@ -160,10 +154,18 @@ class ChessedBoard {
                 <canvas id='top-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 4;'></canvas>
                 <canvas id='top-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 5;'></canvas>
             <div>
-        `.format(this.width, this.height);
+        `;
+
+        this.eventCaptureLayer = this.root.getElementById('event-capture');
+    
+        this.width = this.eventCaptureLayer.clientWidth;
+        this.height = this.eventCaptureLayer.clientWidth;
+
+        this.squareWidth = this.width / 8;
+
+        window.onresize = this._resize.bind(this);
 
         // Fetch all the canvases.
-        this.eventCaptureLayer = this.root.getElementById('event-capture');
         this.chessBoardLayer = this.root.getElementById('chess-board-layer');
         this.bottomPersistentLayer = this.root.getElementById('bottom-persistent-animation-layer');
         this.bottomAnimationLayer = this.root.getElementById('bottom-animation-layer');
@@ -561,6 +563,41 @@ class ChessedBoard {
         }
     }
 
+    _resize() {
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+
+        this.animator.clearBottomAnimations();
+        this.animator.clearPersistedBottomAnimations();
+        this.animator.clearTopAnimations();
+        this.animator.clearPersistedTopAnimations();
+
+        this.width = this.eventCaptureLayer.clientWidth;
+        this.height = this.eventCaptureLayer.clientWidth;
+
+        this.squareWidth = this.width / 8;
+
+        this.chessBoardLayer.width = this.width;
+        this.chessBoardLayer.height = this.height;
+
+        this.bottomAnimationLayer.width = this.width;
+        this.bottomAnimationLayer.height = this.height;
+
+        this.bottomPersistentLayer.width = this.width;
+        this.bottomPersistentLayer.height = this.height;
+
+        this.pieceLayer.width = this.width;
+        this.pieceLayer.height = this.height;
+        
+        this.topPersistentLayer.width = this.width;
+        this.topPersistentLayer.height = this.height;
+
+        this.topAnimationLayer.width = this.width;
+        this.topAnimationLayer.height = this.height;
+
+        this.draw();
+    }
+
     // Public API.
 
     // Animation hooks.
@@ -681,41 +718,6 @@ class ChessedBoard {
         const squareLocation = algebraicToRowCol(square, this.config.orientation);
 
         this.boardState[squareLocation.row][squareLocation.column] = piece;
-
-        this.draw();
-    }
-
-    resize(squareWidth) {
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
-        this.boardCtx.clearRect(0, 0, this.width, this.height);
-
-        this.animator.clearBottomAnimations();
-        this.animator.clearPersistedBottomAnimations();
-        this.animator.clearTopAnimations();
-        this.animator.clearPersistedTopAnimations();
-
-        this.squareWidth = squareWidth;
-
-        this.width = this.squareWidth * 8;
-        this.height = this.squareWidth * 8;
-
-        this.chessBoardLayer.width = this.width;
-        this.chessBoardLayer.height = this.height;
-
-        this.bottomAnimationLayer.width = this.width;
-        this.bottomAnimationLayer.height = this.height;
-
-        this.bottomPersistentLayer.width = this.width;
-        this.bottomPersistentLayer.height = this.height;
-
-        this.pieceLayer.width = this.width;
-        this.pieceLayer.height = this.height;
-        
-        this.topPersistentLayer.width = this.width;
-        this.topPersistentLayer.height = this.height;
-
-        this.topAnimationLayer.width = this.width;
-        this.topAnimationLayer.height = this.height;
 
         this.draw();
     }
