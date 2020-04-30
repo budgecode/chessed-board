@@ -157,12 +157,13 @@ class ChessedBoard {
         `;
 
         this.eventCaptureLayer = this.root.getElementById('event-capture');
-    
+        
         this.width = this.eventCaptureLayer.clientWidth;
         this.height = this.eventCaptureLayer.clientWidth;
 
         this.squareWidth = this.width / 8;
 
+        window.onload = this._resize.bind(this);
         window.onresize = this._resize.bind(this);
 
         // Fetch all the canvases.
