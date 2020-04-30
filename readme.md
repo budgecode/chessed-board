@@ -96,6 +96,7 @@ The chess board component is built using 6 canvas elements stacked on top of one
 |persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
 |clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
 |clearTopAnimations()| **None** | Clears any animations currently persisted on the top animation layer.|
+|resize(squareWidth)| **squareWidth**: [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | Resizes the board based on the square width. |
 
 ### Custom Types
 

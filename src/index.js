@@ -183,6 +183,7 @@ class ChessedBoard {
 
         this.pieceLayer.width = this.width;
         this.pieceLayer.height = this.height;
+
         this.topPersistentLayer.width = this.width;
         this.topPersistentLayer.height = this.height;
 
@@ -680,6 +681,41 @@ class ChessedBoard {
         const squareLocation = algebraicToRowCol(square, this.config.orientation);
 
         this.boardState[squareLocation.row][squareLocation.column] = piece;
+
+        this.draw();
+    }
+
+    resize(squareWidth) {
+        this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+
+        this.animator.clearBottomAnimations();
+        this.animator.clearPersistedBottomAnimations();
+        this.animator.clearTopAnimations();
+        this.animator.clearPersistedTopAnimations();
+
+        this.squareWidth = squareWidth;
+
+        this.width = this.squareWidth * 8;
+        this.height = this.squareWidth * 8;
+
+        this.chessBoardLayer.width = this.width;
+        this.chessBoardLayer.height = this.height;
+
+        this.bottomAnimationLayer.width = this.width;
+        this.bottomAnimationLayer.height = this.height;
+
+        this.bottomPersistentLayer.width = this.width;
+        this.bottomPersistentLayer.height = this.height;
+
+        this.pieceLayer.width = this.width;
+        this.pieceLayer.height = this.height;
+        
+        this.topPersistentLayer.width = this.width;
+        this.topPersistentLayer.height = this.height;
+
+        this.topAnimationLayer.width = this.width;
+        this.topAnimationLayer.height = this.height;
 
         this.draw();
     }
