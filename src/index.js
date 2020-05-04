@@ -311,11 +311,27 @@ class ChessedBoard {
         this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
         this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
         this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
+        
+        // Load green sprites.
+        this.sprites.dgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdgt45.svg']));
+        this.sprites.dgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdgt45.svg']));
+        this.sprites.dgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_ndgt45.svg']));
+        this.sprites.dgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdgt45.svg']));
+
+        this.sprites.lgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_blgt45.svg']));
+        this.sprites.lgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rlgt45.svg']));
+        this.sprites.lgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_nlgt45.svg']));
+        this.sprites.lgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qlgt45.svg']));
     }
 
     // Draw board methods.
-    drawPieces() {
+    drawPieces(blur) {
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        if (blur) {
+            this.pieceCtx.filter = 'blur(3px)';
+        } else {
+            this.pieceCtx.filter = 'none';
+        }
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c]) {
@@ -325,9 +341,16 @@ class ChessedBoard {
         }
     }
 
-    drawBoard() {
+    drawBoard(blur) {
         const blackColor = '#546e7a';
         const whiteColor = '#eeeeee';
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+
+        if (blur) {
+            this.boardCtx.filter = 'blur(3px)';
+        } else {
+            this.boardCtx.filter = 'none';
+        }
 
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
@@ -372,10 +395,10 @@ class ChessedBoard {
         }
     }
 
-    draw() {
-        this.drawBoard();
+    draw(blur) {
+        this.drawBoard(blur);
 
-        this.drawPieces();
+        this.drawPieces(blur);
     }
 
     getMouseLocationInCanvas(e) {
@@ -479,7 +502,7 @@ class ChessedBoard {
                 }
                 
                 this.clearTopAnimations();
-
+                this.draw(false);
                 this.config.movementEnabled = this.tempMovementEnabled;
                 this.promptingForPromotion = false;
 
@@ -527,24 +550,26 @@ class ChessedBoard {
     }
 
     handleMouseMove(e) {
-
         if (this.promptingForPromotion) {
             this.removeAnimationsByType(HIGHLIGHT_CHOICE);
-            this.removeAnimationsByType(PROMOTION_CHOICES);
 
             const mouseLocation = this.getMouseLocationInCanvas(e);
             const square = this._getSquare(mouseLocation);
             if (this.choiceSquares.includes(square.name)) {
-                const highlightPiece = (animationLayer) => {
-                    const ctx = animationLayer.getContext('2d');
-                    ctx.fillStyle = '#b2fab4';
-                    ctx.fillRect(square.origin.x, square.origin.y, this.squareWidth, this.squareWidth);
-                }
+                const choiceNum = this.choiceSquares.indexOf(square.name);
+                const choice = this.pieceChoices[choiceNum];
+                const drawHighlightedPiece = (animationLayer) => {
+                    animationLayer.getContext('2d').drawImage(choice.highlight,
+                        square.origin.x,
+                        square.origin.y,
+                        this.squareWidth,
+                        this.squareWidth);
+                };
 
-                this.animateAbove(highlightPiece, HIGHLIGHT_CHOICE);
+                this.animateAbove(drawHighlightedPiece, HIGHLIGHT_CHOICE);
+                
             }
 
-            this.animateAbove(this.drawChoices, PROMOTION_CHOICES);
         }
 
         if (this.draggingPiece) {
@@ -798,9 +823,11 @@ class ChessedBoard {
 
         this.darkOverlay = (animationLayer) => {
             const ctx = animationLayer.getContext('2d');
-            ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+            ctx.fillStyle = "rgba(60, 60, 60, 0.4)";
             ctx.fillRect(0, 0, this.width, this.height);
         };
+
+        this.draw(true);
 
         this.animateAbove(this.darkOverlay, DARK_OVERLAY);
 
@@ -810,43 +837,51 @@ class ChessedBoard {
             {
                 color: 'w',
                 type: 'q',
-                sprite: this.sprites.whiteQueen
+                sprite: this.sprites.whiteQueen,
+                highlight: this.sprites.lgreenQueen
             },
             {
                 color: 'w',
                 type: 'r',
-                sprite: this.sprites.whiteRook
+                sprite: this.sprites.whiteRook,
+                highlight: this.sprites.lgreenRook
             },
             {
                 color: 'w',
                 type: 'b',
-                sprite: this.sprites.whiteBishop
+                sprite: this.sprites.whiteBishop,
+                highlight: this.sprites.lgreenBishop
             },
             {
                 color: 'w',
                 type: 'n',
-                sprite: this.sprites.whiteKnight
+                sprite: this.sprites.whiteKnight,
+                highlight: this.sprites.lgreenKnight
             }
         ] : [
             {
                 color: 'b',
                 type: 'q',
-                sprite: this.sprites.blackQueen
+                sprite: this.sprites.blackQueen,
+                highlight: this.sprites.dgreenQueen
             },
             {
                 color: 'b',
                 type: 'r',
-                sprite: this.sprites.blackRook
+                sprite: this.sprites.blackRook,
+                highlight: this.sprites.dgreenRook
             },
             {
                 color: 'b',
                 type: 'b',
-                sprite: this.sprites.blackBishop
+                sprite: this.sprites.blackBishop,
+                highlight: this.sprites.dgreenBishop
             },
             {
                 color: 'b',
                 type: 'n',
-                sprite: this.sprites.blackKnight
+                sprite: this.sprites.blackKnight,
+                highlight: this.sprites.dgreenKnight
             }
         ];
 
