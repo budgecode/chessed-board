@@ -458,7 +458,25 @@ class ChessedBoard {
 
     handleMouseUp(e) {
         if (e.which === 1) {
-            if (this.config.onLeftClickRelease) {
+
+            if (this.promptingForPromotion) {
+                // To-do: dismiss prompt
+                //        place piece
+                //        invoke callback
+                //        reset state
+                const mouseLocation = this.getMouseLocationInCanvas(e);
+                const square = this._getSquare(mouseLocation);
+
+                const choiceNum = this.choiceSquares.indexOf(square.name);
+                const choice = this.pieceChoices[choiceNum];
+                this.putPieceOnBoard(choice.type, choice.color, square.name);
+
+                this.clearTopAnimations();
+
+                this.config.movementEnabled = this.tempMovementEnabled;
+
+                this.promptingForPromotion = false;
+            } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if (legalMove) {
                     this.placePiece(e);
@@ -509,7 +527,7 @@ class ChessedBoard {
             if (this.choiceSquares.includes(square.name)) {
                 const highlightPiece = (animationLayer) => {
                     const ctx = animationLayer.getContext('2d');
-                    ctx.fillStyle = '#2196f3';
+                    ctx.fillStyle = '#b2fab4';
                     ctx.fillRect(square.origin.x, square.origin.y, this.squareWidth, this.squareWidth);
                 }
 
@@ -761,7 +779,7 @@ class ChessedBoard {
     displayPromotionOptions(square, color) {
         this.promptingForPromotion = true;
         // Store value so it can be reset, then set to false.
-        const movementEnabled = this.config.movementEnabled;
+        this.tempMovementEnabled = this.config.movementEnabled;
         this.config.movementEnabled = false;
 
         this.animator.clearTopAnimations();
@@ -777,16 +795,48 @@ class ChessedBoard {
 
         const squareInfo = this.getSquare(square);
 
-        const pieceChoices = color === 'white' ? [
-            this.sprites.whiteQueen,
-            this.sprites.whiteRook,
-            this.sprites.whiteBishop,
-            this.sprites.whiteKnight
+        this.pieceChoices = color === 'white' ? [
+            {
+                color: 'w',
+                type: 'q',
+                sprite: this.sprites.whiteQueen
+            },
+            {
+                color: 'w',
+                type: 'r',
+                sprite: this.sprites.whiteRook
+            },
+            {
+                color: 'w',
+                type: 'b',
+                sprite: this.sprites.whiteBishop
+            },
+            {
+                color: 'w',
+                type: 'n',
+                sprite: this.sprites.whiteKnight
+            }
         ] : [
-            this.sprites.blackQueen,
-            this.sprites.blackRook,
-            this.sprites.blackBishop,
-            this.sprites.blackKnight
+            {
+                color: 'b',
+                type: 'q',
+                sprite: this.sprites.blackQueen
+            },
+            {
+                color: 'b',
+                type: 'r',
+                sprite: this.sprites.blackRook
+            },
+            {
+                color: 'b',
+                type: 'b',
+                sprite: this.sprites.blackBishop
+            },
+            {
+                color: 'b',
+                type: 'n',
+                sprite: this.sprites.blackKnight
+            }
         ];
 
         const squareColumn = square[0];
@@ -797,8 +847,8 @@ class ChessedBoard {
             const direction = color === 'white' ? 1 : -1;
             
             let rOffset = 0;
-            pieceChoices.forEach((sprite) => {
-                ctx.drawImage(sprite,
+            this.pieceChoices.forEach((choice) => {
+                ctx.drawImage(choice.sprite,
                               squareInfo.origin.x,
                               squareInfo.origin.y + (rOffset * this.squareWidth),
                               this.squareWidth,
