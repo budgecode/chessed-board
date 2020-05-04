@@ -460,21 +460,19 @@ class ChessedBoard {
         if (e.which === 1) {
 
             if (this.promptingForPromotion) {
-                // To-do: dismiss prompt
-                //        place piece
-                //        invoke callback
-                //        reset state
                 const mouseLocation = this.getMouseLocationInCanvas(e);
                 const square = this._getSquare(mouseLocation);
 
                 const choiceNum = this.choiceSquares.indexOf(square.name);
                 const choice = this.pieceChoices[choiceNum];
-                this.putPieceOnBoard(choice.type, choice.color, square.name);
+
+                const promotionLocation = this.choiceSquares[0];
+
+                this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
 
                 this.clearTopAnimations();
 
                 this.config.movementEnabled = this.tempMovementEnabled;
-
                 this.promptingForPromotion = false;
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
