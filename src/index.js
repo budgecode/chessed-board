@@ -464,12 +464,16 @@ class ChessedBoard {
                 const square = this._getSquare(mouseLocation);
 
                 const choiceNum = this.choiceSquares.indexOf(square.name);
+                let callbackData = null;
                 if (choiceNum !== -1) {
                     const choice = this.pieceChoices[choiceNum];
 
                     const promotionLocation = this.choiceSquares[0];
 
                     this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
+
+                    callbackData.type = choice.type;
+                    callbackData.color = choice.color;
                 }
                 
                 this.clearTopAnimations();
@@ -478,7 +482,7 @@ class ChessedBoard {
                 this.promptingForPromotion = false;
 
                 if (this.promotionCallback) {
-                    this.promotionCallback();
+                    this.promotionCallback(callbackData);
                 }
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
