@@ -1,5 +1,9 @@
 const DPI = window.devicePixelRatio;
 
+const PROMOTION_CHOICES = Symbol('promotion-choices');
+const DARK_OVERLAY = Symbol('dark-overlay');
+const HIGHLIGHT_CHOICE = Symbol('highlight-choice');
+
 // Utility methods.
 String.prototype.format = function () {
     var args = arguments;
@@ -495,6 +499,26 @@ class ChessedBoard {
     }
 
     handleMouseMove(e) {
+
+        if (this.promptingForPromotion) {
+            this.removeAnimationsByType(HIGHLIGHT_CHOICE);
+            this.removeAnimationsByType(PROMOTION_CHOICES);
+
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            const square = this._getSquare(mouseLocation);
+            if (this.choiceSquares.includes(square.name)) {
+                const highlightPiece = (animationLayer) => {
+                    const ctx = animationLayer.getContext('2d');
+                    ctx.fillStyle = '#2196f3';
+                    ctx.fillRect(square.origin.x, square.origin.y, this.squareWidth, this.squareWidth);
+                }
+
+                this.animateAbove(highlightPiece, HIGHLIGHT_CHOICE);
+            }
+
+            this.animateAbove(this.drawChoices, PROMOTION_CHOICES);
+        }
+
         if (this.draggingPiece) {
             this.dragPiece(e);
             if (this.config.onLeftClickDrag) {
@@ -735,17 +759,21 @@ class ChessedBoard {
     }
 
     displayPromotionOptions(square, color) {
+        this.promptingForPromotion = true;
+        // Store value so it can be reset, then set to false.
+        const movementEnabled = this.config.movementEnabled;
+        this.config.movementEnabled = false;
 
         this.animator.clearTopAnimations();
         this.animator.clearBottomAnimations();
 
-        const darkOverlay = (animationLayer) => {
+        this.darkOverlay = (animationLayer) => {
             const ctx = animationLayer.getContext('2d');
             ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
             ctx.fillRect(0, 0, this.width, this.height);
         };
 
-        this.animateAbove(darkOverlay, Symbol('dark-overlay'));
+        this.animateAbove(this.darkOverlay, DARK_OVERLAY);
 
         const squareInfo = this.getSquare(square);
 
@@ -761,7 +789,10 @@ class ChessedBoard {
             this.sprites.blackKnight
         ];
 
-        const drawChoices = (animationLayer) => {
+        const squareColumn = square[0];
+        const squareRow = +square[1];
+        this.choiceSquares = [];
+        this.drawChoices = (animationLayer) => {
             const ctx = animationLayer.getContext('2d');
             const direction = color === 'white' ? 1 : -1;
             
@@ -773,11 +804,12 @@ class ChessedBoard {
                               this.squareWidth,
                               this.squareWidth);
 
+                this.choiceSquares.push(squareColumn + (squareRow - rOffset).toString());
                 rOffset += direction;
             });
         };
 
-        this.animateAbove(drawChoices, Symbol('promotion-choices'));
+        this.animateAbove(this.drawChoices, PROMOTION_CHOICES);
     }
 }
 
