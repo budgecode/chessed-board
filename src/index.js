@@ -839,10 +839,12 @@ class ChessedBoard {
 
         const squareColumn = square[0];
         const squareRow = +square[1];
-        this.choiceSquares = [];
         this.drawChoices = (animationLayer) => {
+            this.choiceSquares = [];
+
             const ctx = animationLayer.getContext('2d');
-            const direction = color === 'white' ? 1 : -1;
+            const direction = (color === 'white' && this.config.orientation === 0) ||
+                              (color === 'black' && this.config.orientation === 1) ? 1 : -1;
             
             let rOffset = 0;
             this.pieceChoices.forEach((choice) => {
@@ -851,8 +853,8 @@ class ChessedBoard {
                               squareInfo.origin.y + (rOffset * this.squareWidth),
                               this.squareWidth,
                               this.squareWidth);
-
-                this.choiceSquares.push(squareColumn + (squareRow - rOffset).toString());
+                const row = this.config.orientation === 0 ? (squareRow - rOffset) : (squareRow + rOffset);
+                this.choiceSquares.push(squareColumn + row.toString());
                 rOffset += direction;
             });
         };
