@@ -653,6 +653,8 @@ class ChessedBoard {
     }
 
     _resize() {
+        this.promptingForPromotion = false;
+        
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
