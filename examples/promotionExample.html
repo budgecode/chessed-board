@@ -1,0 +1,14 @@
+<script src="../src/index.js"> </script>
+
+<div id="chessboard" style="width: 700px; height: 700px;"></div>
+
+<script>
+    const config = {
+        onLoad: () => {
+            chessboard.displayPromotionOptions('h8', 'white');
+        }
+    };
+
+    const chessboard = new ChessedBoard("chessboard", config);
+    
+</script>

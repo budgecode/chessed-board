@@ -163,7 +163,16 @@ class ChessedBoard {
 
         this.squareWidth = this.width / 8;
 
-        window.onload = this._resize.bind(this);
+        window.onload = () => {
+            this._resize.bind(this)();
+
+            if (this.loaded && this.config.onLoad) {
+                this.config.onLoad();
+            }
+            
+            this.loaded = true;
+        };
+
         window.onresize = this._resize.bind(this);
 
         // Fetch all the canvases.
@@ -219,9 +228,11 @@ class ChessedBoard {
                 this.flip();
             }
 
-            if (this.config.onLoad) {
+            if (this.loaded && this.config.onLoad) {
                 this.config.onLoad();
             }
+            
+            this.loaded = true;
         }).catch((e) => {
             console.log(e);
         });
@@ -723,6 +734,51 @@ class ChessedBoard {
         this.draw();
     }
 
+    displayPromotionOptions(square, color) {
+
+        this.animator.clearTopAnimations();
+        this.animator.clearBottomAnimations();
+
+        const darkOverlay = (animationLayer) => {
+            const ctx = animationLayer.getContext('2d');
+            ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+            ctx.fillRect(0, 0, this.width, this.height);
+        };
+
+        this.animateAbove(darkOverlay, Symbol('dark-overlay'));
+
+        const squareInfo = this.getSquare(square);
+
+        const pieceChoices = color === 'white' ? [
+            this.sprites.whiteQueen,
+            this.sprites.whiteRook,
+            this.sprites.whiteBishop,
+            this.sprites.whiteKnight
+        ] : [
+            this.sprites.blackQueen,
+            this.sprites.blackRook,
+            this.sprites.blackBishop,
+            this.sprites.blackKnight
+        ];
+
+        const drawChoices = (animationLayer) => {
+            const ctx = animationLayer.getContext('2d');
+            const direction = color === 'white' ? 1 : -1;
+            
+            let rOffset = 0;
+            pieceChoices.forEach((sprite) => {
+                ctx.drawImage(sprite,
+                              squareInfo.origin.x,
+                              squareInfo.origin.y + (rOffset * this.squareWidth),
+                              this.squareWidth,
+                              this.squareWidth);
+
+                rOffset += direction;
+            });
+        };
+
+        this.animateAbove(drawChoices, Symbol('promotion-choices'));
+    }
 }
 
 class ChessedAnimator {
