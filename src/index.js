@@ -464,16 +464,22 @@ class ChessedBoard {
                 const square = this._getSquare(mouseLocation);
 
                 const choiceNum = this.choiceSquares.indexOf(square.name);
-                const choice = this.pieceChoices[choiceNum];
+                if (choiceNum !== -1) {
+                    const choice = this.pieceChoices[choiceNum];
 
-                const promotionLocation = this.choiceSquares[0];
+                    const promotionLocation = this.choiceSquares[0];
 
-                this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
-
+                    this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
+                }
+                
                 this.clearTopAnimations();
 
                 this.config.movementEnabled = this.tempMovementEnabled;
                 this.promptingForPromotion = false;
+
+                if (this.promotionCallback) {
+                    this.promotionCallback();
+                }
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if (legalMove) {
@@ -774,7 +780,8 @@ class ChessedBoard {
         this.draw();
     }
 
-    displayPromotionOptions(square, color) {
+    displayPromotionOptions(square, color, callback) {
+        this.promotionCallback = callback;
         this.promptingForPromotion = true;
         // Store value so it can be reset, then set to false.
         this.tempMovementEnabled = this.config.movementEnabled;
