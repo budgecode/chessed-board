@@ -472,8 +472,10 @@ class ChessedBoard {
 
                     this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
 
-                    callbackData.type = choice.type;
-                    callbackData.color = choice.color;
+                    callbackData = {
+                        type: choice.type,
+                        color: choice.color
+                    };
                 }
                 
                 this.clearTopAnimations();
