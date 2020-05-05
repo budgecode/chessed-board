@@ -342,7 +342,7 @@ class ChessedBoard {
     }
 
     drawBoard(blur) {
-        const blackColor = '#546e7a';
+        const blackColor = '#819ca9';
         const whiteColor = '#eeeeee';
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
