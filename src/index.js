@@ -654,7 +654,7 @@ class ChessedBoard {
 
     _resize() {
         this.promptingForPromotion = false;
-        
+
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
@@ -825,7 +825,7 @@ class ChessedBoard {
 
         this.darkOverlay = (animationLayer) => {
             const ctx = animationLayer.getContext('2d');
-            ctx.fillStyle = "rgba(60, 60, 60, 0.4)";
+            ctx.fillStyle = "rgba(100, 100, 100, 0.2)";
             ctx.fillRect(0, 0, this.width, this.height);
         };
 
