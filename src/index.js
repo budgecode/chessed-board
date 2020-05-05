@@ -823,15 +823,15 @@ class ChessedBoard {
         this.animator.clearTopAnimations();
         this.animator.clearBottomAnimations();
 
-        this.darkOverlay = (animationLayer) => {
-            const ctx = animationLayer.getContext('2d');
-            ctx.fillStyle = "rgba(100, 100, 100, 0.2)";
-            ctx.fillRect(0, 0, this.width, this.height);
-        };
+        // this.darkOverlay = (animationLayer) => {
+        //     const ctx = animationLayer.getContext('2d');
+        //     ctx.fillStyle = "rgba(100, 100, 100, 0.2)";
+        //     ctx.fillRect(0, 0, this.width, this.height);
+        // };
 
         this.draw(true);
 
-        this.animateAbove(this.darkOverlay, DARK_OVERLAY);
+        // this.animateAbove(this.darkOverlay, DARK_OVERLAY);
 
         const squareInfo = this.getSquare(square);
 
