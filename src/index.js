@@ -488,6 +488,7 @@ class ChessedBoard {
 
                 const choiceNum = this.choiceSquares.indexOf(square.name);
                 let callbackData = null;
+                let success = false;
                 if (choiceNum !== -1) {
                     const choice = this.pieceChoices[choiceNum];
 
@@ -499,6 +500,8 @@ class ChessedBoard {
                         type: choice.type,
                         color: choice.color
                     };
+
+                    success = true;
                 }
                 
                 this.clearTopAnimations();
@@ -507,7 +510,7 @@ class ChessedBoard {
                 this.promptingForPromotion = false;
 
                 if (this.promotionCallback) {
-                    this.promotionCallback(callbackData);
+                    this.promotionCallback(success, callbackData);
                 }
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
