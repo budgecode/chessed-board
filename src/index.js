@@ -343,7 +343,8 @@ class ChessedBoard {
 
     drawBoard(blur) {
         const blackColor = '#819ca9';
-        const whiteColor = '#eeeeee';
+        const whiteColor = '#fefefe';
+
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
         if (blur) {
@@ -374,12 +375,12 @@ class ChessedBoard {
                 }
                 if (this.config.coordinates) {
                     if (c == 0) {
-                        this.boardCtx.font = 'bold 12px Arial';
+                        this.boardCtx.font = '600 15px Helvetica, Arial, sans-serif';
                         const rows = [8, 7, 6, 5, 4, 3, 2, 1];
                         if (this.config.orientation === 1) {
                             rows.reverse();
                         }
-                        this.boardCtx.fillText(rows[r], c * this.squareWidth + 2, r * this.squareWidth + 12);
+                        this.boardCtx.fillText(rows[r], c * this.squareWidth + 2, r * this.squareWidth + 14);
                     }
 
                     if (r == 7) {
@@ -387,8 +388,8 @@ class ChessedBoard {
                         if (this.config.orientation === 1) {
                             columns.reverse();
                         }
-                        this.boardCtx.font = 'bold 12px Arial';
-                        this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 10, r * this.squareWidth + this.squareWidth - 4);
+                        this.boardCtx.font = '600 15px Helvetica, Arial, sans-serif';
+                        this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 12, r * this.squareWidth + this.squareWidth - 4);
                     }
                 }
             }
