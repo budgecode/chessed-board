@@ -161,7 +161,7 @@ class ChessedBoard {
         `;
 
         this.eventCaptureLayer = this.root.getElementById('event-capture');
-        
+
         this.width = this.eventCaptureLayer.clientWidth;
         this.height = this.eventCaptureLayer.clientWidth;
 
@@ -173,7 +173,7 @@ class ChessedBoard {
             if (this.loaded && this.config.onLoad) {
                 this.config.onLoad();
             }
-            
+
             this.loaded = true;
         };
 
@@ -247,7 +247,7 @@ class ChessedBoard {
             if (this.loaded && this.config.onLoad) {
                 this.config.onLoad();
             }
-            
+
             this.loaded = true;
         }).catch((e) => {
             console.log(e);
@@ -323,7 +323,7 @@ class ChessedBoard {
         this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
         this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
         this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
-        
+
         // Load green sprites.
         this.sprites.dgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdgt45.svg']));
         this.sprites.dgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdgt45.svg']));
@@ -356,7 +356,7 @@ class ChessedBoard {
     drawBoard(blur) {
         const blackColor = '#819ca9';
         const whiteColor = '#fefefe';
-        
+
         const blackFontColor = '#ffffff';
         const whiteFontColor = '#546e7a';
 
@@ -521,7 +521,7 @@ class ChessedBoard {
 
                     success = true;
                 }
-                
+
                 this.clearTopAnimations();
                 this.draw(false);
                 this.config.movementEnabled = this.tempMovementEnabled;
@@ -588,7 +588,7 @@ class ChessedBoard {
                 };
 
                 this.animateAbove(drawHighlightedPiece, HIGHLIGHT_CHOICE);
-                
+
             }
 
         }
@@ -700,7 +700,7 @@ class ChessedBoard {
 
         this.pieceLayer.width = this.width;
         this.pieceLayer.height = this.height;
-        
+
         this.topPersistentLayer.width = this.width;
         this.topPersistentLayer.height = this.height;
 
@@ -844,16 +844,18 @@ class ChessedBoard {
         this.animator.clearTopAnimations();
         this.animator.clearBottomAnimations();
 
-        // this.darkOverlay = (animationLayer) => {
-        //     const ctx = animationLayer.getContext('2d');
-        //     ctx.fillStyle = "rgba(100, 100, 100, 0.2)";
-        //     ctx.fillRect(0, 0, this.width, this.height);
-        // };
-
         this.draw(true);
 
-        // this.animateAbove(this.darkOverlay, DARK_OVERLAY);
+        if (this.chessBoardLayer.getContext('2d').filter === undefined) {
+            this.darkOverlay = (animationLayer) => {
+                const ctx = animationLayer.getContext('2d');
+                ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+                ctx.fillRect(0, 0, this.width, this.height);
+            };
 
+            this.animateAbove(this.darkOverlay, DARK_OVERLAY);
+        }
+        
         const squareInfo = this.getSquare(square);
 
         this.pieceChoices = color === 'white' ? [
@@ -882,31 +884,31 @@ class ChessedBoard {
                 highlight: this.sprites.lgreenKnight
             }
         ] : [
-            {
-                color: 'b',
-                type: 'q',
-                sprite: this.sprites.blackQueen,
-                highlight: this.sprites.dgreenQueen
-            },
-            {
-                color: 'b',
-                type: 'r',
-                sprite: this.sprites.blackRook,
-                highlight: this.sprites.dgreenRook
-            },
-            {
-                color: 'b',
-                type: 'b',
-                sprite: this.sprites.blackBishop,
-                highlight: this.sprites.dgreenBishop
-            },
-            {
-                color: 'b',
-                type: 'n',
-                sprite: this.sprites.blackKnight,
-                highlight: this.sprites.dgreenKnight
-            }
-        ];
+                {
+                    color: 'b',
+                    type: 'q',
+                    sprite: this.sprites.blackQueen,
+                    highlight: this.sprites.dgreenQueen
+                },
+                {
+                    color: 'b',
+                    type: 'r',
+                    sprite: this.sprites.blackRook,
+                    highlight: this.sprites.dgreenRook
+                },
+                {
+                    color: 'b',
+                    type: 'b',
+                    sprite: this.sprites.blackBishop,
+                    highlight: this.sprites.dgreenBishop
+                },
+                {
+                    color: 'b',
+                    type: 'n',
+                    sprite: this.sprites.blackKnight,
+                    highlight: this.sprites.dgreenKnight
+                }
+            ];
 
         const squareColumn = square[0];
         const squareRow = +square[1];
@@ -915,15 +917,15 @@ class ChessedBoard {
 
             const ctx = animationLayer.getContext('2d');
             const direction = (color === 'white' && this.config.orientation === 0) ||
-                              (color === 'black' && this.config.orientation === 1) ? 1 : -1;
-            
+                (color === 'black' && this.config.orientation === 1) ? 1 : -1;
+
             let rOffset = 0;
             this.pieceChoices.forEach((choice) => {
                 ctx.drawImage(choice.sprite,
-                              squareInfo.origin.x,
-                              squareInfo.origin.y + (rOffset * this.squareWidth),
-                              this.squareWidth,
-                              this.squareWidth);
+                    squareInfo.origin.x,
+                    squareInfo.origin.y + (rOffset * this.squareWidth),
+                    this.squareWidth,
+                    this.squareWidth);
                 const row = this.config.orientation === 0 ? (squareRow - rOffset) : (squareRow + rOffset);
                 this.choiceSquares.push(squareColumn + row.toString());
                 rOffset += direction;
