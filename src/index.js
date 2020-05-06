@@ -1,5 +1,9 @@
 const DPI = window.devicePixelRatio;
 
+const PROMOTION_CHOICES = Symbol('promotion-choices');
+const DARK_OVERLAY = Symbol('dark-overlay');
+const HIGHLIGHT_CHOICE = Symbol('highlight-choice');
+
 // Utility methods.
 String.prototype.format = function () {
     var args = arguments;
@@ -163,7 +167,16 @@ class ChessedBoard {
 
         this.squareWidth = this.width / 8;
 
-        window.onload = this._resize.bind(this);
+        window.onload = () => {
+            this._resize.bind(this)();
+
+            if (this.loaded && this.config.onLoad) {
+                this.config.onLoad();
+            }
+            
+            this.loaded = true;
+        };
+
         window.onresize = this._resize.bind(this);
 
         // Fetch all the canvases.
@@ -219,9 +232,11 @@ class ChessedBoard {
                 this.flip();
             }
 
-            if (this.config.onLoad) {
+            if (this.loaded && this.config.onLoad) {
                 this.config.onLoad();
             }
+            
+            this.loaded = true;
         }).catch((e) => {
             console.log(e);
         });
@@ -296,11 +311,27 @@ class ChessedBoard {
         this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
         this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
         this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
+        
+        // Load green sprites.
+        this.sprites.dgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdgt45.svg']));
+        this.sprites.dgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdgt45.svg']));
+        this.sprites.dgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_ndgt45.svg']));
+        this.sprites.dgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdgt45.svg']));
+
+        this.sprites.lgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_blgt45.svg']));
+        this.sprites.lgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rlgt45.svg']));
+        this.sprites.lgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_nlgt45.svg']));
+        this.sprites.lgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qlgt45.svg']));
     }
 
     // Draw board methods.
-    drawPieces() {
+    drawPieces(blur) {
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        if (blur) {
+            this.pieceCtx.filter = 'blur(3px)';
+        } else {
+            this.pieceCtx.filter = 'none';
+        }
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (this.boardState[r][c]) {
@@ -310,9 +341,16 @@ class ChessedBoard {
         }
     }
 
-    drawBoard() {
-        const blackColor = '#546e7a';
+    drawBoard(blur) {
+        const blackColor = '#819ca9';
         const whiteColor = '#eeeeee';
+        this.boardCtx.clearRect(0, 0, this.width, this.height);
+
+        if (blur) {
+            this.boardCtx.filter = 'blur(3px)';
+        } else {
+            this.boardCtx.filter = 'none';
+        }
 
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
@@ -357,10 +395,10 @@ class ChessedBoard {
         }
     }
 
-    draw() {
-        this.drawBoard();
+    draw(blur) {
+        this.drawBoard(blur);
 
-        this.drawPieces();
+        this.drawPieces(blur);
     }
 
     getMouseLocationInCanvas(e) {
@@ -443,7 +481,38 @@ class ChessedBoard {
 
     handleMouseUp(e) {
         if (e.which === 1) {
-            if (this.config.onLeftClickRelease) {
+
+            if (this.promptingForPromotion) {
+                const mouseLocation = this.getMouseLocationInCanvas(e);
+                const square = this._getSquare(mouseLocation);
+
+                const choiceNum = this.choiceSquares.indexOf(square.name);
+                let callbackData = null;
+                let success = false;
+                if (choiceNum !== -1) {
+                    const choice = this.pieceChoices[choiceNum];
+
+                    const promotionLocation = this.choiceSquares[0];
+
+                    this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
+
+                    callbackData = {
+                        type: choice.type,
+                        color: choice.color
+                    };
+
+                    success = true;
+                }
+                
+                this.clearTopAnimations();
+                this.draw(false);
+                this.config.movementEnabled = this.tempMovementEnabled;
+                this.promptingForPromotion = false;
+
+                if (this.promotionCallback) {
+                    this.promotionCallback(success, callbackData);
+                }
+            } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if (legalMove) {
                     this.placePiece(e);
@@ -484,6 +553,28 @@ class ChessedBoard {
     }
 
     handleMouseMove(e) {
+        if (this.promptingForPromotion) {
+            this.removeAnimationsByType(HIGHLIGHT_CHOICE);
+
+            const mouseLocation = this.getMouseLocationInCanvas(e);
+            const square = this._getSquare(mouseLocation);
+            if (this.choiceSquares.includes(square.name)) {
+                const choiceNum = this.choiceSquares.indexOf(square.name);
+                const choice = this.pieceChoices[choiceNum];
+                const drawHighlightedPiece = (animationLayer) => {
+                    animationLayer.getContext('2d').drawImage(choice.highlight,
+                        square.origin.x,
+                        square.origin.y,
+                        this.squareWidth,
+                        this.squareWidth);
+                };
+
+                this.animateAbove(drawHighlightedPiece, HIGHLIGHT_CHOICE);
+                
+            }
+
+        }
+
         if (this.draggingPiece) {
             this.dragPiece(e);
             if (this.config.onLeftClickDrag) {
@@ -565,6 +656,8 @@ class ChessedBoard {
     }
 
     _resize() {
+        this.promptingForPromotion = false;
+
         this.pieceCtx.clearRect(0, 0, this.width, this.height);
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
@@ -723,6 +816,104 @@ class ChessedBoard {
         this.draw();
     }
 
+    displayPromotionOptions(square, color, callback) {
+        this.promotionCallback = callback;
+        this.promptingForPromotion = true;
+        // Store value so it can be reset, then set to false.
+        this.tempMovementEnabled = this.config.movementEnabled;
+        this.config.movementEnabled = false;
+
+        this.animator.clearTopAnimations();
+        this.animator.clearBottomAnimations();
+
+        // this.darkOverlay = (animationLayer) => {
+        //     const ctx = animationLayer.getContext('2d');
+        //     ctx.fillStyle = "rgba(100, 100, 100, 0.2)";
+        //     ctx.fillRect(0, 0, this.width, this.height);
+        // };
+
+        this.draw(true);
+
+        // this.animateAbove(this.darkOverlay, DARK_OVERLAY);
+
+        const squareInfo = this.getSquare(square);
+
+        this.pieceChoices = color === 'white' ? [
+            {
+                color: 'w',
+                type: 'q',
+                sprite: this.sprites.whiteQueen,
+                highlight: this.sprites.lgreenQueen
+            },
+            {
+                color: 'w',
+                type: 'r',
+                sprite: this.sprites.whiteRook,
+                highlight: this.sprites.lgreenRook
+            },
+            {
+                color: 'w',
+                type: 'b',
+                sprite: this.sprites.whiteBishop,
+                highlight: this.sprites.lgreenBishop
+            },
+            {
+                color: 'w',
+                type: 'n',
+                sprite: this.sprites.whiteKnight,
+                highlight: this.sprites.lgreenKnight
+            }
+        ] : [
+            {
+                color: 'b',
+                type: 'q',
+                sprite: this.sprites.blackQueen,
+                highlight: this.sprites.dgreenQueen
+            },
+            {
+                color: 'b',
+                type: 'r',
+                sprite: this.sprites.blackRook,
+                highlight: this.sprites.dgreenRook
+            },
+            {
+                color: 'b',
+                type: 'b',
+                sprite: this.sprites.blackBishop,
+                highlight: this.sprites.dgreenBishop
+            },
+            {
+                color: 'b',
+                type: 'n',
+                sprite: this.sprites.blackKnight,
+                highlight: this.sprites.dgreenKnight
+            }
+        ];
+
+        const squareColumn = square[0];
+        const squareRow = +square[1];
+        this.drawChoices = (animationLayer) => {
+            this.choiceSquares = [];
+
+            const ctx = animationLayer.getContext('2d');
+            const direction = (color === 'white' && this.config.orientation === 0) ||
+                              (color === 'black' && this.config.orientation === 1) ? 1 : -1;
+            
+            let rOffset = 0;
+            this.pieceChoices.forEach((choice) => {
+                ctx.drawImage(choice.sprite,
+                              squareInfo.origin.x,
+                              squareInfo.origin.y + (rOffset * this.squareWidth),
+                              this.squareWidth,
+                              this.squareWidth);
+                const row = this.config.orientation === 0 ? (squareRow - rOffset) : (squareRow + rOffset);
+                this.choiceSquares.push(squareColumn + row.toString());
+                rOffset += direction;
+            });
+        };
+
+        this.animateAbove(this.drawChoices, PROMOTION_CHOICES);
+    }
 }
 
 class ChessedAnimator {

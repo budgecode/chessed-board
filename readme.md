@@ -90,6 +90,7 @@ The chess board component is built using 6 canvas elements stacked on top of one
 | toggleCoordinates() | **None** | Show or hide coordinates. |
 | getSquare(square): [Square](#Square) | **square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Get information about the location of the square on the chess board. |
 | getBoardDimensions(): [BoardDimensions](#BoardDimensions) | **None** | Return an object containing the dimensions of the chess board. |
+| displayPromotionOptions(square, color, callback) | **square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br> **color**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br> **callback**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: Boolean, Choice<br>Return Type: Void | Prompts the user for for promotion. |
 | animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br>  `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chess board. |
 |persistBottomAnimations()| **None** | Persists any animations currently drawn on the bottom animation layer. |
 |persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
