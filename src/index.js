@@ -392,7 +392,7 @@ class ChessedBoard {
                 this.boardCtx.fillStyle = fontColor;
                 if (this.config.coordinates) {
                     if (c == 0) {
-                        this.boardCtx.font = '200 15px Helvetica, Arial, sans-serif';
+                        this.boardCtx.font = 'bold 15px Helvetica, Arial, sans-serif';
                         const rows = [8, 7, 6, 5, 4, 3, 2, 1];
                         if (this.config.orientation === 1) {
                             rows.reverse();
@@ -405,7 +405,7 @@ class ChessedBoard {
                         if (this.config.orientation === 1) {
                             columns.reverse();
                         }
-                        this.boardCtx.font = '200 15px Helvetica, Arial, sans-serif';
+                        this.boardCtx.font = 'bold 15px Helvetica, Arial, sans-serif';
                         this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 12, r * this.squareWidth + this.squareWidth - 4);
                     }
                 }
@@ -855,7 +855,7 @@ class ChessedBoard {
 
             this.animateAbove(this.darkOverlay, DARK_OVERLAY);
         }
-        
+
         const squareInfo = this.getSquare(square);
 
         this.pieceChoices = color === 'white' ? [
