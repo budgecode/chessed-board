@@ -388,10 +388,11 @@ class ChessedBoard {
 
     getMouseLocationInCanvas(e) {
         const canvasRect = this.chessBoardLayer.getBoundingClientRect();
+        const dpi = window.devicePixelRatio;
 
         return {
-            x: e.clientX - canvasRect.left,
-            y: e.clientY - canvasRect.top
+            x: (e.clientX * dpi) - canvasRect.left,
+            y: (e.clientY * dpi) - canvasRect.top
         };
     }
 
@@ -650,7 +651,7 @@ class ChessedBoard {
         this.height = this.width;
         
         this.squareWidth = this.width / 8;
-
+        
         this.chessBoardLayer.width = this.width;
         this.chessBoardLayer.height = this.height;
         this.chessBoardLayer.style.width = styleWidth;
