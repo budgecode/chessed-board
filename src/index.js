@@ -190,21 +190,33 @@ class ChessedBoard {
         // Size the canvases.
         this.chessBoardLayer.width = this.width;
         this.chessBoardLayer.height = this.height;
+        this.chessBoardLayer.style.width = this.width;
+        this.chessBoardLayer.style.height = this.height;
 
         this.bottomAnimationLayer.width = this.width;
         this.bottomAnimationLayer.height = this.height;
+        this.bottomAnimationLayer.style.width = this.width;
+        this.bottomAnimationLayer.style.height = this.height;
 
         this.bottomPersistentLayer.width = this.width;
         this.bottomPersistentLayer.height = this.height;
+        this.bottomPersistentLayer.style.width = this.width;
+        this.bottomPersistentLayer.style.height = this.height;
 
         this.pieceLayer.width = this.width;
         this.pieceLayer.height = this.height;
+        this.pieceLayer.style.width = this.width;
+        this.pieceLayer.style.height = this.height;
 
         this.topPersistentLayer.width = this.width;
         this.topPersistentLayer.height = this.height;
+        this.topPersistentLayer.style.width = this.width;
+        this.topPersistentLayer.style.height = this.height;
 
         this.topAnimationLayer.width = this.width;
         this.topAnimationLayer.height = this.height;
+        this.topAnimationLayer.style.width = this.width;
+        this.topAnimationLayer.style.height = this.height;
 
         this.animator = new ChessedAnimator(this.bottomAnimationLayer,
             this.bottomPersistentLayer,
@@ -344,6 +356,9 @@ class ChessedBoard {
     drawBoard(blur) {
         const blackColor = '#819ca9';
         const whiteColor = '#fefefe';
+        
+        const blackFontColor = '#ffffff';
+        const whiteFontColor = '#546e7a';
 
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
@@ -352,7 +367,7 @@ class ChessedBoard {
         } else {
             this.boardCtx.filter = 'none';
         }
-
+        let fontColor = blackFontColor
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 if (r % 2 !== c % 2) {
@@ -363,7 +378,7 @@ class ChessedBoard {
 
                     // Set color back for numbers.
                     this.boardCtx.fillStyle = whiteColor;
-
+                    fontColor = blackFontColor;
                 } else {
                     this.boardCtx.beginPath();
                     this.boardCtx.rect(c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
@@ -372,10 +387,12 @@ class ChessedBoard {
 
                     // Set color back for numbers.
                     this.boardCtx.fillStyle = blackColor;
+                    fontColor = whiteFontColor;
                 }
+                this.boardCtx.fillStyle = fontColor;
                 if (this.config.coordinates) {
                     if (c == 0) {
-                        this.boardCtx.font = '600 15px Helvetica, Arial, sans-serif';
+                        this.boardCtx.font = '200 15px Helvetica, Arial, sans-serif';
                         const rows = [8, 7, 6, 5, 4, 3, 2, 1];
                         if (this.config.orientation === 1) {
                             rows.reverse();
@@ -388,7 +405,7 @@ class ChessedBoard {
                         if (this.config.orientation === 1) {
                             columns.reverse();
                         }
-                        this.boardCtx.font = '600 15px Helvetica, Arial, sans-serif';
+                        this.boardCtx.font = '200 15px Helvetica, Arial, sans-serif';
                         this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 12, r * this.squareWidth + this.squareWidth - 4);
                     }
                 }
