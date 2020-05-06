@@ -324,9 +324,6 @@ class ChessedBoard {
         const blackColor = '#819ca9';
         const whiteColor = '#fefefe';
 
-        const blackFontColor = '#ffffff';
-        const whiteFontColor = '#546e7a';
-
         this.boardCtx.clearRect(0, 0, this.width, this.height);
 
         if (blur) {
@@ -345,7 +342,6 @@ class ChessedBoard {
 
                     // Set color back for numbers.
                     this.boardCtx.fillStyle = whiteColor;
-                    fontColor = blackFontColor;
                 } else {
                     this.boardCtx.beginPath();
                     this.boardCtx.rect(c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
@@ -354,9 +350,8 @@ class ChessedBoard {
 
                     // Set color back for numbers.
                     this.boardCtx.fillStyle = blackColor;
-                    fontColor = whiteFontColor;
                 }
-                this.boardCtx.fillStyle = fontColor;
+
                 if (this.config.coordinates) {
                     if (c == 0) {
                         this.boardCtx.font = 'bold 15px Helvetica, Arial, sans-serif';
