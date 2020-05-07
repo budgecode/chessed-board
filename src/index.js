@@ -150,7 +150,7 @@ class ChessedBoard {
 
         const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? this.root.getElementById(this.div) : this.div;
         boardDiv.innerHTML = `
-            <div id='event-capture' style='position: relative; width: 100%; height: 100%;'>
+            <div id='event-capture' style='position: relative;'>
                 <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
                 <canvas id='bottom-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 1;'></canvas>
                 <canvas id='bottom-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 2;'></canvas>
@@ -639,43 +639,48 @@ class ChessedBoard {
     _setCanvasSizes() {
         const dpi = window.devicePixelRatio;
         
-        const styleWidth = this.eventCaptureLayer.clientWidth;
-        const styleHeight = this.eventCaptureLayer.clientWidth;
+        const styleWidth = this.eventCaptureLayer.parentElement.clientWidth;
+        const styleHeight = this.eventCaptureLayer.parentElement.clientHeight;
 
-        this.width = dpi * styleWidth;
+        const boardSize = styleWidth > styleHeight ? styleHeight : styleWidth;
+        console.log(boardSize);
+        this.eventCaptureLayer.style.width = boardSize;
+        this.eventCaptureLayer.style.height = boardSize;
+
+        this.width = dpi * boardSize;
         this.height = this.width;
         
         this.squareWidth = this.width / 8;
         
         this.chessBoardLayer.width = this.width;
         this.chessBoardLayer.height = this.height;
-        this.chessBoardLayer.style.width = styleWidth;
-        this.chessBoardLayer.style.height = styleHeight;
+        this.chessBoardLayer.style.width = boardSize;
+        this.chessBoardLayer.style.height = boardSize;
 
         this.bottomAnimationLayer.width = this.width;
         this.bottomAnimationLayer.height = this.height;
-        this.bottomAnimationLayer.style.width =  styleWidth;
-        this.bottomAnimationLayer.style.height = styleHeight;
+        this.bottomAnimationLayer.style.width =  boardSize;
+        this.bottomAnimationLayer.style.height = boardSize;
 
         this.bottomPersistentLayer.width = this.width;
         this.bottomPersistentLayer.height = this.height;
-        this.bottomPersistentLayer.style.width =  styleWidth;
-        this.bottomPersistentLayer.style.height = styleHeight;
+        this.bottomPersistentLayer.style.width =  boardSize;
+        this.bottomPersistentLayer.style.height = boardSize;
 
         this.pieceLayer.width = this.width;
         this.pieceLayer.height = this.height;
-        this.pieceLayer.style.width = styleWidth;
-        this.pieceLayer.style.height = styleHeight;
+        this.pieceLayer.style.width = boardSize;
+        this.pieceLayer.style.height = boardSize;
 
         this.topPersistentLayer.width = this.width;
         this.topPersistentLayer.height = this.height;
-        this.topPersistentLayer.style.width = styleWidth;
-        this.topPersistentLayer.style.height = styleHeight;
+        this.topPersistentLayer.style.width = boardSize;
+        this.topPersistentLayer.style.height = boardSize;
 
         this.topAnimationLayer.width = this.width;
         this.topAnimationLayer.height = this.height;
-        this.topAnimationLayer.style.width =  styleWidth;
-        this.topAnimationLayer.style.height = styleHeight;
+        this.topAnimationLayer.style.width =  boardSize;
+        this.topAnimationLayer.style.height = boardSize;
     }
 
     _resize() {
