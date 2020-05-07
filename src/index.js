@@ -368,7 +368,7 @@ class ChessedBoard {
                             columns.reverse();
                         }
                         this.boardCtx.font = 'bold 15px Helvetica, Arial, sans-serif';
-                        this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 12, r * this.squareWidth + this.squareWidth - 4);
+                        this.boardCtx.fillText(columns[c], c * this.squareWidth + this.squareWidth - 12, r * this.squareWidth + this.squareWidth - 5);
                     }
                 }
             }
