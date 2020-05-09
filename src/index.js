@@ -290,17 +290,6 @@ class ChessedBoard {
         this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
         this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
         this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
-
-        // Load green sprites.
-        this.sprites.dgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdgt45.svg']));
-        this.sprites.dgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdgt45.svg']));
-        this.sprites.dgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_ndgt45.svg']));
-        this.sprites.dgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdgt45.svg']));
-
-        this.sprites.lgreenBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_blgt45.svg']));
-        this.sprites.lgreenRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rlgt45.svg']));
-        this.sprites.lgreenKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_nlgt45.svg']));
-        this.sprites.lgreenQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qlgt45.svg']));
     }
 
     // Draw board methods.
@@ -539,19 +528,19 @@ class ChessedBoard {
 
             const mouseLocation = this.getMouseLocationInCanvas(e);
             const square = this._getSquare(mouseLocation);
+            
             if (this.choiceSquares.includes(square.name)) {
-                const choiceNum = this.choiceSquares.indexOf(square.name);
-                const choice = this.pieceChoices[choiceNum];
+                this.removeAnimationsByType(PROMOTION_CHOICES);
                 const drawHighlightedPiece = (animationLayer) => {
-                    animationLayer.getContext('2d').drawImage(choice.highlight,
-                        square.origin.x,
-                        square.origin.y,
-                        this.squareWidth,
-                        this.squareWidth);
+                    const ctx = animationLayer.getContext('2d');
+                    ctx.beginPath();
+                    ctx.arc(square.center.x, square.center.y, this.squareWidth / 2, 0, 2 * Math.PI, false);
+                    ctx.fillStyle = '#98ee99';
+                    ctx.fill();
                 };
 
                 this.animateAbove(drawHighlightedPiece, HIGHLIGHT_CHOICE);
-
+                this.animateAbove(this.drawChoices, PROMOTION_CHOICES);
             }
 
         }
