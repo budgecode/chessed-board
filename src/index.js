@@ -643,7 +643,7 @@ class ChessedBoard {
         const styleHeight = this.eventCaptureLayer.parentElement.clientHeight;
 
         const boardSize = styleWidth > styleHeight ? styleHeight : styleWidth;
-        console.log(boardSize);
+
         this.eventCaptureLayer.style.width = boardSize;
         this.eventCaptureLayer.style.height = boardSize;
 
