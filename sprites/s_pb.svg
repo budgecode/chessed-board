@@ -4,7 +4,7 @@
 	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
 <defs>
     <filter id="f1" x="0" y="0" width="200%" height="200%">
-            <feDropShadow dx="8" dy="10" stdDeviation="8" flood-color="#202020"/>
+            <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#202020"/>
     </filter>
 </defs>
 <style type="text/css">
