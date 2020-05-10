@@ -2,16 +2,11 @@
 <!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
-<defs>
-    <filter id="f1" x="0" y="0" width="200%" height="200%">
-            <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#202020"/>
-    </filter>
-</defs>
 <style type="text/css">
-	.st0{fill:#FFFFFF;}
+	.st0{fill:#FFFFF8;}
 	.st1{fill:#FFFFFF;}
 </style>
-<g filter="url(#f1)">
+<g>
 	<g id="pb_1_">
 		<g>
 			<polygon class="st1" points="63.4,156.9 63.4,142.6 78.5,115 82.2,88.9 64,70.7 99.2,35.5 134.4,70.7 117.1,88.1 120.7,115 
