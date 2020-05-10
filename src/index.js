@@ -276,20 +276,20 @@ class ChessedBoard {
         this.sprites = {};
 
         // Load white sprites.
-        this.sprites.whitePawn = await loadImage(pathJoin([relativePath, '/sprites/Chess_plt45.svg']));
-        this.sprites.whiteRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rlt45.svg']));
-        this.sprites.whiteKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_nlt45.svg']));
-        this.sprites.whiteKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_klt45.svg']));
-        this.sprites.whiteBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_blt45.svg']));
-        this.sprites.whiteQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qlt45.svg']));
+        this.sprites.whitePawn = await loadImage(pathJoin([relativePath, '/sprites/s_pw.svg']));
+        this.sprites.whiteRook = await loadImage(pathJoin([relativePath, '/sprites/s_rw.svg']));
+        this.sprites.whiteKnight = await loadImage(pathJoin([relativePath, '/sprites/s_knw.svg']));
+        this.sprites.whiteKing = await loadImage(pathJoin([relativePath, '/sprites/s_kw.svg']));
+        this.sprites.whiteBishop = await loadImage(pathJoin([relativePath, '/sprites/s_bw.svg']));
+        this.sprites.whiteQueen = await loadImage(pathJoin([relativePath, '/sprites/s_qw.svg']));
 
         // Load black sprites.
-        this.sprites.blackPawn = await loadImage(pathJoin([relativePath, '/sprites/Chess_pdt45.svg']));
-        this.sprites.blackRook = await loadImage(pathJoin([relativePath, '/sprites/Chess_rdt45.svg']));
-        this.sprites.blackKnight = await loadImage(pathJoin([relativePath, '/sprites/Chess_ndt45.svg']));
-        this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/Chess_kdt45.svg']));
-        this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/Chess_bdt45.svg']));
-        this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/Chess_qdt45.svg']));
+        this.sprites.blackPawn = await loadImage(pathJoin([relativePath, '/sprites/s_pb.svg']));
+        this.sprites.blackRook = await loadImage(pathJoin([relativePath, '/sprites/s_rb.svg']));
+        this.sprites.blackKnight = await loadImage(pathJoin([relativePath, '/sprites/s_knb.svg']));
+        this.sprites.blackKing = await loadImage(pathJoin([relativePath, '/sprites/s_kb.svg']));
+        this.sprites.blackBishop = await loadImage(pathJoin([relativePath, '/sprites/s_bb.svg']));
+        this.sprites.blackQueen = await loadImage(pathJoin([relativePath, '/sprites/s_qb.svg']));
     }
 
     // Draw board methods.
