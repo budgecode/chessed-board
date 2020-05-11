@@ -1,6 +1,6 @@
 <svg width="180" height="180" xmlns="http://www.w3.org/2000/svg">
 <filter id="shadow">
-      <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#222222"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#222222"/>
 </filter>
  <style type="text/css">.st0{fill:#FFFFF8;}
 	.st1{fill:#FFFFFF;}</style>

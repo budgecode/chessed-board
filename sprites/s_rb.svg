@@ -1,6 +1,6 @@
 <svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet">
 <filter id="shadow">
-      <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#222222"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#222222"/>
 </filter> 
  <defs>
   <path d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z" id="b12zCYu7cA"/>
