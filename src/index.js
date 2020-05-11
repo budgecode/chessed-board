@@ -182,6 +182,9 @@ class ChessedBoard {
         this.topPersistentLayer = this.root.getElementById('top-persistent-animation-layer');
         this.topAnimationLayer = this.root.getElementById('top-animation-layer');
 
+        this.pieceCtx = this.pieceLayer.getContext('2d');
+        this.boardCtx = this.chessBoardLayer.getContext('2d');
+
         // Size the canvases.
         this._setCanvasSizes();
 
@@ -674,9 +677,10 @@ class ChessedBoard {
 
     _resize() {
         this.promptingForPromotion = false;
-
-        this.pieceCtx.clearRect(0, 0, this.width, this.height);
-        this.boardCtx.clearRect(0, 0, this.width, this.height);
+        if (this.pieceCtx)
+            this.pieceCtx.clearRect(0, 0, this.width, this.height);
+        if (this.boardCtx)
+            this.boardCtx.clearRect(0, 0, this.width, this.height);
 
         this.animator.clearBottomAnimations();
         this.animator.clearPersistedBottomAnimations();
