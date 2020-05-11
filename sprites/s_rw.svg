@@ -1,4 +1,7 @@
 <svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet">
+<filter id="shadow">
+      <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#222222"/>
+</filter> 
  <defs>
   <path id="b12zCYu7cA" d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z"/>
   <path id="bgwsAPYCH" d="m81.75,126l0,-15.8l8.3,-5.6l8.2,5.6l0,15.8l-16.5,0z"/>
@@ -10,52 +13,41 @@
  </defs>
  <g>
   <title>background</title>
-  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+  <rect fill="none" id="canvas_background" height="182" width="182" y="-1" x="-1"/>
  </g>
- <g>
+ <g filter="url(#shadow)">
   <title>Layer 1</title>
   <g id="svg_1">
    <g id="svg_2">
-    <g id="svg_3">
-     <use stroke-width="7" stroke="#ffffff" id="svg_4" fill-opacity="0" fill="#000000" xlink:href="#b12zCYu7cA"/>
-     <g id="svg_5">
-      <use id="svg_6" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#b12zCYu7cA"/>
-     </g>
-    </g>
     <g id="svg_7">
-     <use stroke-width="7" stroke="#ffffff" id="svg_8" fill="#ffffff" xlink:href="#bgwsAPYCH"/>
+     <use stroke-width="7" stroke="#000" id="svg_8" fill="#fff" xlink:href="#bgwsAPYCH"/>
      <g id="svg_9">
-      <use id="svg_10" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#bgwsAPYCH"/>
+      <use fill="#fff" id="svg_10" stroke-opacity="0" stroke-width="7" stroke="#000" fill-opacity="0" xlink:href="#bgwsAPYCH"/>
      </g>
     </g>
     <g id="svg_11">
-     <use stroke-width="7" stroke="#ffffff" id="svg_12" fill="#000000" xlink:href="#c2fZNFf8yU"/>
+     <use stroke-width="7" stroke="#000" id="svg_12" fill="#fff" xlink:href="#c2fZNFf8yU"/>
      <g id="svg_13">
-      <use id="svg_14" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#c2fZNFf8yU"/>
+      <use fill="#fff" id="svg_14" stroke-width="7" stroke="#000" fill-opacity="0" xlink:href="#c2fZNFf8yU"/>
      </g>
     </g>
-    <g id="svg_15">
-     <use stroke-width="7" stroke="#ffffff" id="svg_16" fill-opacity="0" fill="#000000" xlink:href="#d1yktp2Bo0"/>
-     <g id="svg_17">
-      <use id="svg_18" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#d1yktp2Bo0"/>
-     </g>
-    </g>
+    <g id="svg_15"/>
     <g id="svg_19">
-     <use stroke-width="7" stroke="#000000" id="svg_20" fill="#ffffff" xlink:href="#b7Yc6jHsRZ"/>
+     <use stroke-width="7" stroke="#000" id="svg_20" fill="#fff" xlink:href="#b7Yc6jHsRZ"/>
      <g id="svg_21">
-      <use fill="#ffffff" id="svg_22" stroke-opacity="0" stroke-width="7" stroke="#000000" fill-opacity="0" xlink:href="#b7Yc6jHsRZ"/>
+      <use fill="#fff" id="svg_22" stroke-opacity="0" stroke-width="7" stroke="#000" fill-opacity="0" xlink:href="#b7Yc6jHsRZ"/>
      </g>
     </g>
     <g id="svg_23">
-     <use stroke-width="0" stroke="#000000" id="svg_24" fill="#000000" xlink:href="#b1WyvZAeuQ"/>
+     <use stroke-width="0" stroke="#000" id="svg_24" fill="#000000" xlink:href="#b1WyvZAeuQ"/>
      <g id="svg_25">
-      <use fill="#000000" id="svg_26" stroke-opacity="0" stroke-width="0" stroke="#000000" fill-opacity="0" xlink:href="#b1WyvZAeuQ"/>
+      <use fill="#000000" id="svg_26" stroke-opacity="0" stroke-width="0" stroke="#000" fill-opacity="0" xlink:href="#b1WyvZAeuQ"/>
      </g>
     </g>
     <g id="svg_27">
-     <use stroke-width="7" stroke="#ffffff" id="svg_28" fill="#000000" xlink:href="#aytydvtQN"/>
+     <use stroke-width="7" stroke="#000" id="svg_28" fill="#fff" xlink:href="#aytydvtQN"/>
      <g id="svg_29">
-      <use id="svg_30" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#aytydvtQN"/>
+      <use fill="#fff" id="svg_30" stroke-width="7" stroke="#000" fill-opacity="0" xlink:href="#aytydvtQN"/>
      </g>
     </g>
    </g>

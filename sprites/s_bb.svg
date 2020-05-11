@@ -1,4 +1,7 @@
 <svg width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+<filter id="shadow">
+      <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#222222"/>
+</filter>
  <style type="text/css">.st0{fill:#FFFFF8;}
 	.st1{fill:#FFFFFF;}</style>
 
@@ -6,7 +9,7 @@
   <title>background</title>
   <rect fill="none" id="canvas_background" height="47.112844" width="47.112844" y="-1" x="-1"/>
  </g>
- <g>
+ <g filter="url(#shadow)">
   <title>Layer 1</title>
   <g id="svg_1">
    <g stroke="null" id="svg_2">
