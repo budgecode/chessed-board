@@ -4,12 +4,14 @@
 
  <g>
   <title>background</title>
-  <rect fill="none" id="canvas_background" height="182" width="182" y="-1" x="-1"/>
+  <rect x="-1" y="-1" width="50.386888" height="50.386888" id="canvas_background" fill="none"/>
  </g>
  <g>
   <title>Layer 1</title>
   <g id="svg_1">
-   <path id="svg_2" d="m135.699996,131.1l28.1,-81.9l-37.8,19.8l0,16.8l-10.5,10.6l-14.8,-10.4l12.1,-33.4l-23,-32.2l-22.8,32.3l12,33.4l-14.6,10.4l-10.5,-10.6l0,-16.9l-37.7,-19.8l28,81.9l6,19.7l-6.1,0l5.4,7.2l82.7,0l5.4,-7.2l-8.1,0l6.2,-19.7zm-45.8,-9.8l20.8,29.4l-41.5,0l20.7,-29.4z"/>
+   <path stroke-width="7" fill="#000000" stroke="#ffffff" d="m135.699996,131.1l28.1,-81.9l-37.8,19.8l0,16.8l-10.5,10.6l-14.8,-10.4l12.1,-33.4l-23,-32.2l-22.8,32.3l12,33.4l-14.6,10.4l-10.5,-10.6l0,-16.9l-37.7,-19.8l28,81.9l6,19.7l-6.1,0l5.4,7.2l82.7,0l5.4,-7.2l-8.1,0l6.2,-19.7zm-45.8,-9.8l20.8,29.4l-41.5,0l20.7,-29.4z" id="svg_2"/>
   </g>
+  <rect id="svg_5" height="2.506269" width="80.95249" y="153.534041" x="50.150322" stroke-width="0" stroke="#000000" fill="#ffffff"/>
+  <rect stroke="#000000" id="svg_6" height="0.501254" width="0" y="128.972604" x="-55.614231" stroke-width="0" fill="#ffffff"/>
  </g>
 </svg>

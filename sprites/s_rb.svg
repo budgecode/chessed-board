@@ -1,19 +1,64 @@
-<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg">
- <style type="text/css">.st0{fill:#FFFFF8;}
-	.st1{fill:#FFFFFF;}</style>
-
+<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet">
+ <defs>
+  <path id="b12zCYu7cA" d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z"/>
+  <path id="bgwsAPYCH" d="m81.75,126l0,-15.8l8.3,-5.6l8.2,5.6l0,15.8l-16.5,0z"/>
+  <path id="c2fZNFf8yU"/>
+  <path id="d1yktp2Bo0" d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z"/>
+  <path id="b7Yc6jHsRZ" d="m147.3,40.9l-24.1,-4.4l0,14.4l-16.3,0l0,-21.6l-16.9,-4.5l-16.9,4.5l0,21.6l-16.3,0l0,-14.4l-24.1,4.4l2.7,36.3l21.4,15.6l5.08,0.56l-6.98,57.24l-4.6,7.6l78.3,0l-4.6,-7.6l-5.87,-57.24l5.07,-0.56l21.4,-15.6l2.7,-36.3z"/>
+  <path id="b1WyvZAeuQ" d="m81.75,126l0,-15.8l8.3,-5.6l8.2,5.6l0,15.8l-16.5,0z"/>
+  <path id="aytydvtQN"/>
+ </defs>
  <g>
   <title>background</title>
-  <rect fill="none" id="canvas_background" height="182" width="182" y="-1" x="-1"/>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
  </g>
  <g>
   <title>Layer 1</title>
   <g id="svg_1">
-   <g id="rb">
-    <polygon id="svg_2" points="144.60000228881836,77.19999694824219 147.29999923706055,40.900001525878906 123.19999313354492,36.5 123.19999313354492,50.900001525878906 106.89999771118164,50.900001525878906 106.89999771118164,29.299999237060547 89.99999618530273,24.799999237060547 73.09999465942383,29.299999237060547 73.09999465942383,50.900001525878906 56.79999923706055,50.900001525878906 56.79999923706055,36.5 32.69999694824219,40.900001525878906 35.39999771118164,77.19999694824219 56.79999923706055,92.80000305175781 68.89999771118164,93.69999694824219 56.09999465942383,142.60000610351562 54.89999771118164,150.60000610351562 50.29999542236328,158.1999969482422 128.60000228881836,158.1999969482422 123.99999618530273,150.60000610351562 123.89999008178711,142.60000610351562 111.09999465942383,93.69999694824219 123.19999313354492,92.80000305175781 "/>
+   <g id="svg_2">
+    <g id="svg_3">
+     <use stroke-width="7" stroke="#ffffff" id="svg_4" fill-opacity="0" fill="#000000" xlink:href="#b12zCYu7cA"/>
+     <g id="svg_5">
+      <use id="svg_6" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#b12zCYu7cA"/>
+     </g>
+    </g>
+    <g id="svg_7">
+     <use stroke-width="7" stroke="#ffffff" id="svg_8" fill="#ffffff" xlink:href="#bgwsAPYCH"/>
+     <g id="svg_9">
+      <use id="svg_10" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#bgwsAPYCH"/>
+     </g>
+    </g>
+    <g id="svg_11">
+     <use stroke-width="7" stroke="#ffffff" id="svg_12" fill="#000000" xlink:href="#c2fZNFf8yU"/>
+     <g id="svg_13">
+      <use id="svg_14" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#c2fZNFf8yU"/>
+     </g>
+    </g>
+    <g id="svg_15">
+     <use stroke-width="7" stroke="#ffffff" id="svg_16" fill-opacity="0" fill="#000000" xlink:href="#d1yktp2Bo0"/>
+     <g id="svg_17">
+      <use id="svg_18" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#d1yktp2Bo0"/>
+     </g>
+    </g>
+    <g id="svg_19">
+     <use stroke-width="7" stroke="#ffffff" id="svg_20" fill="#000000" xlink:href="#b7Yc6jHsRZ"/>
+     <g id="svg_21">
+      <use id="svg_22" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#b7Yc6jHsRZ"/>
+     </g>
+    </g>
+    <g id="svg_23">
+     <use stroke-width="0" stroke="#ffffff" id="svg_24" fill="#ffffff" xlink:href="#b1WyvZAeuQ"/>
+     <g id="svg_25">
+      <use id="svg_26" stroke-opacity="0" stroke-width="0" stroke="#ffffff" fill-opacity="0" xlink:href="#b1WyvZAeuQ"/>
+     </g>
+    </g>
+    <g id="svg_27">
+     <use stroke-width="7" stroke="#ffffff" id="svg_28" fill="#000000" xlink:href="#aytydvtQN"/>
+     <g id="svg_29">
+      <use id="svg_30" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#aytydvtQN"/>
+     </g>
+    </g>
    </g>
-   <polygon id="svg_3" points="98.25,126 81.75,126 81.75,110.19999694824219 90.05000305175781,104.5999984741211 98.25,110.19999694824219 " class="st1"/>
   </g>
-  <path id="svg_6" d="m119.639172,139.793797" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
  </g>
 </svg>

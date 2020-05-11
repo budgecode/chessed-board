@@ -1,36 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFF8;}
-	.st1{fill:#FFFFFF;}
-</style>
-<g>
-	<g id="rb_1_">
-		<g>
-			<polygon class="st1" points="62.4,156.9 65.8,151.3 67,143.1 80.3,92.5 66.8,91.5 46.3,76.6 43.7,42.3 64.7,38.5 64.7,52.6 
-				84.1,52.6 84.1,30.6 99.4,26.5 114.9,30.6 114.9,52.6 134.2,52.6 134.2,38.5 155.2,42.3 152.6,76.6 132.1,91.5 118.6,92.5 
-				131.9,143 132,151.2 135.4,156.9 			"/>
-			<path d="M99.5,28.1l13.9,3.7v19.3v3h3h16.3h3v-3V40.3l17.9,3.3l-2.4,32.2l-19.6,14.3l-11.2,0.8l-3.6,0.3l0.9,3.5l12.7,48.5
-				l0.1,7.6l0,0.8l0.4,0.7l1.8,3H65.1l1.8-3l0.3-0.5l0.1-0.6l1.2-7.8l12.8-48.7l0.9-3.5l-3.6-0.3l-11.2-0.8L47.7,75.8l-2.4-32.2
-				l17.9-3.3v10.8v3h3h16.3h3v-3V31.8L99.5,28.1 M99.5,25l-16.9,4.5v21.6H66.3V36.7l-24.1,4.4l2.7,36.3L66.3,93l12.1,0.9l-12.8,48.9
-				l-1.2,8l-4.6,7.6h78.3l-4.6-7.6l-0.1-8l-12.8-48.9l12.1-0.9L154,77.4l2.7-36.3l-24.1-4.4v14.4h-16.3V29.5L99.5,25L99.5,25z"/>
-		</g>
-	</g>
-	<g>
-		<polygon class="st1" points="92.2,124.6 92.2,111.1 98.9,106.6 105.6,111.1 105.6,124.6 		"/>
-		<path d="M98.9,108.4l5.2,3.5v11.2H93.7v-11.2L98.9,108.4 M98.9,104.8l-8.2,5.5v15.8h16.4v-15.8L98.9,104.8L98.9,104.8z"/>
-	</g>
-	<g>
-		<polygon class="st1" points="46.1,178.2 46.1,172.6 52.9,172.6 58.3,165 139.5,165 144.9,172.6 152.9,172.6 152.9,178.2 		"/>
-		<path d="M138.7,166.5l4.5,6.3l0.9,1.3h1.5h5.7v2.6H47.6v-2.6h4.6h1.5l0.9-1.3l4.5-6.3H138.7 M140.3,163.5H57.6l-5.4,7.6h-7.6v8.6
-			h109.8v-8.6h-8.7L140.3,163.5L140.3,163.5z"/>
-	</g>
-	<g>
-		<polygon class="st1" points="46.1,178.2 46.1,172.6 52.9,172.6 58.3,165 139.5,165 144.9,172.6 152.9,172.6 152.9,178.2 		"/>
-		<path d="M138.7,166.5l4.5,6.3l0.9,1.3h1.5h5.7v2.6H47.6v-2.6h4.6h1.5l0.9-1.3l4.5-6.3H138.7 M140.3,163.5H57.6l-5.4,7.6h-7.6v8.6
-			h109.8v-8.6h-8.7L140.3,163.5L140.3,163.5z"/>
-	</g>
-</g>
+<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet">
+ <defs>
+  <path id="b12zCYu7cA" d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z"/>
+  <path id="bgwsAPYCH" d="m81.75,126l0,-15.8l8.3,-5.6l8.2,5.6l0,15.8l-16.5,0z"/>
+  <path id="c2fZNFf8yU"/>
+  <path id="d1yktp2Bo0" d="m181,-1c0,0 0,0 0,0c0,109.2 0,169.87 0,182c0,0 0,0 0,0c-109.2,0 -169.87,0 -182,0c0,0 0,0 0,0c0,-109.2 0,-169.87 0,-182c0,0 0,0 0,0c109.2,0 169.87,0 182,0z"/>
+  <path id="b7Yc6jHsRZ" d="m147.3,40.9l-24.1,-4.4l0,14.4l-16.3,0l0,-21.6l-16.9,-4.5l-16.9,4.5l0,21.6l-16.3,0l0,-14.4l-24.1,4.4l2.7,36.3l21.4,15.6l5.08,0.56l-6.98,57.24l-4.6,7.6l78.3,0l-4.6,-7.6l-5.87,-57.24l5.07,-0.56l21.4,-15.6l2.7,-36.3z"/>
+  <path id="b1WyvZAeuQ" d="m81.75,126l0,-15.8l8.3,-5.6l8.2,5.6l0,15.8l-16.5,0z"/>
+  <path id="aytydvtQN"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <g id="svg_2">
+    <g id="svg_3">
+     <use stroke-width="7" stroke="#ffffff" id="svg_4" fill-opacity="0" fill="#000000" xlink:href="#b12zCYu7cA"/>
+     <g id="svg_5">
+      <use id="svg_6" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#b12zCYu7cA"/>
+     </g>
+    </g>
+    <g id="svg_7">
+     <use stroke-width="7" stroke="#ffffff" id="svg_8" fill="#ffffff" xlink:href="#bgwsAPYCH"/>
+     <g id="svg_9">
+      <use id="svg_10" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#bgwsAPYCH"/>
+     </g>
+    </g>
+    <g id="svg_11">
+     <use stroke-width="7" stroke="#ffffff" id="svg_12" fill="#000000" xlink:href="#c2fZNFf8yU"/>
+     <g id="svg_13">
+      <use id="svg_14" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#c2fZNFf8yU"/>
+     </g>
+    </g>
+    <g id="svg_15">
+     <use stroke-width="7" stroke="#ffffff" id="svg_16" fill-opacity="0" fill="#000000" xlink:href="#d1yktp2Bo0"/>
+     <g id="svg_17">
+      <use id="svg_18" stroke-opacity="0" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#d1yktp2Bo0"/>
+     </g>
+    </g>
+    <g id="svg_19">
+     <use stroke-width="7" stroke="#000000" id="svg_20" fill="#ffffff" xlink:href="#b7Yc6jHsRZ"/>
+     <g id="svg_21">
+      <use fill="#ffffff" id="svg_22" stroke-opacity="0" stroke-width="7" stroke="#000000" fill-opacity="0" xlink:href="#b7Yc6jHsRZ"/>
+     </g>
+    </g>
+    <g id="svg_23">
+     <use stroke-width="0" stroke="#000000" id="svg_24" fill="#000000" xlink:href="#b1WyvZAeuQ"/>
+     <g id="svg_25">
+      <use fill="#000000" id="svg_26" stroke-opacity="0" stroke-width="0" stroke="#000000" fill-opacity="0" xlink:href="#b1WyvZAeuQ"/>
+     </g>
+    </g>
+    <g id="svg_27">
+     <use stroke-width="7" stroke="#ffffff" id="svg_28" fill="#000000" xlink:href="#aytydvtQN"/>
+     <g id="svg_29">
+      <use id="svg_30" stroke-width="7" stroke="#ffffff" fill-opacity="0" xlink:href="#aytydvtQN"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
 </svg>

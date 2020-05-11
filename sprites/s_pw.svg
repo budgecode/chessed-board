@@ -1,25 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFF8;}
-	.st1{fill:#FFFFFF;}
-</style>
-<g>
-	<g id="pb_1_">
-		<g>
-			<polygon class="st1" points="63.4,156.9 63.4,142.6 78.5,115 82.2,88.9 64,70.7 99.2,35.5 134.4,70.7 117.1,88.1 120.7,115 
-				135.1,142.6 135.1,156.9 			"/>
-			<path d="M99.2,37.6l33.2,33.1l-15.8,15.8l-1.1,1.1l0.2,1.5l3.5,25.9l0.1,0.5l0.2,0.5l14.1,27v12.5H64.9V143l14.8-27l0.3-0.5
-				l0.1-0.5l3.5-25.1l0.2-1.5l-1.1-1.1L66.1,70.7L99.2,37.6 M99.2,33.4L61.9,70.7l18.7,18.7l-3.5,25.1l-15.2,27.7v16.2h74.7v-16.2
-				l-14.4-27.7l-3.5-25.9l17.9-17.9L99.2,33.4L99.2,33.4z"/>
-		</g>
-	</g>
-	<g>
-		<polygon class="st1" points="46.6,178.2 46.6,172.6 53.5,172.6 58.9,165 140,165 145.4,172.6 153.4,172.6 153.4,178.2 		"/>
-		<path d="M139.3,166.5l4.5,6.3l0.9,1.3h1.5h5.7v2.6H48.1v-2.6h4.6h1.5l0.9-1.3l4.5-6.3H139.3 M140.8,163.5H58.1l-5.4,7.6h-7.6v8.6
-			h109.8v-8.6h-8.7L140.8,163.5L140.8,163.5z"/>
-	</g>
-</g>
+<svg width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+ <style type="text/css">.st0{fill:#FFFFF8;}
+	.st1{fill:#FFFFFF;}</style>
+
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="54.173905" height="54.173905" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <g id="pb">
+    <polygon stroke-width="7" stroke="#000000" points="112.94999313354492,114.30000305175781 109.44999313354492,88.4000015258789 127.35000228881836,70.5 89.94999313354492,33.20000076293945 52.64999771118164,70.5 71.34999465942383,89.19999694824219 67.84999465942383,114.30000305175781 52.64999771118164,142 52.64999771118164,158.1999969482422 127.35000228881836,158.1999969482422 127.35000228881836,142 " id="svg_2" fill="#ffffff"/>
+   </g>
+  </g>
+ </g>
 </svg>
