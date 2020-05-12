@@ -418,7 +418,8 @@ class ChessedBoard {
             currentMouseLocation: mouseLocation,
             currentSquare: square,
             startMouseLocation: this.startMouseLocation,
-            startSquare: this.startSquare
+            startSquare: this.startSquare,
+            selectedPiece: this.selectedPiece
         };
 
         return chessedEvent;
