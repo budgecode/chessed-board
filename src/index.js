@@ -482,9 +482,15 @@ class ChessedBoard {
                 if (this.promotionCallback) {
                     this.promotionCallback(success, callbackData);
                 }
+                
+                this.startSquare = null;
+                this.selectedPieceSprite = null;
+                this.selectedPiece = null;
+                this.draggingPiece = false;
+
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
-                if (legalMove) {
+                if (legalMove && legalMove !== 'promoting') {
                     this.placePiece(e);
                     if (legalMove.san === 'O-O' || legalMove.san === 'O-O-O') { // castling
                         // Need to move the rook.
@@ -508,7 +514,7 @@ class ChessedBoard {
                             this.removePiece(legalMove.to[0] + '4');
                         }
                     }
-                } else {
+                } else if (legalMove !== 'promoting') {
                     this.putPieceBack();
                 }
             } else {
@@ -837,7 +843,7 @@ class ChessedBoard {
 
         const squareInfo = this.getSquare(square);
 
-        this.pieceChoices = color === 'white' ? [
+        this.pieceChoices = color === 'w' ? [
             {
                 color: 'w',
                 type: 'q',
@@ -895,8 +901,8 @@ class ChessedBoard {
             this.choiceSquares = [];
 
             const ctx = animationLayer.getContext('2d');
-            const direction = (color === 'white' && this.config.orientation === 0) ||
-                (color === 'black' && this.config.orientation === 1) ? 1 : -1;
+            const direction = (color === 'w' && this.config.orientation === 0) ||
+                (color === 'b' && this.config.orientation === 1) ? 1 : -1;
 
             let rOffset = 0;
             this.pieceChoices.forEach((choice) => {
