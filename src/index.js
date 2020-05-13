@@ -466,10 +466,6 @@ class ChessedBoard {
                 if (choiceNum !== -1) {
                     const choice = this.pieceChoices[choiceNum];
 
-                    const promotionLocation = this.choiceSquares[0];
-
-                    this.putPieceOnBoard(choice.type, choice.color, promotionLocation);
-
                     callbackData = {
                         type: choice.type,
                         color: choice.color
