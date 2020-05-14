@@ -564,10 +564,12 @@ class ChessedBoard {
     }
 
     hanldeMouseOut(e) {
-        this.putPieceBack(e);
-        this.rightClicking = false;
-        if (this.config.onMouseOut) {
-            this.config.onMouseOut();
+        if (!this.promptingForPromotion) {
+            this.putPieceBack(e);
+            this.rightClicking = false;
+            if (this.config.onMouseOut) {
+                this.config.onMouseOut();
+            }
         }
     }
 
