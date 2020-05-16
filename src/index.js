@@ -970,6 +970,8 @@ class ChessedAnimator {
         this.persistedTopAnimations.forEach(a => {
             a.draw(this.topPersistentLayer);
         });
+
+        this.clearTopAnimations();
     }
 
     persistBottomAnimations() {
@@ -980,6 +982,8 @@ class ChessedAnimator {
         this.persistedBottomAnimations.forEach(a => {
             a.draw(this.bottomPersistentLayer);
         });
+
+        this.clearBottomAnimations();
     }
 
     clearTopAnimations() {
