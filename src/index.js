@@ -967,6 +967,9 @@ class ChessedAnimator {
             this.persistedTopAnimations.push(a);
         });
 
+        const persistentCtx = this.topPersistentLayer.getContext('2d');
+        persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
+
         this.persistedTopAnimations.forEach(a => {
             a.draw(this.topPersistentLayer);
         });
@@ -978,6 +981,9 @@ class ChessedAnimator {
         this.bottomAnimations.forEach(a => {
             this.persistedBottomAnimations.push(a);
         });
+
+        const persistentCtx = this.bottomPersistentLayer.getContext('2d');
+        persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
 
         this.persistedBottomAnimations.forEach(a => {
             a.draw(this.bottomPersistentLayer);
