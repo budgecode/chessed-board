@@ -128,35 +128,21 @@ const  chessboard = new  ChessedBoard('chessboard', config);
 
   
 
-| **Signature** | **Arguments** | **Description** |
-
-|--|--|--|
-
-| ChessedBoard(div, config, root) | **div**: [String|HTMLElement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String|https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)<br>The ID of the div in which to render the chess board.<br>**config**: [Config](#Config)<br>Object used to configure the chess board.<br>**root**<br>Root to operate on. Defaults to document but could be a shadow root.| The constructor. |
-
-| movePiece(from, to)| **from**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece is currently located. _Example_: "c2"<br>**to**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece should be placed. _Example_: "c4"| Moves a piece from one square on the board to another.|
-
-| putPieceOnBoard(type, color, square)| **type**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The type of the piece to place. _Example_: "q"<br>  **color**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The color of the piece to place. _Example_: "w"<br>**square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>The square on which the piece should be placed. _Example_: "c4"| Places a given piece on a given square on the board.|
-
-| flip() | **None** | Flips the orientation of the board. |
-
-| toggleCoordinates() | **None** | Show or hide coordinates. |
-
-| getSquare(square): [Square](#Square) | **square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Get information about the location of the square on the chess board. |
-
-| getBoardDimensions(): [BoardDimensions](#BoardDimensions) | **None** | Return an object containing the dimensions of the chess board. |
-
-| displayPromotionOptions(square, color, callback) | **square**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>  **color**: [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)<br>  **callback**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: Boolean, Choice<br>Return Type: Void | Prompts the user for for promotion. |
-
-| animate(animation) | **animation**: [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>The animation to be rendered. _Example_:<br>  `(bottomCanvas, topCanvas) => { // Draw something on either canvas }`| Takes a function which renders graphics on the chess board. |
-
-|persistBottomAnimations()| **None** | Persists any animations currently drawn on the bottom animation layer. |
-
-|persistTopAnimations()| **None** | Persists any animations currently drawn on the top animation layer.|
-
-|clearBottomAnimations()| **None** | Clears any animations currently persisted on on the bottom animation layer.|
-
-|clearTopAnimations()| **None** | Clears any animations currently persisted on the top animation layer.|
+| **Signature** | **Description** |
+|--|--|
+| ChessedBoard(div, config, root) | The constructor. |
+| movePiece(from, to) | Moves a piece from one square on the board to another.|
+| putPieceOnBoard(type, color, square) | Places a given piece on a given square on the board.|
+| flip() | Flips the orientation of the board. |
+| toggleCoordinates() | Show or hide coordinates. |
+| getSquare(square): [Square](#Square) | Get information about the location of the square on the chess board. |
+| getBoardDimensions(): [BoardDimensions](#BoardDimensions) | Return an object containing the dimensions of the chess board. |
+| displayPromotionOptions(square, color, callback) | Prompts the user for for promotion. |
+| animate(animation) | Takes a function which renders graphics on the chess board. |
+|persistBottomAnimations() | Persists any animations currently drawn on the bottom animation layer. |
+|persistTopAnimations() | Persists any animations currently drawn on the top animation layer.|
+|clearBottomAnimations() | Clears any animations currently persisted on on the bottom animation layer.|
+|clearTopAnimations() | Clears any animations currently persisted on the top animation layer.|
 
   
 
