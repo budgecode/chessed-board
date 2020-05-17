@@ -405,6 +405,11 @@ class ChessedBoard {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
         this.draw();
+
+        if (this.config.handleBoardChange) {
+            this.config.handleBoardChange(this.boardState);
+        }
+
     }
 
     constructChessedEvent(e) {
@@ -759,6 +764,10 @@ class ChessedBoard {
         this.boardState[fromSquare.row][fromSquare.column] = null;
 
         this.draw();
+
+        if (this.config.handleBoardChange) {
+            this.config.handleBoardChange(this.boardState);
+        }
     }
 
     movePiece(from, to) {
@@ -769,6 +778,10 @@ class ChessedBoard {
         this.boardState[start.row][start.column] = null;
 
         this.draw();
+
+        if (this.config.handleBoardChange) {
+            this.config.handleBoardChange(this.boardState);
+        }
     }
 
     flip() {
@@ -817,6 +830,10 @@ class ChessedBoard {
         this.boardState[squareLocation.row][squareLocation.column] = piece;
 
         this.draw();
+
+        if (this.config.handleBoardChange) {
+            this.config.handleBoardChange(this.boardState);
+        }
     }
 
     displayPromotionOptions(square, color, callback) {
