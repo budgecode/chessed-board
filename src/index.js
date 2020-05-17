@@ -406,8 +406,8 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.handleBoardChange) {
-            this.config.handleBoardChange(this.boardState);
+        if (this.config.onBoardChange) {
+            this.config.onBoardChange(this.boardState);
         }
 
     }
@@ -765,8 +765,8 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.handleBoardChange) {
-            this.config.handleBoardChange(this.boardState);
+        if (this.config.onBoardChange) {
+            this.config.onBoardChange(this.boardState);
         }
     }
 
@@ -779,8 +779,8 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.handleBoardChange) {
-            this.config.handleBoardChange(this.boardState);
+        if (this.config.onBoardChange) {
+            this.config.onBoardChange(this.boardState);
         }
     }
 
@@ -831,8 +831,8 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.handleBoardChange) {
-            this.config.handleBoardChange(this.boardState);
+        if (this.config.onBoardChange) {
+            this.config.onBoardChange(this.boardState);
         }
     }
 
