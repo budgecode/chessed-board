@@ -197,7 +197,7 @@ class ChessedBoard {
         this.eventCaptureLayer.onmousedown = this.handleMouseDown.bind(this);
         this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
         this.eventCaptureLayer.onmousemove = this.handleMouseMove.bind(this);
-        this.eventCaptureLayer.onmouseout = this.hanldeMouseOut.bind(this);
+        this.eventCaptureLayer.onmouseout = this.handleMouseOut.bind(this);
 
         this.eventCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
@@ -563,7 +563,7 @@ class ChessedBoard {
         }
     }
 
-    hanldeMouseOut(e) {
+    handleMouseOut(e) {
         if (!this.promptingForPromotion) {
             this.putPieceBack(e);
             this.rightClicking = false;
