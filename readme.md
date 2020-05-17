@@ -111,6 +111,7 @@ const  chessboard = new  ChessedBoard('chessboard', config);
 |--|--|
 | state | The state of the chess board in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
 | orientation | 0 for normal orientation. 1 for black view. |
+| coordinates | Determines if coordinates are displayed. Default: false |
 | movementEnabled | Enables moving the chess pieces. Default: true |
 | modulePath | Relative location of the chessed-board module to your project. |
 | onLeftClick | Event handler which is triggered when the user left clicks on the chess board.|
