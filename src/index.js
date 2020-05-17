@@ -924,14 +924,6 @@ class ChessedBoard {
 }
 
 class ChessedAnimator {
-    /**
-     * Manages animations on the chess board.
-     * @constructor
-     * @param {Object} bottomAnimationLayer - Canvas below the pieces of the board.
-     * @param {Object} bottomPersistentLayer - Canvas used to persist animations below the pieces on the board.
-     * @param {Object} topAnimationLayer - Canvas above the pieces on the board.
-     * @param {Object} topPersistentLayer - Canvas used to persist animations above the pieces on the board.
-     */
     constructor(bottomAnimationLayer,
         bottomPersistentLayer,
         topAnimationLayer,
@@ -948,9 +940,6 @@ class ChessedAnimator {
         this.persistedBottomAnimations = [];
     }
 
-    /**
-     * Draws or redraws the animations on the appropriate canvas layer.
-     */
     render() {
         clearCanvas(this.topAnimationLayer);
         clearCanvas(this.topPersistentLayer);
@@ -963,30 +952,16 @@ class ChessedAnimator {
         this.persistedBottomAnimations.forEach(a => a.draw(this.bottomPersistentLayer));
     }
 
-    /**
-     * Draws an animation above the pieces on the board.
-     * @param {Object} a - The animation object to be drawn above the pieces.
-     */
     animateAbove(a) {
         this.topAnimations.push(a);
         a.draw(this.topAnimationLayer);
     }
 
-    /**
-     * Draws an animation below the pieces on the board but above the board itself.
-     * @param {Object} a - The animation object to be drawn below the pieces.
-     */
     animateBelow(a) {
         this.bottomAnimations.push(a);
         a.draw(this.bottomAnimationLayer);
     }
 
-    /**
-     * Saves the animations drawn on the top animation layer
-     * and then clears the top animation layer.
-     * Useful for when you want some animation to stay on the board
-     * until explicitly removed by some user interaction.
-     */
     persistTopAnimations() {
         this.topAnimations.forEach(a => {
             this.persistedTopAnimations.push(a);
@@ -1002,12 +977,6 @@ class ChessedAnimator {
         this.clearTopAnimations();
     }
 
-    /**
-     * Saves the animations drawn on the bottom animation layer
-     * and then clears the bottom animation layer.
-     * Useful for when you want some animation to stay on the board
-     * until explicitly removed by some user interaction.
-     */
     persistBottomAnimations() {
         this.bottomAnimations.forEach(a => {
             this.persistedBottomAnimations.push(a);
@@ -1023,9 +992,6 @@ class ChessedAnimator {
         this.clearBottomAnimations();
     }
 
-    /**
-     * Clears animations above the pieces on the board but not persisted animations.
-     */
     clearTopAnimations() {
         this.topAnimations = [];
 
@@ -1033,9 +999,6 @@ class ChessedAnimator {
         ctx.clearRect(0, 0, this.topAnimationLayer.width, this.topAnimationLayer.height);
     }
 
-    /**
-     * Clears persisted animations above the pieces on the board but not the transient animations.
-     */
     clearPersistedTopAnimations() {
         this.persistedTopAnimations = [];
 
@@ -1043,9 +1006,6 @@ class ChessedAnimator {
         persistentCtx.clearRect(0, 0, this.topPersistentLayer.width, this.topPersistentLayer.height);
     }
 
-    /**
-     * Clears animations below the pieces on the board but not persisted animations.
-     */
     clearBottomAnimations() {
         this.bottomAnimations = [];
 
@@ -1053,9 +1013,6 @@ class ChessedAnimator {
         ctx.clearRect(0, 0, this.bottomAnimationLayer.width, this.bottomAnimationLayer.height);
     }
 
-    /**
-     * Clears persisted animations below the pieces on the board but not the transient animations.
-     */
     clearPersistedBottomAnimations() {
         this.persistedBottomAnimations = [];
 
@@ -1063,10 +1020,6 @@ class ChessedAnimator {
         persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
     }
 
-    /**
-     * Removes an animation from any layer matching the identifier of the provided animation.
-     * @param {Object} animation - The animation to be removed.
-     */
     removeAnimation(animation) {
         this.topAnimations = this.topAnimations.filter(a => a.identifier !== animation.identifier);
         this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.identifier !== animation.identifier);
@@ -1075,10 +1028,6 @@ class ChessedAnimator {
         this.render();
     }
 
-    /**
-     * Removes an animation based on its type.
-     * @param {Object|string} type - They type of animations to remove. This could be a Symbol or string.
-     */
     removeAnimationsByType(type) {
         this.topAnimations = this.topAnimations.filter(a => a.type !== type);
         this.persistedTopAnimations = this.persistedTopAnimations.filter(a => a.type !== type);
