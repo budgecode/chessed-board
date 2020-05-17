@@ -107,53 +107,21 @@ const  chessboard = new  ChessedBoard('chessboard', config);
 
   
 
-| **Property** | **Type** | **Description** |
-
-|--|--|--|
-
-| state | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | The state of the chess board in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
-
-| orientation | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | 0 for normal orientation. 1 for black view. |
-
-| movementEnabled | Boolean | Enables moving the chess pieces. Default: true |
-
-| modulePath | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | Relative location of the chessed-board module to your project. |
-
-| onLeftClick | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void |Event handler which is triggered when the user left clicks on the chess board.|
-
-| onLeftClickDrag | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while left clicking.|
-
-| onLeftClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Boolean|Event handler which is triggered when the user stops left clicking.|
-
-| onRightClick |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user right clicks on the chess board.|
-
-| onRightClickDrag |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves the mouse around the chess board while right clicking.|
-
-| onRightClickRelease |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user stops right clicking.|
-
-| onMouseOut |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Arguments: [ChessedEvent](#ChessedEvent)<br>Return Type: Void|Event handler which is triggered when the user moves their mouse off of the chess board.|
-
-| onLoad |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Return Type: Void|Event handler which is triggered when the chess board is loaded and ready for use.|
-
-| onCancel |[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions)<br>Return Type: Void|Event handler which is triggered when moving a piece is canceled. In other words, this is invoked when the piece is put back mid move.|
-
-  
-
-#### ChessedEvent
-
 | **Property** | **Description** |
-
 |--|--|
-
-|currentMouseLocation|Location of the cursor in the canvas given as x,y coordinates. If not dragging then the currentMouseLocation === startMouseLocation.|
-
-|currentSquare|The current [square](#Square) that the cursor is over. If not dragging then the currentSquare === startSquare.|
-
-|startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
-
-|startSquare| The [square](#Square) the dragging started in. If not dragging then the startSquare === currentSquare.|
-
-  
+| state | The state of the chess board in [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation) notation. |
+| orientation | 0 for normal orientation. 1 for black view. |
+| movementEnabled | Enables moving the chess pieces. Default: true |
+| modulePath | Relative location of the chessed-board module to your project. |
+| onLeftClick | Event handler which is triggered when the user left clicks on the chess board.|
+| onLeftClickDrag | Event handler which is triggered when the user moves the mouse around the chess board while left clicking.|
+| onLeftClickRelease | Event handler which is triggered when the user stops left clicking.|
+| onRightClick | Event handler which is triggered when the user right clicks on the chess board.|
+| onRightClickDrag | Event handler which is triggered when the user moves the mouse around the chess board while right clicking.|
+| onRightClickRelease | Event handler which is triggered when the user stops right clicking.|
+| onMouseOut | Event handler which is triggered when the user moves their mouse off of the chess board.|
+| onLoad | Event handler which is triggered when the chess board is loaded and ready for use.|
+| onCancel | Event handler which is triggered when moving a piece is canceled. In other words, this is invoked when the piece is put back mid move.|
 
 ### Methods
 
@@ -193,7 +161,20 @@ const  chessboard = new  ChessedBoard('chessboard', config);
 
 ### Custom Types
 
-  
+#### ChessedEvent
+
+| **Property** | **Description** |
+
+|--|--|
+
+|currentMouseLocation|Location of the cursor in the canvas given as x,y coordinates. If not dragging then the currentMouseLocation === startMouseLocation.|
+
+|currentSquare|The current [square](#Square) that the cursor is over. If not dragging then the currentSquare === startSquare.|
+
+|startMouseLocation| The location that the dragging started given as x,y coordinates. If not dragging then startMouseLocation === currentMouseLocation.|
+
+|startSquare| The [square](#Square) the dragging started in. If not dragging then the startSquare === currentSquare.|
+
 
 #### Square
 
