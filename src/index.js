@@ -401,7 +401,7 @@ class ChessedBoard {
         };
     }
 
-    _movePiece(start, finish) {
+    _movePiece(finish) {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
         this.draw();
@@ -596,7 +596,7 @@ class ChessedBoard {
             if (this.draggingPiece && this.selectedPiece) {
                 const endSquare = this._getSquare(this.getMouseLocationInCanvas(e));
                 if (this.startSquare.row !== endSquare.row || this.startSquare.column !== endSquare.column) {
-                    this._movePiece(this.startSquare, endSquare);
+                    this._movePiece(endSquare);
                 } else {
                     this.putPieceBack();
                 }
