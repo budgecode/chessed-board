@@ -401,12 +401,12 @@ class ChessedBoard {
         };
     }
 
-    _movePiece(finish) {
+    _movePiece(finish, boardChange=true) {
         this.boardState[finish.row][finish.column] = this.selectedPiece;
 
         this.draw();
 
-        if (this.config.onBoardChange) {
+        if (this.config.onBoardChange && boardChange) {
             this.config.onBoardChange(this.boardState);
         }
 
@@ -495,29 +495,30 @@ class ChessedBoard {
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if (legalMove && legalMove !== 'promoting') {
-                    this.placePiece(e);
                     if (legalMove.san === 'O-O' || legalMove.san === 'O-O-O') { // castling
                         // Need to move the rook.
                         if (legalMove.to === 'g1') {
-                            this.removePiece('h1');
-                            this.putPieceOnBoard('r', 'w', 'f1');
+                            this.removePiece('h1', false);
+                            this.putPieceOnBoard('r', 'w', 'f1', false);
                         } else if (legalMove.to === 'c1') {
-                            this.removePiece('a1');
-                            this.putPieceOnBoard('r', 'w', 'd1');
+                            this.removePiece('a1', false);
+                            this.putPieceOnBoard('r', 'w', 'd1', false);
                         } else if (legalMove.to === 'g8') {
-                            this.removePiece('h8');
-                            this.putPieceOnBoard('r', 'b', 'f8');
+                            this.removePiece('h8', false);
+                            this.putPieceOnBoard('r', 'b', 'f8', false);
                         } else if (legalMove.to === 'c8') {
-                            this.removePiece('a8');
-                            this.putPieceOnBoard('r', 'b', 'd8');
+                            this.removePiece('a8', false);
+                            this.putPieceOnBoard('r', 'b', 'd8', false);
                         }
                     } else if (legalMove.enPassant) {
                         if (legalMove.to[1] === '6') {
-                            this.removePiece(legalMove.to[0] + '5');
+                            this.removePiece(legalMove.to[0] + '5', false);
                         } else if (legalMove.to[1] === '3') {
-                            this.removePiece(legalMove.to[0] + '4');
+                            this.removePiece(legalMove.to[0] + '4', false);
                         }
                     }
+                    
+                    this.placePiece(e);
                 } else if (legalMove !== 'promoting') {
                     this.putPieceBack();
                 }
@@ -758,19 +759,19 @@ class ChessedBoard {
     }
 
     // Interaction APIs.
-    removePiece(from) {
+    removePiece(from, boardChange=true) {
         const fromSquare = algebraicToRowCol(from, this.config.orientation);
 
         this.boardState[fromSquare.row][fromSquare.column] = null;
 
         this.draw();
 
-        if (this.config.onBoardChange) {
+        if (this.config.onBoardChange && boardChange) {
             this.config.onBoardChange(this.boardState);
         }
     }
 
-    movePiece(from, to) {
+    movePiece(from, to, boardChange=true) {
         const start = algebraicToRowCol(from, this.config.orientation);
         const finish = algebraicToRowCol(to, this.config.orientation);
 
@@ -779,7 +780,7 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.onBoardChange) {
+        if (this.config.onBoardChange && boardChange) {
             this.config.onBoardChange(this.boardState);
         }
     }
@@ -823,7 +824,7 @@ class ChessedBoard {
         };
     }
 
-    putPieceOnBoard(type, color, square) {
+    putPieceOnBoard(type, color, square, boardChange=true) {
         const piece = { type, color };
         const squareLocation = algebraicToRowCol(square, this.config.orientation);
 
@@ -831,7 +832,7 @@ class ChessedBoard {
 
         this.draw();
 
-        if (this.config.onBoardChange) {
+        if (this.config.onBoardChange && boardChange) {
             this.config.onBoardChange(this.boardState);
         }
     }
