@@ -59,6 +59,14 @@ const parseFEN = (fen) => {
 
 };
 
+const viewRowColToBoardRowCol = (square, orientation) => {
+    if (orientation === 0) {
+        return { row: square.row, column: square.column };
+    } else {
+        return { row: 7 - square.row, column: 7 - square.column};
+    }
+};
+
 const algebraicToRowCol = (square, orientation) => {
     cols = {
         'a': 0, 'b': 1, 'c': 2, 'd': 3,
@@ -304,9 +312,11 @@ class ChessedBoard {
             this.pieceCtx.filter = 'none';
         }
         for (let r = 0; r < 8; r++) {
+            const row = this.config.orientation === 0 ? r : 7 - r;
             for (let c = 0; c < 8; c++) {
-                if (this.boardState[r][c]) {
-                    this.pieceCtx.drawImage(this.sprite(this.boardState[r][c]), c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
+                const col = this.config.orientation === 0 ? c : 7 - c;
+                if (this.boardState[row][col]) {
+                    this.pieceCtx.drawImage(this.sprite(this.boardState[row][col]), c * this.squareWidth, r * this.squareWidth, this.squareWidth, this.squareWidth);
                 }
             }
         }
@@ -367,6 +377,7 @@ class ChessedBoard {
         }
     }
 
+
     draw(blur) {
         this.drawBoard(blur);
 
@@ -386,10 +397,14 @@ class ChessedBoard {
         const row = Math.floor(mouseLocation.y / this.squareWidth);
         const column = Math.floor(mouseLocation.x / this.squareWidth);
 
+        const stateRowCol = viewRowColToBoardRowCol({row, column}, this.config.orientation);
+
         return {
             name: rowColToAlgebraic({ row, column }, this.config.orientation),
             row: row,
             column: column,
+            stateRow: stateRowCol.row,
+            stateColumn: stateRowCol.column,
             origin: {
                 x: column * this.squareWidth,
                 y: row * this.squareWidth
@@ -401,8 +416,8 @@ class ChessedBoard {
         };
     }
 
-    _movePiece(finish, boardChange=true) {
-        this.boardState[finish.row][finish.column] = this.selectedPiece;
+    _movePiece(finish, boardChange = true) {
+        this.boardState[finish.stateRow][finish.stateColumn] = this.selectedPiece;
 
         this.draw();
 
@@ -486,7 +501,7 @@ class ChessedBoard {
                 if (this.promotionCallback) {
                     this.promotionCallback(success, callbackData);
                 }
-                
+
                 this.startSquare = null;
                 this.selectedPieceSprite = null;
                 this.selectedPiece = null;
@@ -517,7 +532,7 @@ class ChessedBoard {
                             this.removePiece(legalMove.to[0] + '4', false);
                         }
                     }
-                    
+
                     this.placePiece(e);
                 } else if (legalMove !== 'promoting') {
                     this.putPieceBack();
@@ -539,7 +554,7 @@ class ChessedBoard {
 
             const mouseLocation = this.getMouseLocationInCanvas(e);
             const square = this._getSquare(mouseLocation);
-            
+
             if (this.choiceSquares.includes(square.name)) {
                 this.removeAnimationsByType(PROMOTION_CHOICES);
                 const drawHighlightedPiece = (animationLayer) => {
@@ -583,10 +598,10 @@ class ChessedBoard {
         if (this.config.movementEnabled) {
             const mouseLocation = this.getMouseLocationInCanvas(e);
             this.startSquare = this._getSquare(mouseLocation);
-            if (this.boardState[this.startSquare.row][this.startSquare.column]) {
-                this.selectedPiece = this.boardState[this.startSquare.row][this.startSquare.column];
+            if (this.boardState[this.startSquare.stateRow][this.startSquare.stateColumn]) {
+                this.selectedPiece = this.boardState[this.startSquare.stateRow][this.startSquare.stateColumn];
                 this.selectedPieceSprite = this.sprite(this.selectedPiece);
-                this.boardState[this.startSquare.row][this.startSquare.column] = null;
+                this.boardState[this.startSquare.stateRow][this.startSquare.stateColumn] = null;
 
                 this.draw();
 
@@ -628,7 +643,7 @@ class ChessedBoard {
             if (this.config.onCancel) {
                 this.config.onCancel();
             }
-            this.boardState[this.startSquare.row][this.startSquare.column] = this.selectedPiece;
+            this.boardState[this.startSquare.stateRow][this.startSquare.stateColumn] = this.selectedPiece;
 
             this.startSquare = null;
             this.selectedPieceSprite = null;
@@ -639,7 +654,7 @@ class ChessedBoard {
     }
 
     _setCanvasSizes() {
-        
+
         const styleWidth = this.eventCaptureLayer.parentElement.clientWidth;
         const styleHeight = this.eventCaptureLayer.parentElement.clientHeight;
 
@@ -650,9 +665,9 @@ class ChessedBoard {
 
         this.width = DPI * boardSize;
         this.height = this.width;
-        
+
         this.squareWidth = this.width / 8;
-        
+
         this.chessBoardLayer.width = this.width;
         this.chessBoardLayer.height = this.height;
         this.chessBoardLayer.style.width = boardSize;
@@ -660,12 +675,12 @@ class ChessedBoard {
 
         this.bottomAnimationLayer.width = this.width;
         this.bottomAnimationLayer.height = this.height;
-        this.bottomAnimationLayer.style.width =  boardSize;
+        this.bottomAnimationLayer.style.width = boardSize;
         this.bottomAnimationLayer.style.height = boardSize;
 
         this.bottomPersistentLayer.width = this.width;
         this.bottomPersistentLayer.height = this.height;
-        this.bottomPersistentLayer.style.width =  boardSize;
+        this.bottomPersistentLayer.style.width = boardSize;
         this.bottomPersistentLayer.style.height = boardSize;
 
         this.pieceLayer.width = this.width;
@@ -680,7 +695,7 @@ class ChessedBoard {
 
         this.topAnimationLayer.width = this.width;
         this.topAnimationLayer.height = this.height;
-        this.topAnimationLayer.style.width =  boardSize;
+        this.topAnimationLayer.style.width = boardSize;
         this.topAnimationLayer.style.height = boardSize;
     }
 
@@ -759,10 +774,11 @@ class ChessedBoard {
     }
 
     // Interaction APIs.
-    removePiece(from, boardChange=true) {
+    removePiece(from, boardChange = true) {
         const fromSquare = algebraicToRowCol(from, this.config.orientation);
+        const mappedFrom = viewRowColToBoardRowCol(fromSquare, this.config.orientation);
 
-        this.boardState[fromSquare.row][fromSquare.column] = null;
+        this.boardState[mappedFrom.row][mappedFrom.column] = null;
 
         this.draw();
 
@@ -771,12 +787,15 @@ class ChessedBoard {
         }
     }
 
-    movePiece(from, to, boardChange=true) {
+    movePiece(from, to, boardChange = true) {
         const start = algebraicToRowCol(from, this.config.orientation);
         const finish = algebraicToRowCol(to, this.config.orientation);
 
-        this.boardState[finish.row][finish.column] = this.boardState[start.row][start.column];
-        this.boardState[start.row][start.column] = null;
+        const mappedStart = viewRowColToBoardRowCol(start, this.config.orientation);
+        const mappedFinish = viewRowColToBoardRowCol(finish, this.config.orientation);
+
+        this.boardState[mappedFinish.row][mappedFinish.column] = this.boardState[mappedStart.row][mappedStart.column];
+        this.boardState[mappedStart.row][mappedStart.column] = null;
 
         this.draw();
 
@@ -786,8 +805,6 @@ class ChessedBoard {
     }
 
     flip() {
-        this.boardState.reverse();
-        this.boardState.map(r => r.reverse());
         this.config.orientation = this.config.orientation === 0 ? 1 : 0;
         this.draw();
     }
@@ -824,11 +841,11 @@ class ChessedBoard {
         };
     }
 
-    putPieceOnBoard(type, color, square, boardChange=true) {
+    putPieceOnBoard(type, color, square, boardChange = true) {
         const piece = { type, color };
         const squareLocation = algebraicToRowCol(square, this.config.orientation);
-
-        this.boardState[squareLocation.row][squareLocation.column] = piece;
+        const mappedLocation = viewRowColToBoardRowCol(squareLocation, this.config.orientation);
+        this.boardState[mappedLocation.row][mappedLocation.column] = piece;
 
         this.draw();
 
