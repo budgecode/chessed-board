@@ -510,7 +510,10 @@ class ChessedBoard {
             } else if (this.config.onLeftClickRelease) {
                 const legalMove = this.config.onLeftClickRelease(this.constructChessedEvent(e));
                 if (legalMove && legalMove !== 'promoting') {
-                    if (legalMove.san === 'O-O' || legalMove.san === 'O-O-O') { // castling
+                    if (legalMove.san === 'O-O' ||
+                        legalMove.san === 'O-O+' ||
+                        legalMove.san === 'O-O-O' ||
+                        legalMove.san === 'O-O-O+') { // castling
                         // Need to move the rook.
                         if (legalMove.to === 'g1') {
                             this.removePiece('h1', false);
