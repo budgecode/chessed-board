@@ -470,6 +470,8 @@ class ChessedBoard {
                 this.config.onRightClick(this.constructChessedEvent(e));
             }
         }
+
+        this.animator.render();
     }
 
     handleMouseUp(e) {
@@ -549,6 +551,8 @@ class ChessedBoard {
                 this.config.onRightClickRelease(this.constructChessedEvent(e));
             }
         }
+
+        this.animator.render();
     }
 
     handleMouseMove(e) {
@@ -594,6 +598,8 @@ class ChessedBoard {
                 this.config.onMouseOut();
             }
         }
+
+        this.animator.render();
     }
 
 
