@@ -158,7 +158,7 @@ class ChessedBoard {
 
         const boardDiv = (typeof this.div === 'string' || this.div instanceof String) ? this.root.getElementById(this.div) : this.div;
         boardDiv.innerHTML = `
-            <div id='event-capture' style='position: relative;'>
+            <div tabindex='0' id='event-capture' style='position: relative;'>
                 <canvas id='chess-board-layer' style='position: absolute; left: 0; top: 0; z-index: 0;'></canvas>
                 <canvas id='bottom-persistent-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 1;'></canvas>
                 <canvas id='bottom-animation-layer' style='position: absolute; left: 0; top: 0; z-index: 2;'></canvas>
@@ -206,7 +206,11 @@ class ChessedBoard {
         this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
         this.eventCaptureLayer.onmousemove = this.handleMouseMove.bind(this);
         this.eventCaptureLayer.onmouseout = this.handleMouseOut.bind(this);
-
+        
+        if (this.config.onKeyDown) {
+            this.eventCaptureLayer.onkeydown = this.config.onKeyDown;
+        }
+        
         this.eventCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
             e.stopPropagation();
