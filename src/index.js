@@ -817,6 +817,37 @@ class ChessedBoard {
         }
     }
 
+    undo(move) {
+        
+        if (move.san === 'O-O' ||
+            move.san === 'O-O+' ||
+            move.san === 'O-O-O' ||
+            move.san === 'O-O-O+') { // castling
+            // Need to move the rook.
+            if (move.to === 'g1') {
+                this.removePiece('f1', false);
+                this.putPieceOnBoard('r', 'w', 'h1', false);
+            } else if (move.to === 'c1') {
+                this.removePiece('d1', false);
+                this.putPieceOnBoard('r', 'w', 'a1', false);
+            } else if (move.to === 'g8') {
+                this.removePiece('f8', false);
+                this.putPieceOnBoard('r', 'b', 'h8', false);
+            } else if (move.to === 'c8') {
+                this.removePiece('d8', false);
+                this.putPieceOnBoard('r', 'b', 'a8', false);
+            }
+        } else if (move.flags.indexOf('e') !== -1) {
+            if (move.to[1] === '6') {
+                this.putPieceOnBoard(move.captured, 'b', move.to[0] + '5', false);
+            } else if (legalMove.to[1] === '3') {
+                this.putPieceOnBoard(move.captured, 'w', move.to[0] + '4', false);
+            }
+        }
+
+        this.movePiece(move.to, move.from, true);
+    }
+
     flip() {
         this.config.orientation = this.config.orientation === 0 ? 1 : 0;
         this.draw();
