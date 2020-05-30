@@ -63,7 +63,7 @@ const viewRowColToBoardRowCol = (square, orientation) => {
     if (orientation === 0) {
         return { row: square.row, column: square.column };
     } else {
-        return { row: 7 - square.row, column: 7 - square.column};
+        return { row: 7 - square.row, column: 7 - square.column };
     }
 };
 
@@ -206,11 +206,11 @@ class ChessedBoard {
         this.eventCaptureLayer.onmouseup = this.handleMouseUp.bind(this);
         this.eventCaptureLayer.onmousemove = this.handleMouseMove.bind(this);
         this.eventCaptureLayer.onmouseout = this.handleMouseOut.bind(this);
-        
+
         if (this.config.onKeyDown) {
             this.eventCaptureLayer.onkeydown = this.config.onKeyDown;
         }
-        
+
         this.eventCaptureLayer.oncontextmenu = (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -401,7 +401,7 @@ class ChessedBoard {
         const row = Math.floor(mouseLocation.y / this.squareWidth);
         const column = Math.floor(mouseLocation.x / this.squareWidth);
 
-        const stateRowCol = viewRowColToBoardRowCol({row, column}, this.config.orientation);
+        const stateRowCol = viewRowColToBoardRowCol({ row, column }, this.config.orientation);
 
         return {
             name: rowColToAlgebraic({ row, column }, this.config.orientation),
@@ -754,6 +754,10 @@ class ChessedBoard {
         return animation;
     }
 
+    clearAllAnimations() {
+        this.animator.clearAllAnimations();
+    }
+
     persistBottomAnimations() {
         this.animator.persistBottomAnimations();
     }
@@ -818,34 +822,39 @@ class ChessedBoard {
     }
 
     undo(move) {
-        
-        if (move.san === 'O-O' ||
-            move.san === 'O-O+' ||
-            move.san === 'O-O-O' ||
-            move.san === 'O-O-O+') { // castling
-            // Need to move the rook.
-            if (move.to === 'g1') {
-                this.removePiece('f1', false);
-                this.putPieceOnBoard('r', 'w', 'h1', false);
-            } else if (move.to === 'c1') {
-                this.removePiece('d1', false);
-                this.putPieceOnBoard('r', 'w', 'a1', false);
-            } else if (move.to === 'g8') {
-                this.removePiece('f8', false);
-                this.putPieceOnBoard('r', 'b', 'h8', false);
-            } else if (move.to === 'c8') {
-                this.removePiece('d8', false);
-                this.putPieceOnBoard('r', 'b', 'a8', false);
-            }
-        } else if (move.flags.indexOf('e') !== -1) {
-            if (move.to[1] === '6') {
-                this.putPieceOnBoard(move.captured, 'b', move.to[0] + '5', false);
-            } else if (move.to[1] === '3') {
-                this.putPieceOnBoard(move.captured, 'w', move.to[0] + '4', false);
+        if (move) {
+            this.movePiece(move.to, move.from, true);
+
+            if (move.san === 'O-O' ||
+                move.san === 'O-O+' ||
+                move.san === 'O-O-O' ||
+                move.san === 'O-O-O+') { // castling
+                // Need to move the rook.
+                if (move.to === 'g1') {
+                    this.removePiece('f1', false);
+                    this.putPieceOnBoard('r', 'w', 'h1', false);
+                } else if (move.to === 'c1') {
+                    this.removePiece('d1', false);
+                    this.putPieceOnBoard('r', 'w', 'a1', false);
+                } else if (move.to === 'g8') {
+                    this.removePiece('f8', false);
+                    this.putPieceOnBoard('r', 'b', 'h8', false);
+                } else if (move.to === 'c8') {
+                    this.removePiece('d8', false);
+                    this.putPieceOnBoard('r', 'b', 'a8', false);
+                }
+            } else if (move.flags.indexOf('e') !== -1) {
+                if (move.to[1] === '6') {
+                    this.putPieceOnBoard(move.captured, 'b', move.to[0] + '5', false);
+                } else if (move.to[1] === '3') {
+                    this.putPieceOnBoard(move.captured, 'w', move.to[0] + '4', false);
+                }
+            } else if (move.captured) {
+                const capturedColor = move.color === 'w' ? 'b' : 'w';
+                this.putPieceOnBoard(move.captured, capturedColor, move.to, false);
             }
         }
 
-        this.movePiece(move.to, move.from, true);
     }
 
     flip() {
@@ -1095,6 +1104,13 @@ class ChessedAnimator {
 
         const persistentCtx = this.bottomPersistentLayer.getContext('2d');
         persistentCtx.clearRect(0, 0, this.bottomPersistentLayer.width, this.bottomPersistentLayer.height);
+    }
+
+    clearAllAnimations() {
+        this.clearBottomAnimations();
+        this.clearPersistedBottomAnimations();
+        this.clearTopAnimations();
+        this.clearPersistedTopAnimations();
     }
 
     removeAnimation(animation) {
