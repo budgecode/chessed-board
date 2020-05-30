@@ -840,7 +840,7 @@ class ChessedBoard {
         } else if (move.flags.indexOf('e') !== -1) {
             if (move.to[1] === '6') {
                 this.putPieceOnBoard(move.captured, 'b', move.to[0] + '5', false);
-            } else if (legalMove.to[1] === '3') {
+            } else if (move.to[1] === '3') {
                 this.putPieceOnBoard(move.captured, 'w', move.to[0] + '4', false);
             }
         }
