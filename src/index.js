@@ -877,7 +877,7 @@ class ChessedBoard {
                 this.removePiece('a8', false);
                 this.putPieceOnBoard('r', 'b', 'd8', false);
             }
-        } else if (legalMove.enPassant) {
+        } else if (legalMove.enPassant || legalMove.flags.indexOf('e') > -1) {
             if (legalMove.to[1] === '6') {
                 this.removePiece(legalMove.to[0] + '5', false);
             } else if (legalMove.to[1] === '3') {
