@@ -678,6 +678,7 @@ class ChessedBoard {
 
         this.width = DPI * boardSize;
         this.height = this.width;
+        this.pixels = boardSize;
 
         this.squareWidth = this.width / 8;
 
@@ -923,7 +924,8 @@ class ChessedBoard {
     getBoardDimensions() {
         return {
             size: this.width,
-            squareSize: this.squareWidth
+            squareSize: this.squareWidth,
+            pixels: this.pixels
         };
     }
 
