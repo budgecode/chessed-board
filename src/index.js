@@ -727,6 +727,10 @@ class ChessedBoard {
         this._setCanvasSizes();
 
         this.draw();
+
+        if (this.config.onResize) {
+            this.config.onResize(this.getBoardDimensions());
+        }
     }
 
     // Public API.

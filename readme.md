@@ -71,6 +71,7 @@ const  chessboard = new  ChessedBoard('chessboard', config);
 | onMouseOut | Chessed Event Handler which is triggered when the user moves their mouse off of the chess board.|
 | onLoad | Chessed Event Handler which is triggered when the chess board is loaded and ready for use.|
 | onCancel | Chessed Event Handler which is triggered when moving a piece is canceled. In other words, this is invoked when the piece is put back mid move.|
+| onResize | Event handler which is triggered when the chess board is resized. This can occur when the window is resized. The handler will be passed the new dimensions of the board. |
 
 ### Methods
 
