@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2020 Brian Budge
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ */
+
 const DPI = window.devicePixelRatio;
 
 const PROMOTION_CHOICES = Symbol('promotion-choices');

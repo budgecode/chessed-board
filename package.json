@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian I Budge",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/budgebi/chessed-board"
